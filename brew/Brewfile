@@ -30,6 +30,7 @@ brew 'htop'
 # Play, record, convert, and stream audio and video
 # brew options homebrew-ffmpeg/ffmpeg/ffmpeg
 # brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
+# https://github.com/aerobounce/homebrew-ffmpeg-fdk-aac ??
 brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac", "with-libcaca", "with-opencore-amr", "with-openjpeg", "with-openssl", "with-rtmpdump", "with-speex"]
 
 brew "tree"
