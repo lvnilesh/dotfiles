@@ -5,35 +5,35 @@
 ###############################################################################
 
 # Disable "close windows when quitting an app" (required for iTerm2 3.x).
-defaults write -g NSQuitAlwaysKeepsWindows -bool true
+# defaults write -g NSQuitAlwaysKeepsWindows -bool true
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 
 ###############################################################################
 # Keyboard
 ###############################################################################
 
 # Disable press-and-hold for keys in favor of key repeat
-defaults write -g ApplePressAndHoldEnabled -bool false
+# defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
-defaults write -g AppleKeyboardUIMode -int 3
+# defaults write -g AppleKeyboardUIMode -int 3
 
 # Set a blazingly fast keyboard repeat rate
-defaults write -g KeyRepeat -int 1
+# defaults write -g KeyRepeat -int 1
 
 # Set a shorter Delay until key repeat
-defaults write -g InitialKeyRepeat -int 12
+# defaults write -g InitialKeyRepeat -int 12
 
 ###############################################################################
 # Screensaver
 ###############################################################################
 
 # Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+# defaults write com.apple.screensaver askForPassword -int 1
+# defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 ###############################################################################
 # Finder
@@ -128,12 +128,12 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 ###############################################################################
 
 # Save to disk (not to iCloud) by default
-defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
+# defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Disable disk image verification
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+# defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Set dark mode.
 osascript -e 'tell application "System Events" to set dark mode of appearance preferences to true'

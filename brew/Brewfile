@@ -3,6 +3,7 @@
 # Taps
 tap 'homebrew/cask-drivers'
 tap 'thoughtbot/formulae'
+tap 'homebrew-ffmpeg/ffmpeg'
 
 # Packages
 brew 'git'
@@ -16,8 +17,25 @@ brew 'rcm'
 brew 'nvm'
 brew 'grc'
 brew 'duti'
+brew 'webp'
 # brew 'kubectx'
+brew 'nvm'
+brew 'autojump'
+brew 'zsh-syntax-highlighting'
+brew 'zsh-autosuggestions'
+brew 'curl'
+brew 'python'
+brew 'wget'
+brew 'htop'
+# Play, record, convert, and stream audio and video
+# brew options homebrew-ffmpeg/ffmpeg/ffmpeg
+# brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
+brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac", "with-libcaca", "with-opencore-amr", "with-openjpeg", "with-openssl", "with-rtmpdump", "with-speex"]
 
+brew "tree"
+brew "watch"
+brew "youtube-dl"
+brew "graphviz"
 
 # Casks
 cask '1password'
@@ -28,6 +46,32 @@ cask 'karabiner-elements'
 cask 'alfred'
 cask 'lens'
 cask 'mos'
+cask 'sonos'
+cask 'arq'
+cask 'xquartz'
+cask '1password'
+cask 'alfred'
+cask 'hammerspoon'
+cask 'karabiner-elements'
+cask 'resilio-sync'
+cask 'joplin'
+cask 'slack'
+cask 'visual-studio-code'
+cask 'viscosity'
+cask 'sensiblesidebuttons'
+cask 'firefox'
+cask 'google-chrome'
+cask 'dropbox'
+cask 'zoom'
+cask 'keycastr'
+cask 'electrum'
+cask 'google-cloud-sdk'
+cask 'whatsapp'
+cask 'docker'
+cask 'robo-3t'
+cask 'sourcetree'
+cask 'vlc'
+# cask 'microsoft-office'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
