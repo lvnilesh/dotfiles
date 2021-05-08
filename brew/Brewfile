@@ -1,0 +1,39 @@
+# Brewfile
+
+# Taps
+tap 'homebrew/cask-drivers'
+tap 'thoughtbot/formulae'
+
+# Packages
+brew 'git'
+brew 'iperf3'
+brew 'jq'
+brew 'k9s'
+brew 'tldr'
+brew 'yubico-piv-tool'
+brew 'mas'
+brew 'rcm'
+brew 'nvm'
+brew 'grc'
+brew 'duti'
+# brew 'kubectx'
+
+
+# Casks
+cask '1password'
+cask 'resilio-sync'
+cask 'joplin'
+cask 'hammerspoon'
+cask 'karabiner-elements'
+cask 'alfred'
+cask 'lens'
+cask 'mos'
+
+# Mac App Store
+mas "Cloud Mounter", id: 1130254674
+mas "Notability", id: 360593530
+mas "Pixelmater Pro", id: 1289583905
+mas "Blue Wallet", id: 1376878040
+mas "Hush Nag Blocker", id: 1544743900
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "The Unarchiver", id: 425424353

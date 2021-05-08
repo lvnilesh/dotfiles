@@ -1,0 +1,4 @@
+*.local
+*.zwc*
+library/sublime/*
+brew/Brewfile.lock.json
