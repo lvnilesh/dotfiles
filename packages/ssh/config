@@ -6,3 +6,10 @@ Host *
     User cloudgenius
 
 Include *.local
+
+
+Host nuc
+
+Host chromebox
+
+Host mini
