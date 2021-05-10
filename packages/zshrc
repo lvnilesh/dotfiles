@@ -80,6 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  kubectl
   osx
   npm
   zsh-autosuggestions
@@ -119,11 +120,6 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
-alias k=kubectl
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -173,3 +169,36 @@ export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
 
 [[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
+
+
+
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+
+#gcloud wont work with latest python
+export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# alias nilesh="gcloud config set account nilesh@cloudgeni.us && gcloud config list && rm -rf ~/.kube && gcloud container clusters get-credentials  dooker --project prod-186723 --region us-west1-a && kubectl get no"
+# alias eeshan="gcloud config set account eeshan@cloudgeni.us && gcloud config list && rm -rf ~/.kube && gcloud container clusters get-credentials andromeda --zone us-west1-a --project oceanic-isotope-233522"
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade ; brew cleanup; brew doctor'
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+export GITHUB_USERNAME="lvnilesh"
+export KUBE_EDITOR="code -w"
+export EDITOR=code
+
+
+# The next line enables shell command completion for kubectl.
+source <(kubectl completion zsh)
+alias k=kubectl
+# If you have an alias for kubectl, you can extend shell completion to work with that alias:
+complete -F __start_kubectl k
