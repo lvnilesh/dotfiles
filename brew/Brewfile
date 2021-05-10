@@ -73,6 +73,7 @@ cask 'robo-3t'
 cask 'sourcetree'
 cask 'vlc'
 # cask 'microsoft-office'
+# cask 'vmware-fusion'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
@@ -82,3 +83,4 @@ mas "Blue Wallet", id: 1376878040
 mas "Hush Nag Blocker", id: 1544743900
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "The Unarchiver", id: 425424353
+mas "Ultimate Pen", id: 405383991
