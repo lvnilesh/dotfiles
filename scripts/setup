@@ -42,6 +42,31 @@ symlink_dotfiles() {
   rcup -fvd packages | nl -bn
 }
 
+# Configure VS code fonts and extensions.
+configure_vscode() {
+  echo "Applying Cloud Genius VS Code style..."
+
+  ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
+  code --install-extension ms-vscode-remote.remote-ssh
+  code --install-extension eamodio.gitlens
+  code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
+  code --install-extension vangware.dark-plus-material
+  code --install-extension PKief.material-icon-theme
+
+  cd ~/Library/Fonts && {
+    rm -rf MesloLGS*.ttf
+    wget "https://cloudgeniuscode.s3-us-west-2.amazonaws.com/MesloLGS NF Regular.ttf"
+    wget "https://cloudgeniuscode.s3-us-west-2.amazonaws.com/MesloLGS NF Italic.ttf"
+    wget "https://cloudgeniuscode.s3-us-west-2.amazonaws.com/MesloLGS NF Bold.ttf"
+    wget "https://cloudgeniuscode.s3-us-west-2.amazonaws.com/MesloLGS NF Bold Italic.ttf"
+    cd -;
+  }
+
+  rm -rf settings.json
+  curl -O https://s3-us-west-2.amazonaws.com/cloudgeniuscode/settings.json
+  mv -f settings.json "$HOME/Library/Application Support/Code/User/"
+}
+
 # Configure macOS defaults.
 configure_macos() {
   echo "Applying macOS defaults..."
@@ -73,5 +98,6 @@ install_brew
 install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
+configure_vscode
 # configure_macos
 configure_duti
