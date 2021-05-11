@@ -75,6 +75,7 @@ cask 'docker'
 cask 'robo-3t'
 cask 'sourcetree'
 cask 'vlc'
+cask 'balenaetcher'
 # cask 'microsoft-office'
 # cask 'vmware-fusion'
 
