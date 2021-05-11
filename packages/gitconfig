@@ -156,8 +156,8 @@
 [pager]
     difftool = true
 
-[pull]
-    rebase = preserve
+# [pull]
+#     rebase = preserve
 
 [push]
     default = simple

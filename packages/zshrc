@@ -175,13 +175,10 @@ export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 bindkey '^[f' forward-word
 bindkey '^[b' backward-word
 
-#gcloud wont work with latest python
-export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
 # The next line enables shell command completion for gcloud.
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
-
 
 # alias nilesh="gcloud config set account nilesh@cloudgeni.us && gcloud config list && rm -rf ~/.kube && gcloud container clusters get-credentials  dooker --project prod-186723 --region us-west1-a && kubectl get no"
 # alias eeshan="gcloud config set account eeshan@cloudgeni.us && gcloud config list && rm -rf ~/.kube && gcloud container clusters get-credentials andromeda --zone us-west1-a --project oceanic-isotope-233522"
