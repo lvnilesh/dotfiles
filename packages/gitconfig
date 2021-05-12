@@ -1,6 +1,6 @@
 [user]
-        name = Nilesh
-        email = nilesh@cloudgeni.us
+    name = Nilesh
+    email = nilesh@cloudgeni.us
 
 [alias]
     # branch (verbose)
@@ -118,7 +118,7 @@
     whitespace = red reverse
 
 [commit]
-        template = /Users/cloudgenius/.stCommitMsg
+    template = /Users/cloudgenius/.stCommitMsg
 
 [diff]
     renames = copies
@@ -129,8 +129,8 @@
     prompt = false
 
 [difftool "sourcetree"]
-        cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-        path =
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
 
 [fetch]
     prune = true
@@ -151,8 +151,9 @@
     keepBackup = false
 
 [mergetool "sourcetree"]
-        cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-        trustExitCode = true
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
 [pager]
     difftool = true
 
