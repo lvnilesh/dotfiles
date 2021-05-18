@@ -28,6 +28,7 @@ brew 'zsh-syntax-highlighting'
 brew 'zsh-autosuggestions'
 brew 'curl'
 brew 'python'
+brew 'pyenv-virtualenv'
 brew 'wget'
 brew 'htop'
 # Play, record, convert, and stream audio and video

@@ -130,7 +130,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [fetch]
     prune = true
@@ -146,6 +146,9 @@
 
 [include]
     path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
 
 [mergetool]
     keepBackup = false

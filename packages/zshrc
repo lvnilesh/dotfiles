@@ -199,3 +199,5 @@ source <(kubectl completion zsh)
 alias k=kubectl
 # If you have an alias for kubectl, you can extend shell completion to work with that alias:
 complete -F __start_kubectl k
+
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
