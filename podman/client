@@ -1,0 +1,13 @@
+# https://luiscachog.io/podman-macos-vagrant/
+
+# https://www.redhat.com/sysadmin/replace-docker-podman-macos
+# https://www.redhat.com/sysadmin/podman-clients-macos-windows
+# https://vikaspogu.dev/posts/podman-macos/
+# https://github.com/containers/podman/blob/master/docs/tutorials/mac_win_client.md
+# https://github.com/containers/podman/issues/6809
+
+podman system connection add cloudgenius --identity ~/.ssh/id_rsa ssh://10.0.2.15/run/user/1000/podman/podman.sock
+
+
+export CONTAINER_HOST=ssh://vagrant@127.0.0.1:2222/run/podman/podman.sock
+export CONTAINER_SSHKEY=$HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key

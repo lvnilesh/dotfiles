@@ -200,4 +200,9 @@ alias k=kubectl
 # If you have an alias for kubectl, you can extend shell completion to work with that alias:
 complete -F __start_kubectl k
 
+# pyenv-virtualenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+# podman
+export CONTAINER_HOST=ssh://vagrant@127.0.0.1:2222/run/podman/podman.sock
+export CONTAINER_SSHKEY=$HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key

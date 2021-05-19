@@ -92,6 +92,16 @@ configure_duti() {
   done
 }
 
+# install podman
+install_podman() {
+  echo "Installing podman..."
+  mkdir -p $HOME/tools/podman
+  rm -rf $HOME/tools/podman/Vagrantfile
+  cp podman/Vagrantfile $HOME/tools/podman
+
+  rm -rf /usr/local/bin/pman
+  cp podman/pman /usr/local/bin
+}
 
 
 install_brew
@@ -101,3 +111,4 @@ symlink_dotfiles
 configure_vscode
 # configure_macos
 configure_duti
+install_podman
