@@ -3,10 +3,11 @@
 Host *
     UseKeychain yes
     AddKeysToAgent yes
-    User cloudgenius
 
 Include *.local
 
+Host raspberrypi
+    User pi
 
 Host nuc
 
@@ -16,10 +17,10 @@ Host mini
 
 # Created on Wed May 12 21:52:21 PDT 2021
 Host CloudGenius
-  HostName 54.202.4.110
-  ForwardAgent yes
-  User ubuntu
-  StrictHostKeyChecking no
-  IdentityFile ~/.ssh/CloudGenius
-  LocalForward 8080 127.0.0.1:80
-  LocalForward 4000 127.0.0.1:4000
+    HostName 54.202.4.110
+    ForwardAgent yes
+    User ubuntu
+    StrictHostKeyChecking no
+    IdentityFile ~/.ssh/CloudGenius
+    LocalForward 8080 127.0.0.1:80
+    LocalForward 4000 127.0.0.1:4000

@@ -31,6 +31,7 @@ brew 'python'
 brew 'pyenv-virtualenv'
 brew 'wget'
 brew 'htop'
+brew 'podman'
 # Play, record, convert, and stream audio and video
 # brew options homebrew-ffmpeg/ffmpeg/ffmpeg
 # brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
@@ -78,8 +79,9 @@ cask 'sourcetree'
 cask 'vlc'
 cask 'balenaetcher'
 cask 'audacity'
-cask 'virtualbox'
+# cask 'virtualbox'
 cask 'vagrant'
+# cask 'vagrant-manager'
 # cask 'microsoft-office'
 # cask 'microsoft-teams'
 # cask 'vmware-fusion'
@@ -93,3 +95,4 @@ mas "Hush Nag Blocker", id: 1544743900
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "The Unarchiver", id: 425424353
 mas "Ultimate Pen", id: 405383991
+mas "Davinci Resolve", id: 571213070
