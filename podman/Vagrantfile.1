@@ -1,0 +1,22 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/impish64"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    # Ubuntu 20.10 and newer
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+    sudo apt-get -y install podman
+    sudo groupadd -f -r podman
+    sudo usermod -aG podman vagrant
+
+    sudo -H -u vagrant /bin/bash -lc "
+        sudo systemctl --user enable --now podman.socket
+        sudo loginctl enable-linger vagrant
+        podman --remote info
+        sudo systemctl enable ssh
+        sudo systemctl enable --now ssh
+        sudo systemctl start ssh
+        podman ps -a
+    "
+  SHELL
+end

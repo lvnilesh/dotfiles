@@ -1,0 +1,57 @@
+https://www.redhat.com/en/blog/painless-services-implementing-serverless-rootless-podman-and-systemd
+
+
+podman login registry.redhat.io
+nileshcloudgenius
+caqduz-wygbiv-7qazfU
+
+
+podman pull registry.redhat.io/rhel8/httpd-24
+
+mkdir -p ~/www-data ; echo "Hello World" > ~/www-data/index.html
+
+podman create --name httpd -p 127.0.0.1:8080:8080 \
+    -v ~/www-data:/var/www/html/:Z registry.redhat.io/rhel8/httpd-24
+
+mkdir -p ~/.config/systemd/user && cd ~/.config/systemd/user
+podman generate systemd -f -n httpd --new
+
+cat << EOF > container-httpd-proxy.socket
+[Socket]
+ListenStream=10.0.2.15:8080
+
+[Install]
+WantedBy=sockets.target
+EOF
+
+
+cat << EOF > container-httpd-proxy.service
+[Unit]
+Requires=container-httpd.service
+After=container-httpd.service
+Requires=container-httpd-proxy.socket
+After=container-httpd-proxy.socket
+
+[Service]
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd 127.0.0.1:8080
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable --now container-httpd-proxy.socket
+netstat -ltpn | grep 8080
+
+curl http://10.0.2.15:8080
+
+systemctl --user cat --no-pager container-httpd-proxy.socket
+systemctl --user cat --no-pager container-httpd-proxy.service
+systemctl --user cat --no-pager container-httpd.service
+systemctl --user list-unit-files | grep container-httpd
+
+netstat -ltpn | grep 8080
+curl http://10.0.2.15:8080
+podman ps
+sleep 30 && podman ps
+
+curl http://10.0.2.15:8080
+
+podman ps
