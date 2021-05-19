@@ -11,3 +11,22 @@ podman system connection add cloudgenius --identity ~/.ssh/id_rsa ssh://10.0.2.1
 
 export CONTAINER_HOST=ssh://vagrant@127.0.0.1:2222/run/podman/podman.sock
 export CONTAINER_SSHKEY=$HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key
+
+
+
+# ssh-keygen -b 4096 -t rsa -f ~/.ssh/pman -q -N '' -C "pman-vagrant"
+# ssh-add ~/.ssh/pman
+# ssh-copy-id -o StrictHostKeyChecking=no -f -i ~/.ssh/pman.pub vagrant@127.0.0.1 -p 2222
+
+ssh-add $HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key
+
+ssh -i $HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key -p 2222 vagrant@127.0.0.1
+
+
+podman system connection remove vagrant
+
+podman system connection add vagrant --identity $HOME/tools/podman/.vagrant/machines/default/virtualbox/private_key -p 2222 ssh://vagrant@10.0.2.15/run/user/1000/podman/podman.sock
+
+podman system connection list
+podman info
+podman system connection --help
