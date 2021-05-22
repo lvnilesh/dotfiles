@@ -4,16 +4,16 @@ Host *
     UseKeychain yes
     AddKeysToAgent yes
 
-Include *.local
+Include *.home.cloudgeni.us
 
-Host raspberrypi
+Host raspberrypi.home.cloudgeni.us
     User pi
 
-Host nuc
+Host nuc.home.cloudgeni.us
 
-Host chromebox
+Host chromebox.home.cloudgeni.us
 
-Host mini
+Host mini.home.cloudgeni.us
 
 # Created on Wed May 12 21:52:21 PDT 2021
 Host CloudGenius
