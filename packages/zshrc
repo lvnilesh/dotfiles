@@ -200,4 +200,10 @@ alias k=kubectl
 # If you have an alias for kubectl, you can extend shell completion to work with that alias:
 complete -F __start_kubectl k
 
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# pyenv-virtualenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
