@@ -207,3 +207,7 @@ fi
 
 # pyenv-virtualenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+# pipenv
+
+export PATH=$HOME/.local/bin:$HOME/bin:$PATH
