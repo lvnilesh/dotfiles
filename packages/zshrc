@@ -191,8 +191,8 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 
 export GITHUB_USERNAME="lvnilesh"
 export KUBE_EDITOR="code -w"
-export EDITOR=code
-
+# export EDITOR=code
+export EDITOR="/usr/local/bin/mate -w"
 
 # The next line enables shell command completion for kubectl.
 source <(kubectl completion zsh)
