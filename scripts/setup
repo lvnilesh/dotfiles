@@ -68,7 +68,7 @@ configure_vscode() {
   curl -O https://s3-us-west-2.amazonaws.com/cloudgeniuscode/settings.json
   mv -f settings.json "$HOME/Library/Application Support/Code/User/"
 
-  $HOME/.dotfiles/scripts/set-terminal-font
+  scripts/set-terminal-font
 }
 
 # Configure macOS defaults.
