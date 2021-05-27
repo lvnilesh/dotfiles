@@ -81,6 +81,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   git
   kubectl
+  docker
+  docker-compose
   osx
   npm
   zsh-autosuggestions
@@ -168,7 +170,8 @@ unset __conda_setup
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
 
-[[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
+# grc seems to be causing problems with kubectl podname completion
+# [[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
 
 
 
@@ -193,12 +196,6 @@ export GITHUB_USERNAME="lvnilesh"
 export KUBE_EDITOR="code -w"
 # export EDITOR=code
 export EDITOR="/usr/local/bin/mate -w"
-
-# The next line enables shell command completion for kubectl.
-source <(kubectl completion zsh)
-alias k=kubectl
-# If you have an alias for kubectl, you can extend shell completion to work with that alias:
-complete -F __start_kubectl k
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
