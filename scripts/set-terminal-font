@@ -1,11 +1,33 @@
 #!/bin/bash
 
 osascript <<EOF
+
+# Enable MesfontloLGS in terminal
+
 tell application "Terminal"
     set ProfilesNames to name of every settings set
     repeat with ProfileName in ProfilesNames
         set font name of settings set ProfileName to "MesloLGS NF"
         set font size of settings set ProfileName to 11
     end repeat
+end tell
+
+
+# Enable Trackpad Tap-to-Click
+
+tell application "System Preferences"
+	activate
+end tell
+tell application "System Events"
+	tell process "System Preferences"
+		delay 1
+		click the menu item "Trackpad" of the menu "View" of menu bar 1
+		delay 1
+		click the radio button "Point & Click" of the first tab group of window "Trackpad"
+		tell checkbox 3 of tab group 1 of window "Trackpad" to if value is 0 then click -- checkbox was not checked.
+	end tell
+end tell
+tell application "System Preferences"
+	quit
 end tell
 EOF
