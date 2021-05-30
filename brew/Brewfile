@@ -8,8 +8,7 @@ tap 'homebrew-ffmpeg/ffmpeg'
 # Packages
 brew 'git'
 brew 'diff-so-fancy'
-cask 'brave-browser'
-cask 'coconutbattery'
+brew 'asciidoctor'
 brew 'iperf3'
 brew 'jq'
 brew 'k9s'
@@ -87,6 +86,8 @@ cask 'vagrant'
 # cask 'microsoft-office'
 # cask 'microsoft-teams'
 # cask 'vmware-fusion'
+cask 'brave-browser'
+cask 'coconutbattery'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674

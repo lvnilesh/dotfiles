@@ -110,5 +110,5 @@ install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
 configure_vscode
-# configure_macos
+configure_macos
 configure_duti
