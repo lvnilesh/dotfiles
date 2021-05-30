@@ -170,10 +170,23 @@ unset __conda_setup
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
 
+[[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
+
 # grc seems to be causing problems with kubectl podname completion
-# [[ -s "/usr/local/etc/grc.zsh" ]] && source /usr/local/etc/grc.zsh
+# so we not let it mess with kubectl coloring
+# see fix_grc_for_kubectl in setup
+# instead use an alternative method https://github.com/dty1er/kubecolor
 
+command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
+# make completion work with kubecolor
+compdef kubecolor=kubectl
 
+# topten
+
+function commands() {
+  awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
+}
+alias topten="history | commands | sort -rn | head"
 
 bindkey '^[f' forward-word
 bindkey '^[b' backward-word

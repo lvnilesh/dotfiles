@@ -6,6 +6,12 @@ install_brew() {
   brew bundle --file=brew/Brewfile
 }
 
+# Fix grc for kubectl colorizing
+fix_grc_for_kubectl() {
+  # remove kubectl reference from grc
+  sed -i '' '/kubectl/d' /usr/local/etc/grc.zsh
+}
+
 # Install oh-my-zsh.
 install_oh-my-zsh() {
   DIR="$HOME/.oh-my-zsh"
@@ -99,6 +105,7 @@ configure_duti() {
 
 
 install_brew
+fix_grc_for_kubectl
 install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
