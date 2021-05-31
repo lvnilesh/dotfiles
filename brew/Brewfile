@@ -88,6 +88,7 @@ cask 'vagrant'
 # cask 'vmware-fusion'
 cask 'brave-browser'
 cask 'coconutbattery'
+# cask 'atemosc'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
