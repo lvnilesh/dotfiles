@@ -92,6 +92,7 @@ cask 'coconutbattery'
 # cask 'atemosc'
 cask 'meld'
 cask 'obsidian'
+cask 'raycast'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
