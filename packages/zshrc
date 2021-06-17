@@ -151,6 +151,12 @@ load-nvmrc
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+# purgehostkey function needs gnu grep so install via brew and add this PATH
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# purgehostkey function needs gnu cut so install via brew install coreutils and add this PATH
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+# https://gist.github.com/lvnilesh/f15fc7da0515a6c09c934b0046882618
 
 # delete the bad host key from the previous ssh command
 purgehostkey() {
