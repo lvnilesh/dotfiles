@@ -55,11 +55,11 @@ configure_vscode() {
   echo "Applying Cloud Genius VS Code style..."
 
   ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
-  code --install-extension ms-vscode-remote.remote-ssh
-  code --install-extension eamodio.gitlens
-  code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
-  code --install-extension vangware.dark-plus-material
-  code --install-extension PKief.material-icon-theme
+  code --install-extension --force ms-vscode-remote.remote-ssh
+  code --install-extension --force eamodio.gitlens
+  code --install-extension --force CrazyFluff.bettermaterialthemedarkerhighcontrast
+  code --install-extension --force vangware.dark-plus-material
+  code --install-extension --force PKief.material-icon-theme
 
   cd ~/Library/Fonts && {
     rm -rf MesloLGS*.ttf
