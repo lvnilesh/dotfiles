@@ -25,7 +25,6 @@ Thumbs.db
 *.vi
 
 # Compiled source.
-*.com
 *.class
 *.dll
 *.exe
