@@ -4,6 +4,7 @@
 tap 'homebrew/cask-drivers'
 tap 'thoughtbot/formulae'
 tap 'homebrew-ffmpeg/ffmpeg'
+tap 'homebrew/cask-versions'
 
 # Packages
 brew 'git'
@@ -97,6 +98,7 @@ cask 'obsidian'
 cask 'raycast'
 cask 'mactex'
 cask 'skim'
+cask 'google-chrome-canary'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
@@ -109,3 +111,4 @@ mas "The Unarchiver", id: 425424353
 mas "Ultimate Pen", id: 405383991
 mas "Davinci Resolve", id: 571213070
 mas "Adguard for Safari", id: 1440147259
+mas "Final Cut Pro", id: 424389933
