@@ -240,3 +240,7 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 # pipenv
 
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
+
+# Homebrew's "sbin"  in /usr/local/sbin PATH
+
+export PATH="/usr/local/sbin:$PATH"
