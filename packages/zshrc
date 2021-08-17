@@ -119,6 +119,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias st='open -a SourceTree'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -267,3 +269,5 @@ export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 # Homebrew's "sbin"  in /usr/local/sbin PATH
 
 export PATH="/usr/local/sbin:$PATH"
+
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
