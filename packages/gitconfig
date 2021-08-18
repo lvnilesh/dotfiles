@@ -136,7 +136,7 @@
 
 [difftool "sourcetree"]
 	cmd = open -W -a Meld $LOCAL $REMOTE
-	path =
+	path = 
 
 [fetch]
     prune = true
