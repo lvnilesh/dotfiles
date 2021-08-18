@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+OBSIDIAN_CONTENT_PATH="/Users/cloudgenius/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+cd "$OBSIDIAN_CONTENT_PATH"
+git pull -q
+CHANGES_EXIST="$(git status --porcelain | wc -l)"
+if [ "$CHANGES_EXIST" -eq 0 ]; then
+	exit 0
+fi
+git pull -q
+git add .
+git commit -q -m "Last Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+git push -q

@@ -251,8 +251,8 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 
 export GITHUB_USERNAME="lvnilesh"
 export KUBE_EDITOR="code -w"
-# export EDITOR=code
-export EDITOR="/usr/local/bin/mate -w"
+export EDITOR=vi
+# export EDITOR="/usr/local/bin/mate -w"
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then

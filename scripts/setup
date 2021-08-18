@@ -86,6 +86,27 @@ configure_vscode() {
   scripts/set-terminal-font
 }
 
+# set obsidian cron
+set_obsidian_cron() {
+
+    # https://medium.com/analytics-vidhya/how-i-put-my-mind-under-version-control-24caea37b8a5
+    # https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/
+    # https://gist.github.com/tallguyjenks/ca3339b8b5353159f631836268e3f791
+
+    echo "placing obsidian_sync in ~/.local/bin"
+    cp scripts/obsidian_sync ~/.local/bin
+
+    if [[ $(crontab -l | egrep -v "^(#|$)" | grep -q '/Users/cloudgenius/.local/bin/obsidian_sync'; echo $?) == 1 ]]
+    then
+        echo "setting crontab for obsidian"
+        set -f
+        echo $(crontab -l ; echo '*/30 * * * * /Users/cloudgenius/.local/bin/obsidian_sync >/dev/null 2>&1') | crontab -
+        set +f
+    else
+        echo "crontab is already set for obsidian"
+    fi
+}
+
 # Configure macOS defaults.
 configure_macos() {
   echo "Applying macOS defaults..."
@@ -118,6 +139,7 @@ fix_grc_for_kubectl
 install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
+set_obsidian_cron
 configure_vscode
 configure_macos
 configure_duti
