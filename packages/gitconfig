@@ -135,8 +135,8 @@
     cmd = open -W -a Meld $LOCAL $REMOTE
 
 [difftool "sourcetree"]
-	cmd = open -W -a Meld $LOCAL $REMOTE
-	path = 
+	cmd = "open -W -a Meld $LOCAL $REMOTE "
+	path =
 
 [fetch]
     prune = true
@@ -168,7 +168,7 @@
     cmd = open -W -a Meld --args --auto-merge $LOCAL $BASE $REMOTE --output=$MERGED
 
 [mergetool "sourcetree"]
-	cmd = open -W -a Meld $LOCAL $BASE $REMOTE --auto-merge --output=$MERGED
+	cmd = "open -W -a Meld $LOCAL $BASE $REMOTE --auto-merge --output=$MERGED "
 	trustExitCode = true
 
 [pager]
