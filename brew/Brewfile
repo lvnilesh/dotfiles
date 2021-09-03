@@ -45,6 +45,8 @@ brew "youtube-dl"
 brew "graphviz"
 brew 'grep'
 brew 'coreutils'
+brew 'golang'
+brew 'kind'
 
 # Casks
 cask '1password'

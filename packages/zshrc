@@ -198,6 +198,15 @@ function stoptor() {
 	echo "$(tput sgr0)" # color reset
 }
 
+
+
+## golang
+mkdir -p $HOME/go/{bin,src,pkg}
+export GOPATH=$HOME/go
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/cloudgenius/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -250,6 +259,8 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade ; brew cleanu
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+alias dkill="osascript -e 'quit app \"Docker\"'"
+alias ckill="osascript -e 'quit app \"Visual Studio Code\"'"
 
 export GITHUB_USERNAME="lvnilesh"
 export KUBE_EDITOR="code -w"
