@@ -12,7 +12,7 @@ https://github.com/ruimarinho/dotfiles
 Just install Homebrew which will prompt you to install *Command Line Tools (CLT) for Xcode*.
 
   ```
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ```
 
 The rest of the utilities will be provided by Homebrew when sourcing the bundled Brewfile.
@@ -32,7 +32,7 @@ The rest of the utilities will be provided by Homebrew when sourcing the bundled
 1. Download or clone this repository.
 
 ```
-git clone https://github.com/lvnilesh/dotfiles.git
+git clone https://github.com/lvnilesh/dotfiles.git ~/.dotfiles
 ```
 
 2. Run `scripts/setup`
