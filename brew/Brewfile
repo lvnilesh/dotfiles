@@ -5,6 +5,7 @@ tap 'homebrew/cask-drivers'
 tap 'thoughtbot/formulae'
 tap 'homebrew-ffmpeg/ffmpeg'
 tap 'homebrew/cask-versions'
+tap 'dty1er/tap'
 
 # Packages
 brew 'git'
