@@ -68,6 +68,7 @@ configure_vscode() {
   code --install-extension PKief.material-icon-theme
   code --install-extension vangware.dark-plus-material
   code --install-extension vscode-icons-team.vscode-icons
+  code --install-extension esbenp.prettier-vscode
 #   code --install-extension vsls-contrib.gistfs
 
   cd ~/Library/Fonts && {
