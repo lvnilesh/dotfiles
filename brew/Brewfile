@@ -34,6 +34,7 @@ brew 'pyenv-virtualenv'
 brew 'wget'
 brew 'htop'
 brew 'podman'
+brew 'tor'
 # Play, record, convert, and stream audio and video
 # brew options homebrew-ffmpeg/ffmpeg/ffmpeg
 # brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
