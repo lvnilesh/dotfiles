@@ -49,6 +49,7 @@ brew 'grep'
 brew 'coreutils'
 brew 'golang'
 brew 'kind'
+brew 'kubeseal'
 
 # Casks
 cask '1password'
