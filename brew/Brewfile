@@ -50,6 +50,7 @@ brew 'coreutils'
 brew 'golang'
 brew 'kind'
 brew 'kubeseal'
+brew 'helm'
 
 # Casks
 cask '1password'
