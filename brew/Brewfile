@@ -108,6 +108,7 @@ cask 'raycast'
 cask 'mactex'
 cask 'skim'
 cask 'google-chrome-canary'
+cask 'keybase'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
