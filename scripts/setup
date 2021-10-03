@@ -57,6 +57,11 @@ configure_vscode() {
   ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
   code --install-extension aaron-bond.better-comments
   code --install-extension asciidoctor.asciidoctor-vscode
+  code --install-extension bierner.markdown-mermaid
+  code --install-extension ms-vscode-remote.remote-containers
+  code --install-extension tabnine.tabnine-vscode
+  code --install-extension esbenp.prettier-vscode
+  code --install-extension wallabyjs.quokka-vscode
   code --install-extension christian-kohler.path-intellisense
   code --install-extension CoenraadS.bracket-pair-colorizer-2
   code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
