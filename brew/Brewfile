@@ -51,6 +51,7 @@ brew 'golang'
 brew 'kind'
 brew 'kubeseal'
 brew 'helm'
+brew 'awscli@1'
 
 # Casks
 cask '1password'
