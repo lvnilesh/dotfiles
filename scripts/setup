@@ -59,19 +59,20 @@ configure_vscode() {
   code --install-extension asciidoctor.asciidoctor-vscode
   code --install-extension bierner.markdown-mermaid
   code --install-extension ms-vscode-remote.remote-containers
-  code --install-extension tabnine.tabnine-vscode
+# code --install-extension tabnine.tabnine-vscode
   code --install-extension esbenp.prettier-vscode
-  code --install-extension wallabyjs.quokka-vscode
+# code --install-extension wallabyjs.quokka-vscode
   code --install-extension christian-kohler.path-intellisense
   code --install-extension CoenraadS.bracket-pair-colorizer-2
-  code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
+# code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
+# code --install-extension vangware.dark-plus-material
+  code --install-extension dracula-theme.theme-dracula
   code --install-extension eamodio.gitlens
   code --install-extension GitHub.copilot
   code --install-extension mhutchie.git-graph
   code --install-extension ms-vscode-remote.remote-ssh
   code --install-extension oderwat.indent-rainbow
   code --install-extension PKief.material-icon-theme
-  code --install-extension vangware.dark-plus-material
   code --install-extension vscode-icons-team.vscode-icons
   code --install-extension esbenp.prettier-vscode
 #   code --install-extension vsls-contrib.gistfs
