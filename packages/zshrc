@@ -157,19 +157,21 @@ load-nvmrc
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+### change purgehostkey to use ggrep instead of grep
 # purgehostkey function needs gnu grep so install via brew and add this PATH
-PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+# PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+### change purgehostkey to use gcut instead of cut
 # purgehostkey function needs gnu cut so install via brew install coreutils and add this PATH
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # https://gist.github.com/lvnilesh/f15fc7da0515a6c09c934b0046882618
 
 # delete the bad host key from the previous ssh command
 purgehostkey() {
   cmd=$history[$((HISTCMD-1))]
-  lineno=$(eval $cmd 2>&1 | grep -oP 'known_hosts:\K\d+')
+  lineno=$(eval $cmd 2>&1 | ggrep -oP 'known_hosts:\K\d+')
   known_hosts=~/.ssh/known_hosts
-  host=$(sed -n "${lineno}p" $known_hosts | cut --delimiter=' ' --fields=1)
+  host=$(sed -n "${lineno}p" $known_hosts | gcut --delimiter=' ' --fields=1)
   sed -i -e "${lineno}d" $known_hosts
   echo "Deleted $host from known_hosts:$lineno 🖥️🔑💥"
   eval $cmd -o StrictHostKeyChecking=accept-new
@@ -284,7 +286,5 @@ export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 # Homebrew's "sbin"  in /usr/local/sbin PATH
 
 export PATH="/usr/local/sbin:$PATH"
-
-export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 export DOCKER_HOST=ssh://nuc
