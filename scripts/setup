@@ -9,7 +9,13 @@ install_brew() {
 # Fix grc for kubectl colorizing
 fix_grc_for_kubectl() {
   # remove kubectl reference from grc
-  sed -i '' '/kubectl/d' /usr/local/etc/grc.zsh
+
+  if [[ `uname -m` == 'arm64' ]]
+  then 
+    sed -i '' '/kubectl/d' /opt/homebrew/etc/grc.zsh
+  else
+    sed -i '' '/kubectl/d' /usr/local/etc/grc.zsh
+  fi
 }
 
 # Install oh-my-zsh.
@@ -53,8 +59,13 @@ symlink_dotfiles() {
 # Configure VS code fonts and extensions.
 configure_vscode() {
   echo "Applying Cloud Genius VS Code style..."
+  if [[ `uname -m` == 'arm64' ]]
+  then 
+    ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /opt/homebrew/bin/code
+  else
+    ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
+  fi
 
-  ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
   code --install-extension aaron-bond.better-comments
   code --install-extension asciidoctor.asciidoctor-vscode
   code --install-extension bierner.markdown-mermaid
@@ -96,7 +107,13 @@ configure_vscode() {
 # Install node lts using nvm
 nvminstall() {
   echo "installing node lts using nvm..."
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" && nvm install v14
+
+  if [[ `uname -m` == 'arm64' ]]
+  then 
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" && nvm install v14
+  else
+    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" && nvm install v14
+  fi
 }
 
 # set obsidian cron
