@@ -11,7 +11,7 @@ fix_grc_for_kubectl() {
   # remove kubectl reference from grc
 
   if [[ `uname -m` == 'arm64' ]]
-  then 
+  then
     sed -i '' '/kubectl/d' /opt/homebrew/etc/grc.zsh
   else
     sed -i '' '/kubectl/d' /usr/local/etc/grc.zsh
@@ -60,7 +60,7 @@ symlink_dotfiles() {
 configure_vscode() {
   echo "Applying Cloud Genius VS Code style..."
   if [[ `uname -m` == 'arm64' ]]
-  then 
+  then
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /opt/homebrew/bin/code
   else
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
@@ -109,7 +109,7 @@ nvminstall() {
   echo "installing node lts using nvm..."
 
   if [[ `uname -m` == 'arm64' ]]
-  then 
+  then
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" && nvm install v14
   else
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" && nvm install v14
@@ -136,6 +136,25 @@ set_obsidian_cron() {
     else
         echo "crontab is already set for obsidian"
     fi
+}
+
+# example ssh config
+install_sshconfig_example() {
+echo "adding example ssh config"
+tee -a ~/.ssh/config.example  << END
+Host jumpbox
+HostName 52.25.136.2
+ForwardAgent yes
+StrictHostKeyChecking ask
+IdentityFile ~/.ssh/id_rsa
+User ec2-user
+
+Host 10.0.10.251
+ProxyCommand ssh -q -W %h:%p jumpbox
+ForwardAgent yes
+IdentityFile ~/.ssh/id_rsa
+User ubuntu
+END
 }
 
 # Configure macOS defaults.
@@ -171,7 +190,8 @@ install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
 nvminstall
-set_obsidian_cron
+# set_obsidian_cron
+install_sshconfig_example
 configure_vscode
 configure_macos
 configure_duti

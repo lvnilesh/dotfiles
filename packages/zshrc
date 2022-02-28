@@ -325,4 +325,4 @@ else
   export PATH="/usr/local/sbin:$PATH"
 fi
 
-export DOCKER_HOST=ssh://nuc
+#export DOCKER_HOST=ssh://nuc
