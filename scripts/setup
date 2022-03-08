@@ -141,6 +141,7 @@ set_obsidian_cron() {
 # example ssh config
 install_sshconfig_example() {
 echo "adding example ssh config"
+rm -rf ~/.ssh/config.example
 tee -a ~/.ssh/config.example  << END
 Host jumpbox
 HostName 52.25.136.2
