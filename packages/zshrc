@@ -328,3 +328,5 @@ else
 fi
 
 #export DOCKER_HOST=ssh://nuc
+
+eval "$(/usr/libexec/path_helper)"
