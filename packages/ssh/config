@@ -7,17 +7,19 @@ UseKeychain yes
 AddKeysToAgent yes
 KeepAlive yes
 ServerAliveInterval 60
+StrictHostKeyChecking no
+Include *.cg.home.arpa
 
-Include *.home.cloudgeni.us
-
-Host raspberrypi.home.cloudgeni.us
+Host raspberrypi.cg.home.arpa
     User pi
 
-Host nuc.home.cloudgeni.us
+Host pro.cg.home.arpa
 
-Host chromebox.home.cloudgeni.us
+Host nuc.cg.home.arpa
 
-Host mini.home.cloudgeni.us
+Host chromebox.cg.home.arpa
+
+Host mini.cg.home.arpa
 
 # Created on Mon Nov  1 15:16:05 PDT 2021
 Host CloudGenius

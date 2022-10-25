@@ -224,14 +224,14 @@ export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/cloudgenius/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/cloudgenius/miniconda/etc/profile.d/conda.sh" ]; then
-        . "/Users/cloudgenius/miniconda/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/cloudgenius/miniconda/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -330,3 +330,45 @@ fi
 #export DOCKER_HOST=ssh://nuc
 
 eval "$(/usr/libexec/path_helper)"
+
+
+# hcloud
+
+# mkdir -p ~/.config/hcloud/completion/zsh
+# hcloud completion zsh > ~/.config/hcloud/completion/zsh/_hcloud
+export HCLOUD_TOKEN=ONaZ837R7JLG7QwatScWtyedsfyRqnSohG33ngW2pOrTVQtQKjVOlkZ1NBZTjKN9
+export TF_VAR_token=ONaZ837R7JLG7QwatScWtyedsfyRqnSohG33ngW2pOrTVQtQKjVOlkZ1NBZTjKN9
+export TF_VAR_location=ash
+export TF_VAR_name=bitire
+export TF_VAR_user_name=cloudgenius
+
+# HCLOUD_CONTEXT
+# HCLOUD_CONFIG
+
+fpath+=(~/.config/hcloud/completion/zsh)
+#  ... anything else that needs to be done before compinit
+autoload -Uz compinit; compinit
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# echo "Setting PATH so that homebrew/bin occurs before /usr/bin"
+if [[ `uname -m` == 'arm64' ]]
+then
+	export PATH="/opt/homebrew/bin:$PATH"
+else
+	export PATH="/usr/local/bin:$PATH"
+fi
+
+
+# https://fluxcd.io/flux/cmd/flux_completion_zsh/
+
+# To configure your zsh shell to load flux completions for each session add to your zshrc
+
+# ~/.zshrc or ~/.profile
+command -v flux >/dev/null && . <(flux completion zsh)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+
+alias ns="kubie ns"
+alias kcc="kubie ctx"
+
+export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt

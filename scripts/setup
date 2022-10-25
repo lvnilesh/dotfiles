@@ -24,6 +24,12 @@ install_oh-my-zsh() {
   if [ -d "$DIR" ]; then
     echo "Existing installation found in  ${DIR}...updating oh-my-zsh."
     $ZSH/tools/upgrade.sh
+
+	rm -rf ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    rm -rf ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
     return 0;
   else
     echo "Installing oh-my-zsh..."
@@ -183,7 +189,27 @@ configure_duti() {
   done
 }
 
+# Configure kubie defaults.
+configure_kubie() {
+  echo "Applying kubie defaults..."
+  gcloud components install kubectl -q
 
+  if [[ `uname -m` == 'arm64' ]]
+  then
+	sudo rm -rf /usr/local/bin
+	sudo ln -s /opt/homebrew/bin /usr/local/bin
+	if [ ! -f '/opt/homebrew/bin/kubectl' ]; then
+		ln /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl /opt/homebrew/bin
+	fi
+  else
+  	if [ ! -f '/usr/local/bin/kubectl' ]; then
+		ln /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl /usr/local/bin/kubectl
+	fi
+  fi
+
+  mkdir -p ~/.kube
+  cp macos/kubie.yaml ~/.kube/kubie.yaml
+}
 
 install_brew
 fix_grc_for_kubectl
@@ -196,3 +222,4 @@ install_sshconfig_example
 configure_vscode
 configure_macos
 configure_duti
+configure_kubie
