@@ -13,6 +13,11 @@ Include *.cg.home.arpa
 Host raspberrypi.cg.home.arpa
     User pi
 
+Host pve.cg.home.arpa
+    User root
+
+Host m1.cg.home.arpa
+
 Host pro.cg.home.arpa
 
 Host nuc.cg.home.arpa
