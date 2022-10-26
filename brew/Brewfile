@@ -69,6 +69,7 @@ brew 'kustomize'
 brew 'kubie'
 brew 'arp-scan'
 brew 'arping'
+brew 'bitwarden-cli'
 
 # Casks
 # cask '1password'
@@ -83,12 +84,6 @@ cask 'sonos'
 # cask 'arq'
 cask 'textmate'
 cask 'xquartz'
-# cask '1password'
-# cask 'alfred'
-# cask 'hammerspoon'
-# cask 'karabiner-elements'
-# cask 'resilio-sync'
-# cask 'joplin'
 cask 'slack'
 cask 'visual-studio-code'
 cask 'viscosity'
@@ -133,14 +128,15 @@ cask 'sparrow'
 cask 'tailscale'
 
 # Mac App Store
-# mas "Cloud Mounter", id: 1130254674
-# mas "Notability", id: 360593530
+mas "Cloud Mounter", id: 1130254674
+mas "Notability", id: 360593530
 mas "Pixelmater Pro", id: 1289583905
-# mas "Blue Wallet", id: 1376878040
+mas "Blue Wallet", id: 1376878040
 mas "Hush Nag Blocker", id: 1544743900
-# mas "Microsoft Remote Desktop", id: 1295203466
+mas "Microsoft Remote Desktop", id: 1295203466
 mas "The Unarchiver", id: 425424353
 mas "Ultimate Pen", id: 405383991
 mas "Davinci Resolve", id: 571213070
 mas "Adguard for Safari", id: 1440147259
 mas "Final Cut Pro", id: 424389933
+mas "Bitwarden", id: 1352778147
