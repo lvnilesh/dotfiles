@@ -336,10 +336,10 @@ eval "$(/usr/libexec/path_helper)"
 
 # mkdir -p ~/.config/hcloud/completion/zsh
 # hcloud completion zsh > ~/.config/hcloud/completion/zsh/_hcloud
-export HCLOUD_TOKEN=ONaZ837R7JLG7QwatScWtyedsfyRqnSohG33ngW2pOrTVQtQKjVOlkZ1NBZTjKN9
-export TF_VAR_token=ONaZ837R7JLG7QwatScWtyedsfyRqnSohG33ngW2pOrTVQtQKjVOlkZ1NBZTjKN9
-export TF_VAR_location=ash
-export TF_VAR_name=bitire
+export HCLOUD_TOKEN=tjIlVSFXgBhxvAulIYpZzo6GAmFFupFDWSmsKu1gK8TrcfHaFbx8FxOIMIuTKt4b
+export TF_VAR_token=tjIlVSFXgBhxvAulIYpZzo6GAmFFupFDWSmsKu1gK8TrcfHaFbx8FxOIMIuTKt4b
+export TF_VAR_location=hil
+export TF_VAR_name=tcs
 export TF_VAR_user_name=cloudgenius
 
 # HCLOUD_CONTEXT
@@ -372,3 +372,6 @@ alias ns="kubie ns"
 alias kcc="kubie ctx"
 
 export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+
+export GPG_TTY=$(tty)
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"

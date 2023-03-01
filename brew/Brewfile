@@ -71,6 +71,8 @@ brew 'arp-scan'
 brew 'arping'
 brew 'bitwarden-cli'
 brew 'pwgen'
+brew 'yarn'
+brew 'mutt'
 
 # Casks
 # cask '1password'
@@ -127,6 +129,7 @@ cask 'skim'
 cask 'nheko'
 cask 'sparrow'
 cask 'tailscale'
+# cask 'openaudible'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674

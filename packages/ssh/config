@@ -9,12 +9,17 @@ KeepAlive yes
 ServerAliveInterval 60
 StrictHostKeyChecking no
 Include *.cg.home.arpa
+ForwardAgent yes
+User cloudgenius
 
 Host raspberrypi.cg.home.arpa
-    User pi
+  User pi
 
 Host pve.cg.home.arpa
-    User root
+  User root
+
+Host edge.btire.us
+  User root
 
 Host m1.cg.home.arpa
 
@@ -25,6 +30,14 @@ Host nuc.cg.home.arpa
 Host chromebox.cg.home.arpa
 
 Host mini.cg.home.arpa
+
+Host iMac10g.cg.home.arpa
+
+Host git.i.bitire.us
+  HostName git.i.bitire.us
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  Port 222
 
 # Created on Mon Nov  1 15:16:05 PDT 2021
 Host CloudGenius
