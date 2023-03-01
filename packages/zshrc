@@ -378,6 +378,17 @@ export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 eval "$(rbenv init - zsh)"
 
-# Autoload zsh shell functions defined in the function path 
+# Autoload zsh shell functions defined in the function path
 fpath=( ~/.zsh_autoload_functions "${fpath[@]}" )
-autoload -Uz load_github
+autoload -Uz load_secrets
+
+if grep -q 'auth sufficient pam_tid.so' /etc/pam.d/sudo; then
+    echo "Touch ID is enabled for sudo"
+else
+    sudo grep -q -F 'auth sufficient pam_tid.so' /etc/pam.d/sudo || sudo sed -i '' '2i\
+auth sufficient pam_tid.so
+    ' /etc/pam.d/sudo
+    if grep -q 'auth sufficient pam_tid.so' /etc/pam.d/sudo; then
+        echo "'auth sufficient pam_tid.so' added to /etc/pam.d/sudo - This enables Touch ID for sudo"
+    fi
+fi

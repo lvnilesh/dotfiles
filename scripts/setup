@@ -72,27 +72,43 @@ configure_vscode() {
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
   fi
 
+  codium --install-extension dendron.dendron
+  codium --install-extension dendron.dendron-markdown-shortcuts
+  codium --install-extension dendron.dendron-paste-image
+  codium --install-extension jeanp413.open-remote-ssh
+  codium --install-extension redhat.vscode-yaml
+
+  codium --install-extension aaron-bond.better-comments
+  codium --install-extension asciidoctor.asciidoctor-vscode
+  codium --install-extension bierner.markdown-mermaid
+#   codium --install-extension ms-vscode-remote.remote-containers
+  codium --install-extension esbenp.prettier-vscode
+  codium --install-extension christian-kohler.path-intellisense
+  codium --install-extension dracula-theme.theme-dracula
+  codium --install-extension eamodio.gitlens
+  codium --install-extension mhutchie.git-graph
+#   codium --install-extension ms-vscode-remote.remote-ssh
+  codium --install-extension oderwat.indent-rainbow
+  codium --install-extension PKief.material-icon-theme
+  codium --install-extension vscode-icons-team.vscode-icons
+  codium --install-extension esbenp.prettier-vscode
+
   code --install-extension aaron-bond.better-comments
   code --install-extension asciidoctor.asciidoctor-vscode
   code --install-extension bierner.markdown-mermaid
   code --install-extension ms-vscode-remote.remote-containers
-# code --install-extension tabnine.tabnine-vscode
   code --install-extension esbenp.prettier-vscode
-# code --install-extension wallabyjs.quokka-vscode
   code --install-extension christian-kohler.path-intellisense
-#   code --install-extension CoenraadS.bracket-pair-colorizer-2
-# code --install-extension CrazyFluff.bettermaterialthemedarkerhighcontrast
-# code --install-extension vangware.dark-plus-material
+
   code --install-extension dracula-theme.theme-dracula
   code --install-extension eamodio.gitlens
-  code --install-extension GitHub.copilot
   code --install-extension mhutchie.git-graph
   code --install-extension ms-vscode-remote.remote-ssh
   code --install-extension oderwat.indent-rainbow
   code --install-extension PKief.material-icon-theme
   code --install-extension vscode-icons-team.vscode-icons
   code --install-extension esbenp.prettier-vscode
-#   code --install-extension vsls-contrib.gistfs
+
 
   cd ~/Library/Fonts && {
     rm -rf MesloLGS*.ttf
@@ -105,6 +121,7 @@ configure_vscode() {
 
   rm -rf settings.json
   curl -O https://s3-us-west-2.amazonaws.com/cloudgeniuscode/settings.json
+  cp -f settings.json "$HOME/Library/Application Support/VSCodium/User/"
   mv -f settings.json "$HOME/Library/Application Support/Code/User/"
 
 # scripts/set-terminal-font
@@ -211,6 +228,15 @@ configure_kubie() {
   cp macos/kubie.yaml ~/.kube/kubie.yaml
 }
 
+
+
+# setup_zsh_autoload_functions
+setup_zsh_autoload_functions() {
+  echo "setting up zsh_autoload_functions..."
+  mkdir -p ~/.zsh_autoload_functions
+  cp -f load_secrets ~/.zsh_autoload_functions
+}
+
 install_brew
 fix_grc_for_kubectl
 install_oh-my-zsh
@@ -223,3 +249,4 @@ configure_vscode
 configure_macos
 configure_duti
 configure_kubie
+setup_zsh_autoload_functions
