@@ -73,6 +73,7 @@ brew 'bitwarden-cli'
 brew 'pwgen'
 brew 'yarn'
 brew 'mutt'
+brew 'rbenv'
 
 # Casks
 # cask '1password'
