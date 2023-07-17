@@ -1,7 +1,7 @@
 # Brewfile
 
 # Taps
-tap 'homebrew/cask-drivers'
+# tap 'homebrew/cask-drivers' # deprecated
 tap 'thoughtbot/formulae'
 tap 'homebrew-ffmpeg/ffmpeg'
 tap 'homebrew/cask-versions'
