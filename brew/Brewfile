@@ -74,6 +74,7 @@ brew 'pwgen'
 brew 'yarn'
 brew 'mutt'
 brew 'rbenv'
+brew 'tfenv'
 
 # Casks
 # cask '1password'
