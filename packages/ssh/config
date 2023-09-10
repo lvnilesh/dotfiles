@@ -16,7 +16,6 @@ Host raspberrypi.cg.home.arpa
   User pi
 
 Host pve.cg.home.arpa
-  User root
 
 Host edge.btire.us
   User root
@@ -38,13 +37,3 @@ Host git.i.bitire.us
   User git
   IdentityFile ~/.ssh/id_ed25519
   Port 222
-
-# Created on Mon Nov  1 15:16:05 PDT 2021
-Host CloudGenius
-  HostName 35.86.193.103
-  ForwardAgent yes
-  User ubuntu
-  StrictHostKeyChecking no
-  IdentityFile ~/.ssh/CloudGenius
-  LocalForward 8080 127.0.0.1:80
-  LocalForward 4000 127.0.0.1:4000
