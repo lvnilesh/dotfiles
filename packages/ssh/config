@@ -10,30 +10,42 @@ ServerAliveInterval 60
 StrictHostKeyChecking no
 Include *.cg.home.arpa
 ForwardAgent yes
-User cloudgenius
 
 Host raspberrypi.cg.home.arpa
   User pi
 
-Host pve.cg.home.arpa
-
 Host edge.btire.us
   User root
 
+Host pve.cg.home.arpa
+  User cloudgenius
 Host m1.cg.home.arpa
-
+  User cloudgenius
 Host pro.cg.home.arpa
-
+  User cloudgenius
 Host nuc.cg.home.arpa
-
+  User cloudgenius
 Host chromebox.cg.home.arpa
-
+  User cloudgenius
 Host mini.cg.home.arpa
-
+  User cloudgenius
 Host iMac10g.cg.home.arpa
-
+  User cloudgenius
 Host git.i.bitire.us
   HostName git.i.bitire.us
   User git
   IdentityFile ~/.ssh/id_ed25519
   Port 222
+
+
+# BOF CloudGenius
+# Created on Tue Sep 12 17:32:52 PDT 2023
+Host CloudGenius
+  HostName 35.85.45.83
+  ForwardAgent yes
+  User ubuntu
+  StrictHostKeyChecking no
+  IdentityFile ~/.ssh/CloudGenius
+  LocalForward 8080 127.0.0.1:80
+  LocalForward 4000 127.0.0.1:4000
+# EOF CloudGenius
