@@ -392,3 +392,61 @@ auth sufficient pam_tid.so
         echo "'auth sufficient pam_tid.so' added to /etc/pam.d/sudo - This enables Touch ID for sudo"
     fi
 fi
+
+
+
+# A small plugin for parsing Conda environments into OMZ themes
+# The idea is to be able to add this plugin to your favorite OMZ theme
+# In addition to the regular conda config info, this plugin gives the current python version
+
+# the prompt
+function conda_prompt_info() {
+  echo "${ZSH_THEME_CONDA_PROMPT_PREFIX}$(conda_env)${ZSH_THEME_CONDA_PROMPT_SEPARATOR}$(conda_py_ver)${ZSH_THEME_CONDA_PROMPT_SUFFIX}"
+}
+
+# a simpler prompt (this is the more tradtional version)
+function conda_env_prompt_info() {
+  echo "${ZSH_THEME_CONDA_PROMPT_PREFIX}$(conda_env)${ZSH_THEME_CONDA_PROMPT_SUFFIX}"
+}
+
+# Conda evniornment
+function conda_env() {
+  if [[ -n ${CONDA_DEFAULT_ENV} ]]; then
+    echo ${CONDA_DEFAULT_ENV}
+  fi
+}
+
+# Python version
+function conda_py_ver() {
+  if [[ -n ${CONDA_DEFAULT_ENV} ]]; then
+    echo "py:$(python -V | cut -d ' ' -f 2)"
+  fi
+}
+
+# Conda aliases
+
+alias cel='conda env list'
+alias ccreate='conda create python=3.11 -y --name'
+alias cdel='conda env remove --name'
+
+alias cact='conda activate'
+alias cdeact='conda deactivate'
+
+alias conup='conda update'
+alias conin='conda install'
+alias cls='conda list'
+
+
+# Default values for the appearance of the prompt. Customize in your theme if you like.
+ZSH_THEME_CONDA_PROMPT_PREFIX="%{$FG[028]%}("
+ZSH_THEME_CONDA_PROMPT_SUFFIX=")%{$reset_color%}"
+ZSH_THEME_CONDA_PROMPT_SEPARATOR="|"
+
+
+#Disable conda prompt changes
+#https://conda.io/docs/user-guide/configuration/use-condarc.html#change-command-prompt-changeps1
+#changeps1: False
+#`conda config --set changeps1 false`
+
+
+export COQUI_STUDIO_TOKEN=NhqpH2QRz4Ad5TH3hmh1WCJ4YHBwEHuFtouziXI1IIqAWrGqe1iHPdqekZzPOabG

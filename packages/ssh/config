@@ -7,14 +7,15 @@ UseKeychain yes
 AddKeysToAgent yes
 KeepAlive yes
 ServerAliveInterval 60
-StrictHostKeyChecking no
+StrictHostKeyChecking ask
 Include *.cg.home.arpa
 ForwardAgent yes
 
 Host raspberrypi.cg.home.arpa
   User pi
 
-Host edge.btire.us
+Host oregon
+  HostName 5.78.109.8
   User root
 
 Host pve.cg.home.arpa
