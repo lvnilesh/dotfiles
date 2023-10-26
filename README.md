@@ -30,7 +30,7 @@ The rest of the utilities will be provided by Homebrew when sourcing the bundled
 1. Download or clone this repository.
 
 ```
-git clone https://github.com/lvnilesh/dotfiles.git ~/.dotfiles
+git clone git@github.com:lvnilesh/dotfiles.git ~/.dotfiles
 ```
 
 2. Run `scripts/setup`
