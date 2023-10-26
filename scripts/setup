@@ -72,9 +72,9 @@ configure_vscode() {
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
   fi
 
-  codium --install-extension dendron.dendron
-  codium --install-extension dendron.dendron-markdown-shortcuts
-  codium --install-extension dendron.dendron-paste-image
+#   codium --install-extension dendron.dendron
+#   codium --install-extension dendron.dendron-markdown-shortcuts
+#   codium --install-extension dendron.dendron-paste-image
   codium --install-extension jeanp413.open-remote-ssh
   codium --install-extension redhat.vscode-yaml
 
@@ -85,7 +85,7 @@ configure_vscode() {
   codium --install-extension esbenp.prettier-vscode
   codium --install-extension christian-kohler.path-intellisense
   codium --install-extension dracula-theme.theme-dracula
-  codium --install-extension eamodio.gitlens
+#   codium --install-extension eamodio.gitlens
   codium --install-extension mhutchie.git-graph
 #   codium --install-extension ms-vscode-remote.remote-ssh
   codium --install-extension oderwat.indent-rainbow
