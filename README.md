@@ -31,6 +31,10 @@ The rest of the utilities will be provided by Homebrew when sourcing the bundled
 
 ```
 git clone git@github.com:lvnilesh/dotfiles.git ~/.dotfiles
+
+git checkout m1 
+or 
+git checkout intel
 ```
 
 2. Run `scripts/setup`
