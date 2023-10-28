@@ -75,6 +75,7 @@ brew 'yarn'
 brew 'mutt'
 brew 'rbenv'
 brew 'tfenv'
+brew 'yt-dlp'
 
 # Casks
 # cask '1password'
