@@ -8,6 +8,7 @@ tap 'homebrew/cask-versions'
 tap 'lvnilesh/tap'
 tap 'mongodb/brew'
 tap 'fluxcd/tap'
+tap 'weaveworks/tap'
 
 # Packages
 brew 'git'
@@ -76,6 +77,7 @@ brew 'mutt'
 brew 'rbenv'
 brew 'tfenv'
 brew 'yt-dlp'
+brew 'weaveworks/tap/eksctl'
 
 # Casks
 # cask '1password'
