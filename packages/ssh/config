@@ -20,6 +20,8 @@ Host oregon
 
 Host pve.cg.home.arpa
   User cloudgenius
+Host cosmos.cg.home.arpa
+  User cloudgenius
 Host m1.cg.home.arpa
   User cloudgenius
 Host pro.cg.home.arpa

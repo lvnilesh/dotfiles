@@ -290,7 +290,8 @@ fi
 # alias eeshan="gcloud config set account eeshan@cloudgeni.us && gcloud config list && rm -rf ~/.kube && gcloud container clusters get-credentials andromeda --zone us-west1-a --project oceanic-isotope-233522"
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade ; brew cleanup; brew doctor'
+# alias update='sudo softwareupdate -i -a; brew update; brew upgrade ; brew cleanup; brew doctor'
+alias update='brew update; brew upgrade ; brew cleanup; brew doctor'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
