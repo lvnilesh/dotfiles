@@ -47,7 +47,6 @@ brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac", "with-libcaca", "wi
 
 brew "tree"
 brew "watch"
-brew "youtube-dl"
 brew "graphviz"
 brew 'grep'
 brew 'coreutils'
