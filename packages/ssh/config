@@ -11,7 +11,8 @@ StrictHostKeyChecking ask
 Include *.cg.home.arpa
 ForwardAgent yes
 
-Host raspberrypi.cg.home.arpa
+# raspberry pi
+Host ubuntu.cg.home.arpa
   User cloudgenius
 
 Host oregon
