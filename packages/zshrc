@@ -451,5 +451,8 @@ ZSH_THEME_CONDA_PROMPT_SEPARATOR="|"
 
 
 export COQUI_STUDIO_TOKEN=NhqpH2QRz4Ad5TH3hmh1WCJ4YHBwEHuFtouziXI1IIqAWrGqe1iHPdqekZzPOabG
+
+# export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
 export PATH="/opt/homebrew/opt/mongodb-community@5.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
