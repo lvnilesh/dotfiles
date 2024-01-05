@@ -38,7 +38,7 @@ Host chromebox.cg.home.arpa
 Host mini.cg.home.arpa
 # Hostname 192.168.1.19
   User cloudgenius
-Host iMac.cg.home.arpa
+Host imac.cg.home.arpa
 # Hostname 192.168.1.5
   User cloudgenius
 Host git.i.bitire.us
