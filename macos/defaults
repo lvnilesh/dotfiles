@@ -205,10 +205,10 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 ###############################################################################
 
 # Add the keyboard shortcut ⌘⌥↑ to select previous conversation.
-defaults write -app Messages NSUserKeyEquivalents -dict-add "Select Previous Conversation" "@~↑"
+# defaults write -app Messages NSUserKeyEquivalents -dict-add "Select Previous Conversation" "@~↑"
 
 # Add the keyboard shortcut ⌘⌥↓ to select next conversation.
-defaults write -app Messages NSUserKeyEquivalents -dict-add "Select Next Conversation" "@~↓"
+# defaults write -app Messages NSUserKeyEquivalents -dict-add "Select Next Conversation" "@~↓"
 
 # Add the keyboard shortcut ⌘⌥→ to select next tab.
 defaults write -g NSUserKeyEquivalents -dict-add "Select Next Tab" -string "@~→"
