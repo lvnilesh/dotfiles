@@ -9,6 +9,7 @@ tap 'lvnilesh/tap'
 tap 'mongodb/brew'
 tap 'fluxcd/tap'
 tap 'weaveworks/tap'
+tap 'oven-sh/bun'
 
 # Packages
 brew 'git'
@@ -77,6 +78,7 @@ brew 'rbenv'
 brew 'tfenv'
 brew 'yt-dlp'
 brew 'weaveworks/tap/eksctl'
+brew 'bun'
 
 # Casks
 # cask '1password'
