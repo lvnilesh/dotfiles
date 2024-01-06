@@ -158,7 +158,7 @@ mas "menu-bar-controller-for-sonos", id: 1357379892
 mas "vimeo-video-management", id: 1356686763
 
 mas "gordian-seed-tool", id: 1545088229
-mas "mousepose", id: 405904955
+# mas "mousepose", id: 405904955
 mas "inshort", id: 856124300
 mas "bettersnaptool", id: 417375580
 mas "languagetool-grammar-checker", id: 1534275760
