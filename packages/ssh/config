@@ -59,3 +59,17 @@ Host CloudGenius
   LocalForward 8080 127.0.0.1:80
   LocalForward 4000 127.0.0.1:4000
 # EOF CloudGenius
+
+
+Host NAT
+  HostName 35.89.150.220
+  ForwardAgent yes
+  StrictHostKeyChecking ask
+  IdentityFile ~/.ssh/id_rsa
+  User ubuntu
+
+Host 10.0.10.177
+  ProxyCommand ssh -q -W %h:%p NAT
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  User ubuntu
