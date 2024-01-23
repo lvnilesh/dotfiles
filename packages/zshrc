@@ -299,7 +299,8 @@ alias dkill="osascript -e 'quit app \"Docker\"'"
 alias ckill="osascript -e 'quit app \"Visual Studio Code\"'"
 
 export GITHUB_USERNAME="lvnilesh"
-export KUBE_EDITOR="code -w"
+export KUBE_EDITOR="codium -w"
+alias code=codium
 export EDITOR=vi
 # export EDITOR="/usr/local/bin/mate -w"
 
