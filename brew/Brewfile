@@ -140,6 +140,7 @@ cask 'tailscale'
 # cask 'openaudible'
 cask 'stats'
 cask 'vscodium'
+cask 'arc'
 
 # Mac App Store
 mas "Cloud Mounter", id: 1130254674
