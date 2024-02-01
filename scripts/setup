@@ -137,6 +137,8 @@ nvminstall() {
   else
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" && nvm install Iron
   fi
+
+  nvm alias default v20
 }
 
 # set obsidian cron
