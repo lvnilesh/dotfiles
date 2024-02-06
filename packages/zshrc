@@ -300,7 +300,7 @@ alias ckill="osascript -e 'quit app \"Visual Studio Code\"'"
 
 export GITHUB_USERNAME="lvnilesh"
 export KUBE_EDITOR="codium -w"
-alias code=codium
+# alias code=codium
 export EDITOR=vi
 # export EDITOR="/usr/local/bin/mate -w"
 
@@ -338,8 +338,8 @@ eval "$(/usr/libexec/path_helper)"
 
 # mkdir -p ~/.config/hcloud/completion/zsh
 # hcloud completion zsh > ~/.config/hcloud/completion/zsh/_hcloud
-export HCLOUD_TOKEN=tjIlVSFXgBhxvAulIYpZzo6GAmFFupFDWSmsKu1gK8TrcfHaFbx8FxOIMIuTKt4b
-export TF_VAR_token=tjIlVSFXgBhxvAulIYpZzo6GAmFFupFDWSmsKu1gK8TrcfHaFbx8FxOIMIuTKt4b
+export HCLOUD_TOKEN=
+export TF_VAR_token=
 export TF_VAR_location=hil
 export TF_VAR_name=tcs
 export TF_VAR_user_name=cloudgenius
@@ -451,9 +451,11 @@ ZSH_THEME_CONDA_PROMPT_SEPARATOR="|"
 #`conda config --set changeps1 false`
 
 
-export COQUI_STUDIO_TOKEN=NhqpH2QRz4Ad5TH3hmh1WCJ4YHBwEHuFtouziXI1IIqAWrGqe1iHPdqekZzPOabG
+export COQUI_STUDIO_TOKEN=
 
 # export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export PATH="/opt/homebrew/opt/mongodb-community@5.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+
+export BW_SESSION=
