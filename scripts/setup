@@ -78,6 +78,7 @@ configure_vscode() {
   codium --install-extension jeanp413.open-remote-ssh
   codium --install-extension redhat.vscode-yaml
 
+  codium --install-extension hiteshchoudharycode.chai-theme
   codium --install-extension aaron-bond.better-comments
   codium --install-extension asciidoctor.asciidoctor-vscode
   codium --install-extension bierner.markdown-mermaid
