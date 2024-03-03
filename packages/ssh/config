@@ -41,8 +41,8 @@ Host mini.cg.home.arpa
 Host imac.cg.home.arpa
 # Hostname 192.168.1.5
   User cloudgenius
-Host git.i.bitire.us
-  HostName git.i.bitire.us
+Host git.imac.cloudgenius.app
+  HostName git.imac.cloudgenius.app
   User git
   IdentityFile ~/.ssh/id_ed25519
   Port 222
