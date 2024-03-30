@@ -19,6 +19,8 @@ Host oregon
   HostName 5.78.109.8
   User root
 
+Host venus.cg.home.arpa
+  User cloudgenius
 Host pve.cg.home.arpa
   User cloudgenius
 Host cosmos.cg.home.arpa
