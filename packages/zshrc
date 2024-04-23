@@ -428,7 +428,7 @@ function conda_py_ver() {
 # Conda aliases
 
 alias cel='conda env list'
-alias ccreate='conda create python=3.11 -y --name'
+alias ccreate='conda create python=3.12.3 -y --name'
 alias cdel='conda env remove --name'
 
 alias cact='conda activate'
@@ -451,11 +451,8 @@ ZSH_THEME_CONDA_PROMPT_SEPARATOR="|"
 #`conda config --set changeps1 false`
 
 
-export COQUI_STUDIO_TOKEN=
 
 # export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export PATH="/opt/homebrew/opt/mongodb-community@5.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-
-export BW_SESSION=

@@ -49,6 +49,12 @@ Host git.imac.cloudgenius.app
   IdentityFile ~/.ssh/id_ed25519
   Port 222
 
+# VMs
+
+Host passkey.cg.home.arpa
+	Hostname 192.168.1.69
+Host cg.cg.home.arpa
+  HostName 192.168.1.73
 
 # BOF CloudGenius
 # Created on Tue Sep 12 17:32:52 PDT 2023
