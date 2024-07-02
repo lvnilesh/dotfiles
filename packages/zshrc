@@ -456,3 +456,5 @@ ZSH_THEME_CONDA_PROMPT_SEPARATOR="|"
 
 export PATH="/opt/homebrew/opt/mongodb-community@5.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+
+alias flush='sudo killall -HUP mDNSResponder && sudo killall mDNSResponderHelper && sudo dscacheutil -flushcache'

@@ -231,7 +231,9 @@ configure_kubie() {
   cp macos/kubie.yaml ~/.kube/kubie.yaml
 }
 
-
+configure_wezterm() {
+	ln /Users/cloudgenius/.dotfiles/macos/.wezterm.lua ~/.wezterm.lua
+}
 
 # setup_zsh_autoload_functions
 setup_zsh_autoload_functions() {
@@ -252,4 +254,5 @@ configure_vscode
 configure_macos
 configure_duti
 configure_kubie
+configure_wezterm
 setup_zsh_autoload_functions

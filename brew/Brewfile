@@ -4,7 +4,7 @@
 # tap 'homebrew/cask-drivers' # deprecated
 tap 'thoughtbot/formulae'
 tap 'homebrew-ffmpeg/ffmpeg'
-tap 'homebrew/cask-versions'
+# tap 'homebrew/cask-versions'
 tap 'lvnilesh/tap'
 tap 'mongodb/brew'
 tap 'fluxcd/tap'
@@ -82,6 +82,8 @@ brew 'bun'
 
 # Casks
 # cask '1password'
+# cask 'alacritty'
+cask 'wezterm'
 cask 'resilio-sync'
 cask 'joplin'
 cask 'hammerspoon'

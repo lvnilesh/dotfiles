@@ -53,8 +53,11 @@ Host git.imac.cloudgenius.app
 
 Host passkey.cg.home.arpa
 	Hostname 192.168.1.69
+Host noble.cg.home.arpa
 Host cg.cg.home.arpa
-  HostName 192.168.1.73
+Host nixos.cg.home.arpa
+	Hostname 192.168.1.243
+Host hashivault.cg.home.arpa
 
 # BOF CloudGenius
 # Created on Tue Sep 12 17:32:52 PDT 2023
@@ -69,14 +72,23 @@ Host CloudGenius
 # EOF CloudGenius
 
 
+
 Host NAT
-  HostName 35.89.150.220
+  HostName 54.177.54.114
   ForwardAgent yes
   StrictHostKeyChecking ask
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
 
-Host 10.0.10.177
+Host app0
+  HostName 10.128.1.140
+  ProxyCommand ssh -q -W %h:%p NAT
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  User ubuntu
+
+Host app1
+  HostName 10.128.1.145
   ProxyCommand ssh -q -W %h:%p NAT
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
