@@ -1,15 +1,18 @@
 # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
-
-
+# This needs to be at the beginning of this file.
+Host 192.168.1.*
+  StrictHostKeyChecking off
+  UserKnownHostsFile=/dev/null
 
 Host *
-UseKeychain yes
-AddKeysToAgent yes
-KeepAlive yes
-ServerAliveInterval 60
-StrictHostKeyChecking ask
-Include *.cg.home.arpa
-ForwardAgent yes
+  UseKeychain yes
+  AddKeysToAgent yes
+  KeepAlive yes
+  ServerAliveInterval 60
+  StrictHostKeyChecking ask
+  Include *.cg.home.arpa
+  ForwardAgent yes
+
 
 # raspberry pi
 Host ubuntu.cg.home.arpa
