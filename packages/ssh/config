@@ -2,6 +2,9 @@
 
 # This needs to be at the beginning of this file.
 Host 192.168.1.*
+  StrictHostKeyChecking off
+  UserKnownHostsFile=/dev/null
+
 Host *.cg.home.arpa
   StrictHostKeyChecking off
   UserKnownHostsFile=/dev/null
@@ -56,8 +59,8 @@ Host git.imac.cloudgenius.app
 
 # VMs
 
-Host passkey.cg.home.arpa
-	Hostname 192.168.1.69
+Host writebook.cg.home.arpa
+
 Host noble.cg.home.arpa
 Host cg.cg.home.arpa
 Host nixos.cg.home.arpa
