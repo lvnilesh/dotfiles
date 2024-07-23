@@ -61,6 +61,8 @@ Host git.imac.cloudgenius.app
 
 Host writebook.cg.home.arpa
 
+Host dockerhost.cg.home.arpa
+
 Host noble.cg.home.arpa
 Host cg.cg.home.arpa
 Host nixos.cg.home.arpa
