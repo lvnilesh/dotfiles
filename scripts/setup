@@ -232,7 +232,7 @@ configure_kubie() {
 }
 
 configure_wezterm() {
-	ln /Users/cloudgenius/.dotfiles/macos/.wezterm.lua ~/.wezterm.lua
+	ln -sf /Users/cloudgenius/.dotfiles/macos/.wezterm.lua ~/.wezterm.lua
 }
 
 # setup_zsh_autoload_functions
