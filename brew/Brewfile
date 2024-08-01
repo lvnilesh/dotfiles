@@ -79,6 +79,7 @@ brew 'tfenv'
 brew 'yt-dlp'
 brew 'weaveworks/tap/eksctl'
 brew 'bun'
+brew 'mise'
 
 # Casks
 # cask '1password'

@@ -428,7 +428,7 @@ function conda_py_ver() {
 # Conda aliases
 
 alias cel='conda env list'
-alias ccreate='conda create python=3.12.3 -y --name'
+alias ccreate='conda create python=3.12.4 -y --name'
 alias cdel='conda env remove --name'
 
 alias cact='conda activate'
@@ -461,3 +461,6 @@ alias flush='sudo killall -HUP mDNSResponder && sudo killall mDNSResponderHelper
 
 # enable basictex
 eval "$(/usr/libexec/path_helper)"
+
+# enable mise
+eval "$(/usr/local/bin/mise activate zsh)"
