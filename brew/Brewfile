@@ -80,6 +80,7 @@ brew 'yt-dlp'
 brew 'weaveworks/tap/eksctl'
 brew 'bun'
 brew 'mise'
+brew 'wireguard-tools'
 
 # Casks
 # cask '1password'
@@ -171,3 +172,4 @@ mas "gordian-seed-tool", id: 1545088229
 mas "inshort", id: 856124300
 mas "bettersnaptool", id: 417375580
 mas "languagetool-grammar-checker", id: 1534275760
+mas "wireguard", id: 1451685025

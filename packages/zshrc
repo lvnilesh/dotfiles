@@ -353,13 +353,6 @@ autoload -Uz compinit; compinit
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
-# echo "Setting PATH so that homebrew/bin occurs before /usr/bin"
-if [[ `uname -m` == 'arm64' ]]
-then
-	export PATH="/opt/homebrew/bin:$PATH"
-else
-	export PATH="/usr/local/bin:$PATH"
-fi
 
 
 # https://fluxcd.io/flux/cmd/flux_completion_zsh/
@@ -464,3 +457,20 @@ eval "$(/usr/libexec/path_helper)"
 
 # enable mise
 eval "$(/usr/local/bin/mise activate zsh)"
+
+# azure
+
+autoload bashcompinit && bashcompinit
+source $(brew --prefix)/etc/bash_completion.d/az
+
+
+
+
+# echo "Setting PATH so that homebrew/bin occurs before /usr/bin"
+if [[ `uname -m` == 'arm64' ]]
+then
+	export PATH="/opt/homebrew/bin:$PATH"
+else
+	export PATH="/usr/local/bin:$PATH"
+fi
+# export PATH="/opt/homebrew/bin:$PATH"

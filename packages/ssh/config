@@ -23,9 +23,9 @@ Host *
 Host ubuntu.cg.home.arpa
   User cloudgenius
 
-Host oregon
-  HostName 5.78.109.8
-  User root
+Host azure
+  HostName 20.3.131.188
+  User cloudgenius
 
 Host venus.cg.home.arpa
   User cloudgenius
@@ -63,6 +63,7 @@ Host writebook.cg.home.arpa
 
 Host dockerhost.cg.home.arpa
 
+Host nvidia.cg.home.arpa
 Host noble.cg.home.arpa
 Host cg.cg.home.arpa
 Host nixos.cg.home.arpa
