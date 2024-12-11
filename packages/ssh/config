@@ -29,7 +29,11 @@ Host azure
 
 Host venus.cg.home.arpa
   User cloudgenius
-Host pve.cg.home.arpa
+Host msi.cg.home.arpa
+  User cloudgenius
+Host nuc.cg.home.arpa
+  User cloudgenius
+Host venus.cg.home.arpa
   User cloudgenius
 Host cosmos.cg.home.arpa
 # Hostname 192.168.1.8
