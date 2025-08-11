@@ -75,24 +75,24 @@ configure_vscode() {
 #   codium --install-extension dendron.dendron
 #   codium --install-extension dendron.dendron-markdown-shortcuts
 #   codium --install-extension dendron.dendron-paste-image
-  codium --install-extension jeanp413.open-remote-ssh
-  codium --install-extension redhat.vscode-yaml
+  # codium --install-extension jeanp413.open-remote-ssh
+  # codium --install-extension redhat.vscode-yaml
 
   # codium --install-extension hiteshchoudharycode.chai-theme
-  codium --install-extension aaron-bond.better-comments
-  codium --install-extension asciidoctor.asciidoctor-vscode
-  codium --install-extension bierner.markdown-mermaid
+  # codium --install-extension aaron-bond.better-comments
+  # codium --install-extension asciidoctor.asciidoctor-vscode
+  # codium --install-extension bierner.markdown-mermaid
 #   codium --install-extension ms-vscode-remote.remote-containers
-  codium --install-extension esbenp.prettier-vscode
-  codium --install-extension christian-kohler.path-intellisense
-  codium --install-extension dracula-theme.theme-dracula
+  # codium --install-extension esbenp.prettier-vscode
+  # codium --install-extension christian-kohler.path-intellisense
+  # codium --install-extension dracula-theme.theme-dracula
 #   codium --install-extension eamodio.gitlens
-  codium --install-extension mhutchie.git-graph
+  # codium --install-extension mhutchie.git-graph
 #   codium --install-extension ms-vscode-remote.remote-ssh
-  codium --install-extension oderwat.indent-rainbow
-  codium --install-extension PKief.material-icon-theme
-  codium --install-extension vscode-icons-team.vscode-icons
-  codium --install-extension esbenp.prettier-vscode
+  # codium --install-extension oderwat.indent-rainbow
+  # codium --install-extension PKief.material-icon-theme
+  # codium --install-extension vscode-icons-team.vscode-icons
+  # codium --install-extension esbenp.prettier-vscode
 
 #   code --install-extension aaron-bond.better-comments
 #   code --install-extension asciidoctor.asciidoctor-vscode
@@ -111,6 +111,11 @@ configure_vscode() {
 #   code --install-extension esbenp.prettier-vscode
 
 
+  # Install currently used VS Code extensions
+  code --install-extension github.copilot || true
+  code --install-extension github.copilot-chat || true
+
+
   cd ~/Library/Fonts && {
     rm -rf MesloLGS*.ttf
     wget "https://cloudgeniuscode.s3-us-west-2.amazonaws.com/MesloLGS NF Regular.ttf"
@@ -124,6 +129,32 @@ configure_vscode() {
   curl -O https://s3-us-west-2.amazonaws.com/cloudgeniuscode/settings.json
   cp -f settings.json "$HOME/Library/Application Support/VSCodium/User/"
   mv -f settings.json "$HOME/Library/Application Support/Code/User/"
+
+  # Ensure shell integration is enabled globally (improves command detection)
+  # Applies to both VS Code and VSCodium user settings, merging keys with jq
+  local CODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+  local VSCODIUM_USER_DIR="$HOME/Library/Application Support/VSCodium/User"
+  local SETTINGS_KEYS='.
+    | ."terminal.integrated.shellIntegration.enabled" = true
+    | ."terminal.integrated.shellIntegration.decorationsEnabled" = "both"
+    | ."terminal.integrated.defaultProfile.osx" = "zsh"
+    | ."workbench.editor.tabCloseButton" = "left"'
+
+  ensure_settings() {
+    local target_dir="$1"; local file="$target_dir/settings.json"
+    mkdir -p "$target_dir"
+    [ -f "$file" ] || echo '{}' > "$file"
+    local tmp
+    tmp=$(mktemp)
+    jq "$SETTINGS_KEYS" "$file" > "$tmp" && mv "$tmp" "$file"
+  }
+
+  if command -v jq >/dev/null 2>&1; then
+    ensure_settings "$CODE_USER_DIR" || true
+    ensure_settings "$VSCODIUM_USER_DIR" || true
+  else
+    echo "jq not found; skipping automatic VS Code settings merge."
+  fi
 
 # scripts/set-terminal-font
 }
@@ -235,6 +266,12 @@ configure_wezterm() {
 	ln -sf /Users/cloudgenius/.dotfiles/macos/.wezterm.lua ~/.wezterm.lua
 }
 
+configure_sleep_wake_computers() {
+	mkdir -p ~/.local/bin
+	ln -sf /Users/cloudgenius/btsync/site/atem-streamdeck-companion/sleep.sh  ~/.local/bin/soja
+	ln -sf /Users/cloudgenius/btsync/site/atem-streamdeck-companion/wakeup.sh  ~/.local/bin/utho
+}
+
 # setup_zsh_autoload_functions
 setup_zsh_autoload_functions() {
   echo "setting up zsh_autoload_functions..."
@@ -247,6 +284,7 @@ fix_grc_for_kubectl
 install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
+configure_sleep_wake_computers
 nvminstall
 # set_obsidian_cron
 install_sshconfig_example

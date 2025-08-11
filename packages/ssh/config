@@ -1,13 +1,20 @@
 # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
 
 # This needs to be at the beginning of this file.
-Host 192.168.1.*
+Host 192.168.1.* *.cg.home.arpa
   StrictHostKeyChecking off
   UserKnownHostsFile=/dev/null
 
-Host *.cg.home.arpa
-  StrictHostKeyChecking off
-  UserKnownHostsFile=/dev/null
+# Host *.cg.home.arpa
+#   StrictHostKeyChecking off
+#   UserKnownHostsFile=/dev/null
+
+# This matches any hostname without a dot.
+Host * !*.*
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+
+
 
 Host *
   UseKeychain yes
@@ -23,10 +30,17 @@ Host *
 Host ubuntu.cg.home.arpa
   User cloudgenius
 
+# rpi
+Host rpi.cg.home.arpa
+  User eeshan
+
+
 Host azure
   HostName 20.3.131.188
   User cloudgenius
 
+	Host asus.cg.home.arpa
+  User cloudgenius
 Host venus.cg.home.arpa
   User cloudgenius
 Host msi.cg.home.arpa
@@ -88,23 +102,24 @@ Host CloudGenius
 
 
 
-Host NAT
-  HostName 54.177.54.114
-  ForwardAgent yes
-  StrictHostKeyChecking ask
-  IdentityFile ~/.ssh/id_rsa
-  User ubuntu
 
-Host app0
-  HostName 10.128.1.140
-  ProxyCommand ssh -q -W %h:%p NAT
-  ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
-  User ubuntu
+Host nat
+	HostName 13.56.161.217
+	ForwardAgent yes
+	StrictHostKeyChecking ask
+	IdentityFile ~/.ssh/id_rsa
+	User ubuntu
 
-Host app1
-  HostName 10.128.1.145
-  ProxyCommand ssh -q -W %h:%p NAT
-  ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
-  User ubuntu
+Host app-0
+	HostName 10.128.1.136
+	ProxyCommand ssh -q -W %h:%p nat
+	ForwardAgent yes
+	IdentityFile ~/.ssh/id_rsa
+	User ubuntu
+
+Host app-1
+	HostName 10.128.1.122
+	ProxyCommand ssh -q -W %h:%p nat
+	ForwardAgent yes
+	IdentityFile ~/.ssh/id_rsa
+	User ubuntu

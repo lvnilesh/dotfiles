@@ -2,13 +2,13 @@
 
 # Taps
 # tap 'homebrew/cask-drivers' # deprecated
-tap 'thoughtbot/formulae'
-tap 'homebrew-ffmpeg/ffmpeg'
+# tap 'thoughtbot/formulae'
+# tap 'homebrew-ffmpeg/ffmpeg'
 # tap 'homebrew/cask-versions'
 tap 'lvnilesh/tap'
 tap 'mongodb/brew'
-tap 'fluxcd/tap'
-tap 'weaveworks/tap'
+# tap 'fluxcd/tap'
+# tap 'weaveworks/tap'
 tap 'oven-sh/bun'
 
 # Packages
@@ -44,7 +44,7 @@ brew 'tor'
 # brew options homebrew-ffmpeg/ffmpeg/ffmpeg
 # brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
 # https://github.com/aerobounce/homebrew-ffmpeg-fdk-aac ??
-brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac", "with-libcaca", "with-opencore-amr", "with-openjpeg", "with-openssl", "with-rtmpdump", "with-speex"]
+brew "ffmpeg", args: ["with-fdk-aac", "with-libcaca", "with-opencore-amr", "with-openjpeg", "with-openssl", "with-rtmpdump", "with-speex"]
 
 brew "tree"
 brew "watch"
@@ -62,7 +62,7 @@ brew 'reattach-to-user-namespace'
 brew 'tmux'
 brew 'hcloud'
 # brew 'mailhog'
-brew 'fluxcd/tap/flux'
+# brew 'fluxcd/tap/flux'
 brew 'tea'
 brew 'k3sup'
 brew 'faas-cli'
@@ -77,10 +77,11 @@ brew 'mutt'
 brew 'rbenv'
 brew 'tfenv'
 brew 'yt-dlp'
-brew 'weaveworks/tap/eksctl'
+# brew 'weaveworks/tap/eksctl'
 brew 'bun'
 brew 'mise'
 brew 'wireguard-tools'
+brew 'wakeonlan'
 
 # Casks
 # cask '1password'
@@ -153,7 +154,7 @@ mas "Notability", id: 360593530
 mas "Pixelmater Pro", id: 1289583905
 mas "Blue Wallet", id: 1376878040
 mas "Hush Nag Blocker", id: 1544743900
-mas "Microsoft Remote Desktop", id: 1295203466
+mas "Microsoft Windows App", id: 1295203466
 mas "The Unarchiver", id: 425424353
 # mas "Ultimate Pen", id: 405383991
 mas "Screen Brush", id: 1233965871

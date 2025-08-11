@@ -5,6 +5,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# VS Code/VSCodium shell integration (official sourcing)
+# Only run inside VS Code/VSCodium integrated terminals.
+case "${TERM_PROGRAM:-}" in
+  vscode|vscodium)
+    if [[ -n "${VSCODE_SHELL_INTEGRATION:-}" && -f "${VSCODE_SHELL_INTEGRATION}" ]]; then
+      source "${VSCODE_SHELL_INTEGRATION}"
+    else
+      for cli in code codium; do
+        if command -v "$cli" >/dev/null 2>&1; then
+          _vsc_shell_path="$($cli --locate-shell-integration-path zsh 2>/dev/null)"
+          [[ -f "$_vsc_shell_path" ]] && source "$_vsc_shell_path" && break
+        fi
+      done
+      unset _vsc_shell_path
+    fi
+    ;;
+esac
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -91,7 +109,7 @@ plugins=(
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters
 export ZSH_DISABLE_COMPFIX=true # https://github.com/ohmyzsh/ohmyzsh/issues/6835
-source $ZSH/oh-my-zsh.sh
+[[ -s "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
 # User configuration
 
@@ -218,7 +236,9 @@ function stoptor() {
 ## golang
 mkdir -p $HOME/go/{bin,src,pkg}
 export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
+if command -v brew >/dev/null 2>&1; then
+  export GOROOT="$(brew --prefix golang 2>/dev/null)/libexec"
+fi
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 
@@ -239,9 +259,9 @@ unset __conda_setup
 
 if [[ `uname -m` == 'arm64' ]]
 then
-  export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
+  [ -d "/opt/homebrew/opt/awscli@1/bin" ] && export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
 else
-  export PATH="/usr/local/opt/awscli@1/bin:$PATH"
+  [ -d "/usr/local/opt/awscli@1/bin" ] && export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 fi
 
 
@@ -322,7 +342,7 @@ export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 
 if [[ `uname -m` == 'arm64' ]]
 then
-  export PATH="opt/homebrew/sbin:$PATH"
+  export PATH="/opt/homebrew/sbin:$PATH"
   export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 else
   export PATH="/usr/local/sbin:$PATH"
@@ -377,16 +397,18 @@ eval "$(rbenv init - zsh)"
 fpath=( ~/.zsh_autoload_functions "${fpath[@]}" )
 autoload -Uz load_secrets
 
-if grep -q 'auth sufficient pam_tid.so' /etc/pam.d/sudo; then
-    echo "Touch ID is enabled for sudo"
-else
+enable_sudo_touchid() {
+  if grep -q 'auth sufficient pam_tid.so' /etc/pam.d/sudo; then
+    echo "Touch ID is already enabled for sudo"
+  else
     sudo grep -q -F 'auth sufficient pam_tid.so' /etc/pam.d/sudo || sudo sed -i '' '2i\
 auth sufficient pam_tid.so
     ' /etc/pam.d/sudo
     if grep -q 'auth sufficient pam_tid.so' /etc/pam.d/sudo; then
-        echo "'auth sufficient pam_tid.so' added to /etc/pam.d/sudo - This enables Touch ID for sudo"
+      echo "'auth sufficient pam_tid.so' added to /etc/pam.d/sudo - Touch ID enabled"
     fi
-fi
+  fi
+}
 
 
 
@@ -456,12 +478,14 @@ alias flush='sudo killall -HUP mDNSResponder && sudo killall mDNSResponderHelper
 eval "$(/usr/libexec/path_helper)"
 
 # enable mise
-eval "$(/usr/local/bin/mise activate zsh)"
+command -v mise >/dev/null 2>&1 && eval "$(/usr/local/bin/mise activate zsh)"
 
 # azure
 
 autoload bashcompinit && bashcompinit
-source $(brew --prefix)/etc/bash_completion.d/az
+if command -v brew >/dev/null 2>&1 && [ -f "$(brew --prefix)/etc/bash_completion.d/az" ]; then
+  source "$(brew --prefix)/etc/bash_completion.d/az"
+fi
 
 
 
