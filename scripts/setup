@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Repo root for accessing captured state files
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
 # Install brew dependencies.
 install_brew() {
   echo "Running brew..."
@@ -72,48 +75,14 @@ configure_vscode() {
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /usr/local/bin/code
   fi
 
-#   codium --install-extension dendron.dendron
-#   codium --install-extension dendron.dendron-markdown-shortcuts
-#   codium --install-extension dendron.dendron-paste-image
-  # codium --install-extension jeanp413.open-remote-ssh
-  # codium --install-extension redhat.vscode-yaml
-
-  # codium --install-extension hiteshchoudharycode.chai-theme
-  # codium --install-extension aaron-bond.better-comments
-  # codium --install-extension asciidoctor.asciidoctor-vscode
-  # codium --install-extension bierner.markdown-mermaid
-#   codium --install-extension ms-vscode-remote.remote-containers
-  # codium --install-extension esbenp.prettier-vscode
-  # codium --install-extension christian-kohler.path-intellisense
-  # codium --install-extension dracula-theme.theme-dracula
-#   codium --install-extension eamodio.gitlens
-  # codium --install-extension mhutchie.git-graph
-#   codium --install-extension ms-vscode-remote.remote-ssh
-  # codium --install-extension oderwat.indent-rainbow
-  # codium --install-extension PKief.material-icon-theme
-  # codium --install-extension vscode-icons-team.vscode-icons
-  # codium --install-extension esbenp.prettier-vscode
-
-#   code --install-extension aaron-bond.better-comments
-#   code --install-extension asciidoctor.asciidoctor-vscode
-#   code --install-extension bierner.markdown-mermaid
-#   code --install-extension ms-vscode-remote.remote-containers
-#   code --install-extension esbenp.prettier-vscode
-#   code --install-extension christian-kohler.path-intellisense
-
-#   code --install-extension dracula-theme.theme-dracula
-#   code --install-extension eamodio.gitlens
-#   code --install-extension mhutchie.git-graph
-#   code --install-extension ms-vscode-remote.remote-ssh
-#   code --install-extension oderwat.indent-rainbow
-#   code --install-extension PKief.material-icon-theme
-#   code --install-extension vscode-icons-team.vscode-icons
-#   code --install-extension esbenp.prettier-vscode
 
 
-  # Install currently used VS Code extensions
-  code --install-extension github.copilot || true
-  code --install-extension github.copilot-chat || true
+  # Install VS Code extensions from captured list if available
+  if command -v code >/dev/null 2>&1 && [ -f "$ROOT_DIR/vscode/extensions.txt" ]; then
+    while IFS= read -r ext; do
+      [[ -n "$ext" ]] && code --install-extension "$ext" || true
+    done < "$ROOT_DIR/vscode/extensions.txt"
+  fi
 
 
   cd ~/Library/Fonts && {
@@ -127,13 +96,11 @@ configure_vscode() {
 
   rm -rf settings.json
   curl -O https://s3-us-west-2.amazonaws.com/cloudgeniuscode/settings.json
-  cp -f settings.json "$HOME/Library/Application Support/VSCodium/User/"
   mv -f settings.json "$HOME/Library/Application Support/Code/User/"
 
   # Ensure shell integration is enabled globally (improves command detection)
-  # Applies to both VS Code and VSCodium user settings, merging keys with jq
+  # Applies to VS Code user settings, merging keys with jq
   local CODE_USER_DIR="$HOME/Library/Application Support/Code/User"
-  local VSCODIUM_USER_DIR="$HOME/Library/Application Support/VSCodium/User"
   local SETTINGS_KEYS='.
     | ."terminal.integrated.shellIntegration.enabled" = true
     | ."terminal.integrated.shellIntegration.decorationsEnabled" = "both"
@@ -151,12 +118,59 @@ configure_vscode() {
 
   if command -v jq >/dev/null 2>&1; then
     ensure_settings "$CODE_USER_DIR" || true
-    ensure_settings "$VSCODIUM_USER_DIR" || true
   else
     echo "jq not found; skipping automatic VS Code settings merge."
   fi
 
 # scripts/set-terminal-font
+}
+
+# Install Mac App Store apps from captured list (mas/installed.txt)
+apply_mas_apps() {
+  [ -f "$ROOT_DIR/mas/installed.txt" ] || { echo "No MAS list found; skipping"; return 0; }
+  command -v mas >/dev/null 2>&1 || { echo "mas not installed; skipping"; return 0; }
+  echo "Installing Mac App Store apps from captured list..."
+  awk 'NF{print $1}' "$ROOT_DIR/mas/installed.txt" | grep -E '^[0-9]+$' | while read -r appid; do
+    mas install "$appid" || true
+  done
+}
+
+# Import macOS defaults from captured plists (macos/defaults_dump/*.plist)
+apply_macos_defaults_dump() {
+  local dump_dir="$ROOT_DIR/macos/defaults_dump"
+  [ -d "$dump_dir" ] || { echo "No defaults dump found; skipping"; return 0; }
+  echo "Importing macOS defaults from captured plists..."
+  for plist in "$dump_dir"/*.plist; do
+    [ -f "$plist" ] || continue
+    domain="$(basename "$plist" .plist)"
+    # Lint first; skip if malformed
+    if plutil -lint "$plist" >/dev/null; then
+      defaults import "$domain" "$plist" || true
+    else
+      echo "Skipping malformed plist: $plist"
+    fi
+  done
+  # Restart relevant agents
+  killall Dock 2>/dev/null || true
+  killall Finder 2>/dev/null || true
+  killall SystemUIServer 2>/dev/null || true
+}
+
+# Apply Finder sidebar from captured file (macos/sidebar.txt) using mysides
+apply_finder_sidebar_dump() {
+  local side_file="$ROOT_DIR/macos/sidebar.txt"
+  command -v mysides >/dev/null 2>&1 || { echo "mysides not installed; skipping sidebar"; return 0; }
+  [ -f "$side_file" ] || { echo "No sidebar dump found; skipping"; return 0; }
+  echo "Applying Finder sidebar items..."
+  # Remove existing
+  mysides list | awk -F ' - ' '{print $1}' | while read -r name; do
+    [ -n "$name" ] && mysides remove "$name" || true
+  done
+  # Add captured
+  while IFS= read -r line; do
+    name="${line%% - *}"; url="${line#* - }"
+    [ -n "$name" ] && [ -n "$url" ] && mysides add "$name" "$url" || true
+  done < "$side_file"
 }
 
 # Install node lts using nvm
@@ -188,7 +202,7 @@ set_obsidian_cron() {
     then
         echo "setting crontab for obsidian"
         set -f
-        echo $(crontab -l ; echo '*/30 * * * * /Users/cloudgenius/.local/bin/obsidian_sync >/dev/null 2>&1') | crontab -
+  echo "$(crontab -l ; echo '*/30 * * * * /Users/cloudgenius/.local/bin/obsidian_sync >/dev/null 2>&1')" | crontab -
         set +f
     else
         echo "crontab is already set for obsidian"
@@ -294,3 +308,6 @@ configure_duti
 configure_kubie
 configure_wezterm
 setup_zsh_autoload_functions
+apply_mas_apps
+apply_macos_defaults_dump
+apply_finder_sidebar_dump

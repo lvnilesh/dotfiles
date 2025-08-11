@@ -1,176 +1,332 @@
-# Brewfile
-
-# Taps
-# tap 'homebrew/cask-drivers' # deprecated
-# tap 'thoughtbot/formulae'
-# tap 'homebrew-ffmpeg/ffmpeg'
-# tap 'homebrew/cask-versions'
-tap 'lvnilesh/tap'
-tap 'mongodb/brew'
-# tap 'fluxcd/tap'
-# tap 'weaveworks/tap'
-tap 'oven-sh/bun'
-
-# Packages
-brew 'git'
-brew 'diff-so-fancy'
-brew 'asciidoctor'
-brew 'iperf3'
-brew 'jq'
-brew 'yq'
-brew 'k9s'
-brew 'tldr'
-# brew 'yubico-piv-tool'
-brew 'mas'
-brew 'rcm'
-brew 'nvm'
-brew 'grc'
-brew 'duti'
-brew 'webp'
-# brew 'kubectx'
-brew 'nvm'
-brew 'autojump'
-brew 'lvnilesh/tap/kubecolor'
-# brew 'zsh-syntax-highlighting'
-# brew 'zsh-autosuggestions'
-brew 'curl'
-brew 'python'
-brew 'pyenv-virtualenv'
-brew 'wget'
-brew 'htop'
-brew 'podman'
-brew 'tor'
+tap "deskflow/tap"
+tap "dotenvx/brew"
+tap "jeffreywildman/virt-manager"
+tap "lvnilesh/tap"
+tap "mongodb/brew"
+tap "nikitabobko/tap"
+tap "oven-sh/bun"
+tap "sdkman/tap"
+tap "supabase/tap"
+tap "teamookla/speedtest"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
+# ARP scanning and fingerprinting tool
+brew "arp-scan"
+# Utility to check whether MAC addresses are already taken on a LAN
+brew "arping"
+# Text processor and publishing toolchain for AsciiDoc
+brew "asciidoctor"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Shell extension to jump to frequently used directories
+brew "autojump"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
+# Official Amazon AWS command-line interface
+brew "awscli@1"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
+# Secure and free password manager for all of your devices
+brew "bitwarden-cli"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Cross-platform make
+brew "cmake"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Good-lookin' diffs with diff-highlight and more
+brew "diff-so-fancy"
+# Select default apps for documents and URL schemes on macOS
+brew "duti"
+# CLI for templating and/or deploying FaaS functions
+brew "faas-cli"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Play, record, convert, and stream audio and video
-# brew options homebrew-ffmpeg/ffmpeg/ffmpeg
-# brew "homebrew-ffmpeg/ffmpeg/ffmpeg", args: ["with-fdk-aac"]
-# https://github.com/aerobounce/homebrew-ffmpeg-fdk-aac ??
-brew "ffmpeg", args: ["with-fdk-aac", "with-libcaca", "with-opencore-amr", "with-openjpeg", "with-openssl", "with-rtmpdump", "with-speex"]
-
-brew "tree"
-brew "watch"
+brew "ffmpeg"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Distributed revision control system
+brew "git"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
-brew 'grep'
-brew 'coreutils'
-brew 'golang'
-brew 'kind'
-brew 'kubeseal'
-brew 'helm'
-brew 'awscli@1'
-brew 'mongodb-community@5.0'
-brew 'tmuxinator'
-brew 'reattach-to-user-namespace'
-brew 'tmux'
-brew 'hcloud'
-# brew 'mailhog'
-# brew 'fluxcd/tap/flux'
-brew 'tea'
-brew 'k3sup'
-brew 'faas-cli'
-brew 'kustomize'
-brew 'kubie'
-brew 'arp-scan'
-brew 'arping'
-brew 'bitwarden-cli'
-brew 'pwgen'
-brew 'yarn'
-brew 'mutt'
-brew 'rbenv'
-brew 'tfenv'
-brew 'yt-dlp'
-# brew 'weaveworks/tap/eksctl'
-brew 'bun'
-brew 'mise'
-brew 'wireguard-tools'
-brew 'wakeonlan'
-
-# Casks
-# cask '1password'
-# cask 'alacritty'
-cask 'wezterm'
-cask 'resilio-sync'
-cask 'joplin'
-cask 'hammerspoon'
-cask 'karabiner-elements'
-# cask 'alfred'
-# cask 'lens'
-cask 'mos'
-cask 'sonos'
-# cask 'arq'
-cask 'textmate'
-cask 'xquartz'
-cask 'slack'
-cask 'visual-studio-code'
-cask 'viscosity'
-cask 'sensiblesidebuttons'
-cask 'firefox'
-cask 'google-chrome'
-cask 'dropbox'
-cask 'zoom'
-cask 'keycastr'
-cask 'electrum'
-cask 'google-cloud-sdk'
-cask 'whatsapp'
-cask 'docker'
-# cask 'robo-3t'
-cask 'studio-3t'
-cask 'sourcetree'
-cask 'vlc'
-cask 'balenaetcher'
-cask 'audacity'
-# cask 'virtualbox'
-# cask 'vagrant'
-cask 'licecap'
-cask 'sequel-ace'
-cask 'drawio'
-cask 'calibre'
-# cask 'vagrant-manager'
-cask 'microsoft-edge'
-# cask 'microsoft-office'
-# cask 'microsoft-teams'
-# cask 'vmware-fusion'
-# cask 'brave-browser'
-# cask 'microsoft-edge'
-# cask 'coconutbattery'
-# cask 'atemosc'
-# cask 'meld'
-cask 'obsidian'
-cask 'raycast'
-# cask 'mactex'
-cask 'basictex'
-cask 'skim'
-# cask 'google-chrome-canary'
-# cask 'keybase'
-cask 'nheko'
-cask 'sparrow'
-cask 'tailscale'
-# cask 'openaudible'
-cask 'stats'
-cask 'vscodium'
-cask 'arc'
-
-# Mac App Store
-mas "Cloud Mounter", id: 1130254674
-mas "Notability", id: 360593530
-mas "Pixelmater Pro", id: 1289583905
-mas "Blue Wallet", id: 1376878040
-mas "Hush Nag Blocker", id: 1544743900
-mas "Microsoft Windows App", id: 1295203466
-mas "The Unarchiver", id: 425424353
-# mas "Ultimate Pen", id: 405383991
-mas "Screen Brush", id: 1233965871
-mas "Davinci Resolve", id: 571213070
-mas "Adguard for Safari", id: 1440147259
-mas "Final Cut Pro", id: 424389933
+# Colorize logfiles and command output
+brew "grc"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Development framework for multimedia applications
+brew "gstreamer"
+# Command-line interface for Hetzner Cloud
+brew "hcloud"
+# Kubernetes package manager
+brew "helm"
+# Improved top (interactive process viewer)
+brew "htop"
+# Update of iperf: measures TCP, UDP, and SCTP bandwidth
+brew "iperf3"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Utility to create k3s clusters on any local or remote VM
+brew "k3sup"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
+# Run local Kubernetes cluster in Docker
+brew "kind"
+# Kubernetes controller and tool for one-way encrypted Secrets
+brew "kubeseal"
+# Much more powerful alternative to kubectx and kubens
+brew "kubie"
+# Template-free customization of Kubernetes YAML manifests
+brew "kustomize"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Mac App Store command-line interface
+brew "mas"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Mongrel of mail user agents (part elm, pine, mush, mh, etc.)
+brew "mutt"
+# Open source relational database management system
+brew "mysql-client"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Port scanning utility for large networks
+brew "nmap"
+# Network UPS Tools: Support for various power devices
+brew "nut"
+# Manage multiple Node.js versions
+brew "nvm"
+# Drop-in replacement for Terraform. Infrastructure as Code Tool
+brew "opentofu"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Tool for managing OCI containers and pods
+brew "podman"
+# Python package management tool
+brew "poetry"
+# Password generator
+brew "pwgen"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# File browser
+brew "ranger"
+# Ruby version manager
+brew "rbenv"
+# RC file (dotfile) management
+brew "rcm"
+# Reattach process (e.g., tmux) to background
+brew "reattach-to-user-namespace"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Non-interactive SSH password auth
+brew "sshpass"
+# Command-line tool to interact with Gitea servers
+brew "tea"
+# User interface to the TELNET protocol
+brew "telnet"
+# Terraform version manager inspired by rbenv
+brew "tfenv"
+# Simplified and community-driven man pages
+brew "tldr"
+# Terminal multiplexer
+brew "tmux"
+# Manage complex tmux sessions easily
+brew "tmuxinator"
+# Anonymizing overlay network for TCP
+brew "tor"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Sends magic packets to wake up network-devices
+brew "wakeonlan"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Internet file retriever
+brew "wget"
+# Tools for the WireGuard secure network tunnel
+brew "wireguard-tools"
+# JavaScript package manager
+brew "yarn"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
+# Pluggable terminal workspace, with terminal multiplexer as the base feature
+brew "zellij"
+# Secure dotenv–from the creator of `dotenv`
+brew "dotenvx/brew/dotenvx"
+# App for virtualized guest interaction
+brew "jeffreywildman/virt-manager/virt-viewer"
+# Colorize your kubectl output
+brew "lvnilesh/tap/kubecolor"
+# High-performance, schema-free, document-oriented database
+brew "mongodb/brew/mongodb-community@5.0"
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun"
+# SDKMAN! the Software Development Kit Manager
+brew "sdkman/tap/sdkman-cli"
+# Supabase CLI
+brew "supabase/tap/supabase"
+# Ookla Speedtest
+brew "teamookla/speedtest/speedtest"
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "aerospace"
+# GPU-accelerated terminal emulator
+cask "alacritty"
+# Chromium based browser
+cask "arc"
+# Multi-track audio editor and recorder
+cask "audacity"
+# Tool to flash OS images to SD cards & USB drives
+cask "balenaetcher"
+# Compact TeX distribution as alternative to the full TeX Live / MacTeX
+cask "basictex"
+# E-books management software
+cask "calibre"
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# Browser for SQLite databases
+cask "db-browser-for-sqlite"
+# Mouse and keyboard sharing utility
+cask "deskflow"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Online diagram software
+cask "drawio"
+# Client for the Dropbox cloud storage service
+cask "dropbox"
+# Bitcoin thin client
+cask "electrum"
+# Web browser
+cask "firefox"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
+# Web browser
+cask "google-chrome"
+# Desktop automation application
+cask "hammerspoon"
+# Offline AI chat tool
+cask "jan"
+# Note taking and to-do application with synchronisation capabilities
+cask "joplin"
+# Keyboard customiser
+cask "karabiner-elements"
+# Open-source keystroke visualiser
+cask "keycastr"
+# GPU-based terminal emulator
+cask "kitty"
+# Kubernetes IDE
+cask "lens"
+# Animated screen capture application
+cask "licecap"
+# Open-source cross-platform alternative to AirDrop
+cask "localsend"
+# Multi-platform web browser
+cask "microsoft-edge"
+# Minimal installer for conda specific to conda-forge
+cask "miniforge"
+# Interactive tool for analyzing MongoDB data
+cask "mongodb-compass"
+# Smooths scrolling and set mouse scroll directions independently
+cask "mos"
+# Desktop client for the Matrix protocol
+cask "nheko"
+# Open-source software for live streaming and screen recording
+cask "obs"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Collaboration platform for API development
+cask "postman"
+# Control your tools with a few keystrokes
+cask "raycast"
+# Connect to virtual machines using SPICE
+cask "remoteviewer"
+# File sync and share software
+cask "resilio-sync"
+# Open source virtual/remote desktop application
+cask "rustdesk"
+# Utilise mouse side navigation buttons
+cask "sensiblesidebuttons"
+# MySQL/MariaDB database management
+cask "sequel-ace"
+# PDF reader and note-taking application
+cask "skim"
+# Team communication and collaboration software
+cask "slack"
+# Control your Sonos system
+cask "sonos"
+# Graphical client for Git version control
+cask "sourcetree"
+# Bitcoin wallet application
+cask "sparrow"
+# System monitor for the menu bar
+cask "stats"
+# IDE, client, and GUI for MongoDB
+cask "studio-3t"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
+# General-purpose text editor
+cask "textmate"
+# Open-source BitTorrent client
+cask "transmission"
+# OpenVPN client with AppleScript support
+cask "viscosity"
+# Open-source code editor
+cask "visual-studio-code"
+# Multimedia player
+cask "vlc"
+# Rust-based terminal
+cask "warp"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm"
+# Native desktop client for WhatsApp
+cask "whatsapp"
+# Open-source version of the X.Org X Window System
+cask "xquartz"
+# Multiplayer code editor
+cask "zed"
+# Video communication and virtual meeting platform
+cask "zoom"
+mas "AdGuard for Safari", id: 1440147259
+mas "BetterSnapTool", id: 417375580
 mas "Bitwarden", id: 1352778147
-mas "ups-power-monitor", id: 1500180529
-mas "fully-noded-desktop", id: 1530816100
-mas "menu-bar-controller-for-sonos", id: 1357379892
-mas "vimeo-video-management", id: 1356686763
-# mas "beyond PDF", id: 6505050906
-
-mas "gordian-seed-tool", id: 1545088229
-# mas "mousepose", id: 405904955
-mas "inshort", id: 856124300
-mas "bettersnaptool", id: 417375580
-mas "languagetool-grammar-checker", id: 1534275760
-mas "wireguard", id: 1451685025
+mas "BlueWallet", id: 1376878040
+mas "CapCut", id: 1500855883
+mas "CloudMounter", id: 1130254674
+mas "DaVinci Resolve", id: 571213070
+mas "Daylight Desktop", id: 6503941498
+mas "Enchanted", id: 6474268307
+mas "Ensemble", id: 0
+mas "Fantastical", id: 975937182
+mas "Final Cut Pro", id: 424389933
+mas "FullyNoded", id: 1530816100
+mas "Hush", id: 1544743900
+mas "iMovie", id: 408981434
+mas "inShort", id: 856124300
+mas "LanguageTool", id: 1534275760
+mas "LG Screen Manager", id: 1142051783
+mas "Logic Pro", id: 634148309
+mas "Menu Bar Controller for Sonos", id: 1357379892
+mas "Notability", id: 360593530
+mas "Pages", id: 409201541
+mas "Pixelmator Pro", id: 1289583905
+mas "Raycast Companion", id: 6738274497
+mas "ScreenBrush", id: 1233965871
+mas "SeedTool", id: 1545088229
+mas "TestFlight", id: 899247664
+mas "The Unarchiver", id: 425424353
+mas "UPS Power Monitor", id: 1500180529
+mas "Vimeo", id: 1356686763
+mas "Windows App", id: 1295203466
+mas "WireGuard", id: 1451685025
+vscode "github.copilot"
+vscode "github.copilot-chat"

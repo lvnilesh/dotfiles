@@ -1,0 +1,153 @@
+#!/bin/bash
+set -euo pipefail
+
+# Capture current machine state for portability to another Mac.
+# Outputs files into the repo so setup can reapply them.
+
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR"
+
+# Optional: auto-add and commit captured state to git when --git (or -g) is passed,
+# or when CAPTURE_GIT_COMMIT=1 is set in the environment.
+DO_GIT_COMMIT=0
+SHOW_PLAN=0
+if [[ "${CAPTURE_GIT_COMMIT:-0}" == "1" ]]; then
+  DO_GIT_COMMIT=1
+fi
+case "${1:-}" in
+  --git|-g)
+    DO_GIT_COMMIT=1
+    ;;
+  --plan|-p)
+    SHOW_PLAN=1
+    ;;
+esac
+
+if [[ $SHOW_PLAN -eq 1 ]]; then
+  cat <<'PLAN'
+This will capture and write the following into ~/.dotfiles:
+
+1) Homebrew bundle
+   - brew/Brewfile (with descriptions)
+
+2) VS Code extensions (if CLI available)
+  - vscode/extensions.txt
+
+3) Mac App Store apps (if mas is installed)
+   - mas/installed.txt
+
+4) macOS defaults (curated domains) exported as plists
+   - macos/defaults_dump/NSGlobalDomain.plist
+   - macos/defaults_dump/com.apple.finder.plist
+   - macos/defaults_dump/com.apple.dock.plist
+   - macos/defaults_dump/com.apple.menuextra.clock.plist
+   - macos/defaults_dump/com.apple.universalaccess.plist
+   - macos/defaults_dump/com.apple.Safari.plist
+   - macos/defaults_dump/com.apple.spaces.plist
+   - macos/defaults_dump/com.apple.symbolichotkeys.plist
+   - macos/defaults_dump/com.apple.controlcenter.plist
+   - macos/defaults_dump/com.apple.AppleMultitouchTrackpad.plist
+   - macos/defaults_dump/com.apple.AppleMultitouchMouse.plist
+
+5) Optional captures if tools are installed
+   - Dock layout (dockutil): macos/dock.txt
+   - Finder sidebar (mysides): macos/sidebar.txt
+   - Login items (AppleScript): macos/login_items.txt
+
+Git behavior:
+  - With --git/-g or CAPTURE_GIT_COMMIT=1, will git add and commit updated files.
+
+No changes were made. Run without --plan to capture.
+PLAN
+  exit 0
+fi
+
+echo "Capturing Homebrew bundle..."
+if command -v brew >/dev/null 2>&1; then
+  brew bundle dump --file=brew/Brewfile --force --describe
+else
+  echo "brew not found; skipping Brewfile dump"
+fi
+
+echo "Capturing VS Code extensions..."
+mkdir -p vscode mas macos/defaults_dump macos
+# Ensure empty directories are tracked if needed
+touch macos/defaults_dump/.gitkeep || true
+if command -v code >/dev/null 2>&1; then
+  code --list-extensions | sort -u > vscode/extensions.txt || true
+fi
+
+echo "Capturing Mac App Store apps..."
+if command -v mas >/dev/null 2>&1; then
+  mas list > mas/installed.txt || true
+else
+  echo "mas not found; skipping MAS capture"
+fi
+
+echo "Capturing macOS defaults (curated domains)..."
+# Ensure we start from a clean slate for dumps
+find macos/defaults_dump -type f -name '*.plist' -delete 2>/dev/null || true
+domains=(
+  NSGlobalDomain
+  com.apple.finder
+  com.apple.dock
+  com.apple.menuextra.clock
+  com.apple.universalaccess
+  com.apple.Safari
+  com.apple.spaces
+  com.apple.symbolichotkeys
+  com.apple.controlcenter
+  com.apple.AppleMultitouchTrackpad
+  com.apple.AppleMultitouchMouse
+)
+for d in "${domains[@]}"; do
+  out="macos/defaults_dump/${d}.plist"
+  defaults export "$d" "$out" 2>/dev/null || true
+done
+
+echo "Converting exported plists to XML (human readable)..."
+for f in macos/defaults_dump/*.plist; do
+  [ -f "$f" ] || continue
+  # Convert in place to XML1 for readable diffs
+  plutil -convert xml1 "$f" 2>/dev/null || true
+done
+
+echo "Linting exported plists..."
+lint_failed=0
+for f in macos/defaults_dump/*.plist; do
+  [ -f "$f" ] || continue
+  if ! plutil -lint "$f" >/dev/null; then
+    echo "Lint failed: $f"
+    lint_failed=1
+  fi
+done
+if [ $lint_failed -ne 0 ]; then
+  echo "One or more plists failed lint. Please review above errors."
+  exit 1
+fi
+
+echo "Capturing Dock layout..."
+if command -v dockutil >/dev/null 2>&1; then
+  dockutil --list > macos/dock.txt || true
+fi
+
+echo "Capturing Finder sidebar (mysides)..."
+if command -v mysides >/dev/null 2>&1; then
+  mysides list > macos/sidebar.txt || true
+fi
+
+echo "Capturing login items..."
+osascript -e 'tell application "System Events" to get the name of every login item' \
+  | sed 's/, /\n/g' > macos/login_items.txt || true
+
+echo "Capture complete. Review and commit changes."
+
+if [[ $DO_GIT_COMMIT -eq 1 ]]; then
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Adding and committing captured state to git..."
+  git add brew/Brewfile vscode mas macos || true
+    git commit -m "capture: update Brewfile, VS Code extensions, MAS apps, macOS defaults ($(date -u +%Y-%m-%dT%H:%M:%SZ))" || echo "Nothing to commit."
+  else
+    echo "Not a git repository; skipping commit."
+  fi
+fi

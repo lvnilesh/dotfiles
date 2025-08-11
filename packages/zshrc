@@ -5,14 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# VS Code/VSCodium shell integration (official sourcing)
-# Only run inside VS Code/VSCodium integrated terminals.
+# VS Code shell integration (official sourcing)
+# Only run inside VS Code integrated terminals.
 case "${TERM_PROGRAM:-}" in
-  vscode|vscodium)
+  vscode)
     if [[ -n "${VSCODE_SHELL_INTEGRATION:-}" && -f "${VSCODE_SHELL_INTEGRATION}" ]]; then
       source "${VSCODE_SHELL_INTEGRATION}"
     else
-      for cli in code codium; do
+      for cli in code; do
         if command -v "$cli" >/dev/null 2>&1; then
           _vsc_shell_path="$($cli --locate-shell-integration-path zsh 2>/dev/null)"
           [[ -f "$_vsc_shell_path" ]] && source "$_vsc_shell_path" && break
@@ -319,8 +319,7 @@ alias dkill="osascript -e 'quit app \"Docker\"'"
 alias ckill="osascript -e 'quit app \"Visual Studio Code\"'"
 
 export GITHUB_USERNAME="lvnilesh"
-export KUBE_EDITOR="codium -w"
-# alias code=codium
+export KUBE_EDITOR="code -w"
 export EDITOR=vi
 # export EDITOR="/usr/local/bin/mate -w"
 

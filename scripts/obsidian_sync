@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 OBSIDIAN_CONTENT_PATH="/Users/cloudgenius/Library/Mobile Documents/iCloud~md~obsidian/Documents"
-cd "$OBSIDIAN_CONTENT_PATH"
+cd "$OBSIDIAN_CONTENT_PATH" || exit 1
 git pull -q
 CHANGES_EXIST="$(git status --porcelain | wc -l)"
 if [ "$CHANGES_EXIST" -eq 0 ]; then
