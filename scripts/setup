@@ -23,7 +23,7 @@ fix_grc_for_kubectl() {
   else
     grc_file="/usr/local/etc/grc.zsh"
   fi
-  
+
   if [[ -f "$grc_file" ]]; then
     sed -i '' '/kubectl/d' "$grc_file"
   fi
@@ -76,6 +76,13 @@ symlink_dotfiles() {
 # Configure VS code fonts and extensions.
 configure_vscode() {
   echo "Applying Cloud Genius VS Code style..."
+
+  # Fix code signature validation error (-67062) on macOS
+  if [ -d "/Applications/Visual Studio Code.app" ]; then
+    echo "Re-signing VS Code to fix code signature validation..."
+    codesign --force --deep --sign - "/Applications/Visual Studio Code.app"
+  fi
+
   if [[ `uname -m` == 'arm64' ]]
   then
     ln -sf "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" /opt/homebrew/bin/code
@@ -194,24 +201,25 @@ apply_finder_sidebar_dump() {
 # Install and configure mise (replaces nvm, pyenv, rbenv, sdkman)
 setup_mise() {
   echo "Setting up mise for version management..."
-  
+
   if ! command -v mise >/dev/null 2>&1; then
     echo "mise not found - install via 'brew install mise'"
     return 1
   fi
-  
+
   # Install default tool versions
   mise use --global node@lts
   mise use --global python@3.12
   mise use --global ruby@3.3
-  
+
   echo "mise configured with node@lts, python@3.12, ruby@3.3"
 }
 
 # Symlink zsh modules directory for modular zshrc
 symlink_zsh_modules() {
   echo "Symlinking zsh modules..."
-  ln -sf "$ROOT_DIR/packages/zsh" "$HOME/.zsh"
+  # Use -n to prevent creating symlink inside existing symlink target
+  ln -sfn "$ROOT_DIR/packages/zsh" "$HOME/.zsh"
 }
 
 
@@ -266,7 +274,7 @@ configure_macos() {
 # Configure duti default file handlers.
 configure_duti() {
   echo "Applying duti defaults..."
-  
+
   if ! command -v duti &>/dev/null; then
     echo "duti not installed; skipping"
     return
@@ -290,7 +298,7 @@ configure_duti() {
 # Configure kubie defaults.
 configure_kubie() {
   echo "Applying kubie defaults..."
-  
+
   # Only run gcloud if installed
   if command -v gcloud &>/dev/null; then
     gcloud components install kubectl -q
