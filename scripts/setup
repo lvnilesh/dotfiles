@@ -266,6 +266,11 @@ configure_macos() {
 # Configure duti default file handlers.
 configure_duti() {
   echo "Applying duti defaults..."
+  
+  if ! command -v duti &>/dev/null; then
+    echo "duti not installed; skipping"
+    return
+  fi
 
   # VS Code
   local vsCodeExtensions=(json md py sh yaml yml)
@@ -285,23 +290,28 @@ configure_duti() {
 # Configure kubie defaults.
 configure_kubie() {
   echo "Applying kubie defaults..."
-  gcloud components install kubectl -q
+  
+  # Only run gcloud if installed
+  if command -v gcloud &>/dev/null; then
+    gcloud components install kubectl -q
+  fi
 
-  if [[ `uname -m` == 'arm64' ]]
-  then
-	sudo rm -rf /usr/local/bin
-	sudo ln -s /opt/homebrew/bin /usr/local/bin
-	if [ ! -f '/opt/homebrew/bin/kubectl' ]; then
-		ln /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl /opt/homebrew/bin
-	fi
+  if [[ $(uname -m) == 'arm64' ]]; then
+    sudo rm -rf /usr/local/bin
+    sudo ln -s /opt/homebrew/bin /usr/local/bin
+    local kubectl_src="/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl"
+    if [[ -f "$kubectl_src" ]] && [[ ! -f '/opt/homebrew/bin/kubectl' ]]; then
+      ln "$kubectl_src" /opt/homebrew/bin
+    fi
   else
-  	if [ ! -f '/usr/local/bin/kubectl' ]; then
-		ln /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl /usr/local/bin/kubectl
-	fi
+    local kubectl_src="/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl"
+    if [[ -f "$kubectl_src" ]] && [[ ! -f '/usr/local/bin/kubectl' ]]; then
+      ln "$kubectl_src" /usr/local/bin/kubectl
+    fi
   fi
 
   mkdir -p ~/.kube
-  cp macos/kubie.yaml ~/.kube/kubie.yaml
+  [[ -f macos/kubie.yaml ]] && cp macos/kubie.yaml ~/.kube/kubie.yaml
 }
 
 configure_wezterm() {
