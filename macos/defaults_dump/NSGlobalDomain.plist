@@ -258,7 +258,7 @@
 	<key>com.apple.springing.enabled</key>
 	<true/>
 	<key>com.apple.swipescrolldirection</key>
-	<false/>
+	<true/>
 	<key>com.apple.trackpad.forceClick</key>
 	<true/>
 	<key>shouldShowRSVPDataDetectors</key>
