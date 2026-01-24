@@ -17,12 +17,15 @@ install_brew() {
 # Fix grc for kubectl colorizing
 fix_grc_for_kubectl() {
   # remove kubectl reference from grc
-
-  if [[ `uname -m` == 'arm64' ]]
-  then
-    sed -i '' '/kubectl/d' /opt/homebrew/etc/grc.zsh
+  local grc_file
+  if [[ $(uname -m) == 'arm64' ]]; then
+    grc_file="/opt/homebrew/etc/grc.zsh"
   else
-    sed -i '' '/kubectl/d' /usr/local/etc/grc.zsh
+    grc_file="/usr/local/etc/grc.zsh"
+  fi
+  
+  if [[ -f "$grc_file" ]]; then
+    sed -i '' '/kubectl/d' "$grc_file"
   fi
 }
 
