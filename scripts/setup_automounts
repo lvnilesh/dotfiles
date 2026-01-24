@@ -1,0 +1,36 @@
+#!/bin/bash
+# Setup automount configuration files from dotfiles to /etc
+# Requires sudo privileges
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+echo "Setting up automount files..."
+
+for file in auto_master auto_nfs auto_smb; do
+  src="$ROOT_DIR/macos/$file"
+  dest="/etc/$file"
+  
+  if [[ -f "$src" ]]; then
+    if [[ -f "$dest" ]]; then
+      if ! diff -q "$src" "$dest" >/dev/null 2>&1; then
+        echo "Updating $dest (backing up to ${dest}.bak)"
+        sudo cp "$dest" "${dest}.bak"
+        sudo cp "$src" "$dest"
+      else
+        echo "$dest is already up to date"
+      fi
+    else
+      echo "Creating $dest"
+      sudo cp "$src" "$dest"
+    fi
+  else
+    echo "Warning: $src not found, skipping"
+  fi
+done
+
+echo "Restarting automount service..."
+sudo automount -vc
+
+echo "Done."
