@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Remove macOS quarantine attribute from Mos.app
+# This allows the app to run without Gatekeeper blocking it
+
+if [ -d "/Applications/Mos.app" ]; then
+  xattr -dr com.apple.quarantine /Applications/Mos.app
+  echo "Quarantine attribute removed from Mos.app"
+else
+  echo "Mos.app not found in /Applications"
+  exit 1
+fi
