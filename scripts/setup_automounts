@@ -1,10 +1,27 @@
 #!/bin/bash
 # Setup automount configuration files from dotfiles to /etc
 # Requires sudo privileges
+# Prompts for SMB password to replace PASSWORD placeholder
 
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+# Check if auto_smb contains PASSWORD placeholder
+SMB_SRC="$ROOT_DIR/macos/auto_smb"
+SMB_PASSWORD=""
+
+if [[ -f "$SMB_SRC" ]] && grep -q "PASSWORD" "$SMB_SRC"; then
+  echo "SMB password required for automount configuration."
+  echo -n "Enter SMB password: "
+  read -rs SMB_PASSWORD
+  echo
+  
+  if [[ -z "$SMB_PASSWORD" ]]; then
+    echo "Error: Password cannot be empty"
+    exit 1
+  fi
+fi
 
 echo "Setting up automount files..."
 
@@ -13,17 +30,44 @@ for file in auto_master auto_nfs auto_smb; do
   dest="/etc/$file"
   
   if [[ -f "$src" ]]; then
-    if [[ -f "$dest" ]]; then
-      if ! diff -q "$src" "$dest" >/dev/null 2>&1; then
-        echo "Updating $dest (backing up to ${dest}.bak)"
-        sudo cp "$dest" "${dest}.bak"
-        sudo cp "$src" "$dest"
+    # For auto_smb, replace PASSWORD placeholder
+    if [[ "$file" == "auto_smb" && -n "$SMB_PASSWORD" ]]; then
+      echo "Processing $dest (replacing PASSWORD placeholder)"
+      
+      # Create temp file with password substitution
+      tmp=$(mktemp)
+      sed "s/PASSWORD/$SMB_PASSWORD/g" "$src" > "$tmp"
+      
+      if [[ -f "$dest" ]]; then
+        if ! diff -q "$tmp" "$dest" >/dev/null 2>&1; then
+          echo "Updating $dest (backing up to ${dest}.bak)"
+          sudo cp "$dest" "${dest}.bak"
+          sudo cp "$tmp" "$dest"
+        else
+          echo "$dest is already up to date"
+        fi
       else
-        echo "$dest is already up to date"
+        echo "Creating $dest"
+        sudo cp "$tmp" "$dest"
       fi
+      
+      # Secure permissions and cleanup
+      sudo chmod 600 "$dest"
+      rm -f "$tmp"
     else
-      echo "Creating $dest"
-      sudo cp "$src" "$dest"
+      # Regular copy for other files
+      if [[ -f "$dest" ]]; then
+        if ! diff -q "$src" "$dest" >/dev/null 2>&1; then
+          echo "Updating $dest (backing up to ${dest}.bak)"
+          sudo cp "$dest" "${dest}.bak"
+          sudo cp "$src" "$dest"
+        else
+          echo "$dest is already up to date"
+        fi
+      else
+        echo "Creating $dest"
+        sudo cp "$src" "$dest"
+      fi
     fi
   else
     echo "Warning: $src not found, skipping"
