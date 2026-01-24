@@ -191,7 +191,7 @@ cask "cursor"
 # Browser for SQLite databases
 cask "db-browser-for-sqlite"
 # Mouse and keyboard sharing utility
-cask "deskflow"
+cask "deskflow/tap/deskflow"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
 # Online diagram software
