@@ -173,7 +173,7 @@ brew "supabase/tap/supabase"
 # Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
 # AeroSpace is an i3-like tiling window manager for macOS
-cask "aerospace"
+cask "nikitabobko/tap/aerospace"
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Chromium based browser
