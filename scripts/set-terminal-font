@@ -1,33 +1,28 @@
 #!/bin/bash
 
-osascript <<EOF
+# Set terminal font to MesloLGS NF for Powerlevel10k
+# Works on macOS Ventura (13+) and later
 
-# Enable MesfontloLGS in terminal
-
+# Set Terminal.app font for all profiles
+osascript <<'EOF'
 tell application "Terminal"
     set ProfilesNames to name of every settings set
     repeat with ProfileName in ProfilesNames
         set font name of settings set ProfileName to "MesloLGS NF"
-        set font size of settings set ProfileName to 11
+        set font size of settings set ProfileName to 13
     end repeat
 end tell
-
-
-# Enable Trackpad Tap-to-Click
-
-tell application "System Preferences"
-	activate
-end tell
-tell application "System Events"
-	tell process "System Preferences"
-		delay 1
-		click the menu item "Trackpad" of the menu "View" of menu bar 1
-		delay 1
-		click the radio button "Point & Click" of the first tab group of window "Trackpad"
-		tell checkbox 3 of tab group 1 of window "Trackpad" to if value is 0 then click -- checkbox was not checked.
-	end tell
-end tell
-tell application "System Preferences"
-	quit
-end tell
 EOF
+
+echo "Terminal.app font set to MesloLGS NF (size 13)"
+
+# Enable Trackpad Tap-to-Click via defaults (works on all macOS versions)
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+echo "Trackpad tap-to-click enabled"
+
+# Note: You may need to log out and back in for trackpad changes to take effect
+echo "Done! You may need to restart Terminal.app for font changes to appear."

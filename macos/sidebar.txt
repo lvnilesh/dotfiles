@@ -1,0 +1,8 @@
+Applications -> file:///Applications/
+Downloads -> file:///Users/cloudgenius/Downloads/
+Fidelity -> file:///Users/cloudgenius/Desktop/Fidelity/
+btsync -> file:///Users/cloudgenius/btsync/
+SSD -> file:///Volumes/SSD
+Desktop -> file:///Users/cloudgenius/Desktop/
+Documents -> file:///Users/cloudgenius/Documents/
+Dropbox -> file:///Users/cloudgenius/Library/CloudStorage/Dropbox/

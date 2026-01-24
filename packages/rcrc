@@ -1,0 +1,3 @@
+# rcrc - Configuration for rcm (rcup/lsrc)
+DOTFILES_DIRS="$HOME/.dotfiles/packages"
+EXCLUDES="zsh"

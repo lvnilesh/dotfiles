@@ -12,9 +12,6 @@
     # amend your last commit
     amend = commit --amend
 
-    # amend your last commit
-    ammend = commit --amend
-
     # cleanup local branches after they have been merged
     cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 
@@ -42,7 +39,6 @@
     # pretty log
     lg = log --graph --pretty='format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     lost = !"git fsck | awk '/dangling commit/ {print $3}' | git show --format='SHA1: %C(yellow)%h%Creset %f' --stdin | awk '/SHA1/ {sub(\"SHA1: \", \"\"); print}'"
-    promote = !$DOTFILES/bin/git/git-promote
 
     # rebase
     rb = rebase
@@ -88,7 +84,7 @@
     # autocrlf = input
     autocrlf = false
     editor = vim
-	excludesfile = /Users/cloudgenius/.gitignore
+	excludesfile = ~/.gitignore
     quotepath = false
     safecrlf = true
     whitespace = cr-at-eol,space-before-tab,-indent-with-non-tab,trailing-space
@@ -118,9 +114,6 @@
     old = red bold # deletions
     new = green bold # additions
     whitespace = red reverse
-
-[commit]
-	template = ~/.stCommitMsg
 
 [diff]
     tool = meld

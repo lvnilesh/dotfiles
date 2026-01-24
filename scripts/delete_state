@@ -1,0 +1,72 @@
+#!/usr/bin/env zsh
+# Delete captured state artifacts safely (no -e). Designed for zsh.
+# Removes plists under macos/defaults_dump (keeps .gitkeep), MAS list,
+# VS Code extensions list, Dock/Sidebar/Login dumps.
+
+set -u -o pipefail
+setopt nonomatch       # don't error on unmatched globs
+unsetopt noglob        # ensure globs expand within this script
+
+ROOT_DIR="${0:A:h}/.."
+cd "$ROOT_DIR" || exit 0
+
+print_usage() {
+  cat <<'USAGE'
+Usage: scripts/delete_state [--plan]
+
+Deletes captured state files from this repo, preserving scaffolding.
+  - macos/defaults_dump/*.plist (keeps .gitkeep)
+  - macos/dock.txt
+  - macos/sidebar.txt
+  - macos/login_items.txt
+  - mas/installed.txt
+  - vscode/extensions.txt
+
+Options:
+  --plan    Show what would be removed without deleting.
+USAGE
+}
+
+PLAN=0
+for arg in "$@"; do
+  case "$arg" in
+    --plan) PLAN=1 ;;
+    -h|--help) print_usage; exit 0 ;;
+    *) ;;
+  esac
+done
+
+# Targets to delete (globs allowed)
+typeset -a TARGETS=(
+  'macos/defaults_dump/*.plist'
+  'macos/dock.txt'
+  'macos/sidebar.txt'
+  'macos/sidebar.json'
+  'macos/login_items.txt'
+  'mas/installed.txt'
+  'vscode/extensions.txt'
+)
+
+if (( PLAN )); then
+  echo "Plan: would remove the following if present:"
+  # Explicitly list plist files via find to avoid shell glob edge cases
+  find macos/defaults_dump -type f -name '*.plist' -print 2>/dev/null || true
+  for pat in $TARGETS[2,-1]; do
+    ls -1 $pat 2>/dev/null || true
+  done
+  exit 0
+fi
+
+# Perform deletion
+# 1) Remove exported plists robustly; keep .gitkeep
+find macos/defaults_dump -type f -name '*.plist' -delete 2>/dev/null || true
+# 2) Remove the rest
+for pat in $TARGETS[2,-1]; do
+  rm -f $pat 2>/dev/null || true
+done
+
+# Preserve scaffolding note
+echo "Cleanup complete. Preserved scaffolding like macos/defaults_dump/.gitkeep."
+
+# Quick summary
+echo "Remaining in macos/defaults_dump:" && ls -1 macos/defaults_dump 2>/dev/null || true

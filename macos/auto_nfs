@@ -1,0 +1,9 @@
+#t
+
+# /System/Volumes/Data/../Data/Volumes/nfs        -fstype=nfs,noowners,nolockd,hard,bg,intr,rw,tcp,nfc,resvport nfs://t.cg.home.arpa:/mnt/tank/nfs
+/Users/cloudgenius/tank   -fstype=nfs,noowners,nolockd,hard,bg,intr,rw,tcp,nfc,resvport nfs://t.cg.home.arpa:/mnt/tank/cloudgenius
+
+#COSMOS
+
+# /System/Volumes/Data/../Data/Volumes/nfsshare   -fstype=nfs,noowners,nolockd,hard,bg,intr,rw,tcp,nfc,resvport nfs://cosmos.cg.home.arpa:/mnt/tank/nfsshare
+# /System/Volumes/Data/../Data/Volumes/download   -fstype=nfs,noowners,nolockd,hard,bg,intr,rw,tcp,nfc,resvport nfs://cosmos.cg.home.arpa:/mnt/tank/download

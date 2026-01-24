@@ -1,7 +1,12 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # Repo root for accessing captured state files
-ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+# Handle both direct execution and sourcing
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+else
+  ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+fi
 
 # Install brew dependencies.
 install_brew() {
@@ -161,31 +166,51 @@ apply_finder_sidebar_dump() {
   local side_file="$ROOT_DIR/macos/sidebar.txt"
   command -v mysides >/dev/null 2>&1 || { echo "mysides not installed; skipping sidebar"; return 0; }
   [ -f "$side_file" ] || { echo "No sidebar dump found; skipping"; return 0; }
+  # Skip if sidebar file is empty
+  [ -s "$side_file" ] || { echo "Sidebar file is empty; skipping"; return 0; }
   echo "Applying Finder sidebar items..."
-  # Remove existing
-  mysides list | awk -F ' - ' '{print $1}' | while read -r name; do
-    [ -n "$name" ] && mysides remove "$name" || true
+  # Remove existing (suppress mysides errors, handle crashes gracefully)
+  local existing_items
+  existing_items=$(mysides list 2>/dev/null | awk -F ' -> ' '{print $1}') || true
+  echo "$existing_items" | while read -r name; do
+    [ -n "$name" ] && mysides remove "$name" 2>/dev/null || true
   done
-  # Add captured
-  while IFS= read -r line; do
-    name="${line%% - *}"; url="${line#* - }"
-    [ -n "$name" ] && [ -n "$url" ] && mysides add "$name" "$url" || true
+  # Add captured items from sidebar.txt
+  while IFS= read -r line || [ -n "$line" ]; do
+    [ -z "$line" ] && continue
+    name="${line%% -> *}"; url="${line#* -> }"
+    if [ -n "$name" ] && [ -n "$url" ]; then
+      echo "  Adding: $name"
+      mysides add "$name" "$url" 2>/dev/null || echo "  Failed to add: $name"
+    fi
   done < "$side_file"
+  killall Finder 2>/dev/null || true
 }
 
-# Install node lts using nvm
-nvminstall() {
-  echo "installing node lts using nvm..."
 
-  if [[ `uname -m` == 'arm64' ]]
-  then
-    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" && nvm install Iron
-  else
-    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh" && nvm install Iron
+# Install and configure mise (replaces nvm, pyenv, rbenv, sdkman)
+setup_mise() {
+  echo "Setting up mise for version management..."
+  
+  if ! command -v mise >/dev/null 2>&1; then
+    echo "mise not found - install via 'brew install mise'"
+    return 1
   fi
-
-  nvm alias default v20
+  
+  # Install default tool versions
+  mise use --global node@lts
+  mise use --global python@3.12
+  mise use --global ruby@3.3
+  
+  echo "mise configured with node@lts, python@3.12, ruby@3.3"
 }
+
+# Symlink zsh modules directory for modular zshrc
+symlink_zsh_modules() {
+  echo "Symlinking zsh modules..."
+  ln -sf "$ROOT_DIR/packages/zsh" "$HOME/.zsh"
+}
+
 
 # set obsidian cron
 set_obsidian_cron() {
@@ -293,13 +318,16 @@ setup_zsh_autoload_functions() {
   cp -f load_secrets ~/.zsh_autoload_functions
 }
 
+# Run all setup functions
+run_all() {
 install_brew
 fix_grc_for_kubectl
 install_oh-my-zsh
 install_powerlevel10k
 symlink_dotfiles
+symlink_zsh_modules
 configure_sleep_wake_computers
-nvminstall
+setup_mise
 # set_obsidian_cron
 install_sshconfig_example
 configure_vscode
@@ -311,3 +339,21 @@ setup_zsh_autoload_functions
 apply_mas_apps
 apply_macos_defaults_dump
 apply_finder_sidebar_dump
+}
+
+# Main: run specific function if passed as argument, otherwise run all
+if [[ $# -gt 0 ]]; then
+  # Run specific function(s) passed as arguments
+  for func in "$@"; do
+    if declare -f "$func" > /dev/null; then
+      echo "Running: $func"
+      "$func"
+    else
+      echo "Unknown function: $func"
+      exit 1
+    fi
+  done
+else
+  # Run full setup
+  run_all
+fi

@@ -30,7 +30,6 @@ Thumbs.db
 *.exe
 *.o
 *.so
-*.pyc
 
 # Packages.
 *.7z

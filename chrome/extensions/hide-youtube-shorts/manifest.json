@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Hide YouTube Shorts & Redirect",
+  "description": "Removes Shorts UI elements and redirects /shorts/ links to the standard watch page.",
+  "version": "0.1.0",
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "YouTube Shorts Hidden"
+  }
+}

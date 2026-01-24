@@ -1,0 +1,13 @@
+#t - Active shares matching server exports
+
+/System/Volumes/Data/../Data/Volumes/Eeshan              -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/Eeshan
+/System/Volumes/Data/../Data/Volumes/Nilesh              -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/Nilesh
+/System/Volumes/Data/../Data/Volumes/Sanjyot             -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/Sanjyot
+# /System/Volumes/Data/../Data/Volumes/brijwasidata        -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/brijwasidata
+# /System/Volumes/Data/../Data/Volumes/importphotosfromhere -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/importphotosfromhere
+# /System/Volumes/Data/../Data/Volumes/uptimekuma          -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@t.cg.home.arpa/uptimekuma
+
+#COSMOS - Active shares matching server exports
+
+/System/Volumes/Data/../Data/Volumes/tank_Nilesh         -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@cosmos.cg.home.arpa/tank_Nilesh
+/System/Volumes/Data/../Data/Volumes/tank_download       -fstype=smbfs,soft,noowners,noatime,nosuid smb://cloudgenius:PASSWORD@cosmos.cg.home.arpa/tank_download

@@ -17,17 +17,20 @@
 ###############################################################################
 
 # Disable press-and-hold for keys in favor of key repeat
-# defaults write -g ApplePressAndHoldEnabled -bool false
+defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
 # defaults write -g AppleKeyboardUIMode -int 3
 
-# Set a blazingly fast keyboard repeat rate
-# defaults write -g KeyRepeat -int 1
+# Set a fast (but practical) keyboard repeat rate
+defaults write -g KeyRepeat -int 2
 
-# Set a shorter Delay until key repeat
-# defaults write -g InitialKeyRepeat -int 12
+# Set a reasonable delay until key repeat (macOS default is 25)
+defaults write -g InitialKeyRepeat -int 25
+
+# Use F1-F12 as media keys by default (requires fnState true on newer macOS)
+defaults write -g com.apple.keyboard.fnState -bool false
 
 ###############################################################################
 # Screensaver

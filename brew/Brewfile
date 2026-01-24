@@ -16,8 +16,6 @@ brew "arp-scan"
 brew "arping"
 # Text processor and publishing toolchain for AsciiDoc
 brew "asciidoctor"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Shell extension to jump to frequently used directories
 brew "autojump"
 # Interpreted, interactive, object-oriented programming language
@@ -38,6 +36,8 @@ brew "coreutils"
 brew "curl"
 # Good-lookin' diffs with diff-highlight and more
 brew "diff-so-fancy"
+# Tool for managing dock items
+brew "dockutil"
 # Select default apps for documents and URL schemes on macOS
 brew "duti"
 # CLI for templating and/or deploying FaaS functions
@@ -102,8 +102,6 @@ brew "neovim"
 brew "nmap"
 # Network UPS Tools: Support for various power devices
 brew "nut"
-# Manage multiple Node.js versions
-brew "nvm"
 # Drop-in replacement for Terraform. Infrastructure as Code Tool
 brew "opentofu"
 # Swiss-army knife of markup format conversion
@@ -114,20 +112,16 @@ brew "podman"
 brew "poetry"
 # Password generator
 brew "pwgen"
-# Pyenv plugin to manage virtualenv
-brew "pyenv-virtualenv"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
 # File browser
 brew "ranger"
-# Ruby version manager
-brew "rbenv"
 # RC file (dotfile) management
 brew "rcm"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
 # Non-interactive SSH password auth
 brew "sshpass"
 # Command-line tool to interact with Gitea servers
@@ -169,7 +163,7 @@ brew "jeffreywildman/virt-manager/virt-viewer"
 # Colorize your kubectl output
 brew "lvnilesh/tap/kubecolor"
 # High-performance, schema-free, document-oriented database
-brew "mongodb/brew/mongodb-community@5.0"
+brew "mongodb/brew/mongodb-community-shell"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # SDKMAN! the Software Development Kit Manager
@@ -238,6 +232,7 @@ cask "miniforge"
 cask "mongodb-compass"
 # Smooths scrolling and set mouse scroll directions independently
 cask "mos"
+cask "mysides"
 # Desktop client for the Matrix protocol
 cask "nheko"
 # Open-source software for live streaming and screen recording
@@ -284,6 +279,8 @@ cask "viscosity"
 cask "visual-studio-code"
 # Multimedia player
 cask "vlc"
+# Binary releases of VS Code without MS branding/telemetry/licensing
+cask "vscodium"
 # Rust-based terminal
 cask "warp"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
@@ -296,26 +293,22 @@ cask "xquartz"
 cask "zed"
 # Video communication and virtual meeting platform
 cask "zoom"
-mas "AdGuard for Safari", id: 1440147259
 mas "BetterSnapTool", id: 417375580
 mas "Bitwarden", id: 1352778147
 mas "BlueWallet", id: 1376878040
 mas "CapCut", id: 1500855883
 mas "CloudMounter", id: 1130254674
 mas "DaVinci Resolve", id: 571213070
-mas "Daylight Desktop", id: 6503941498
 mas "Enchanted", id: 6474268307
-mas "Ensemble", id: 0
 mas "Fantastical", id: 975937182
 mas "Final Cut Pro", id: 424389933
 mas "FullyNoded", id: 1530816100
 mas "Hush", id: 1544743900
 mas "iMovie", id: 408981434
 mas "inShort", id: 856124300
-mas "LanguageTool", id: 1534275760
 mas "LG Screen Manager", id: 1142051783
 mas "Logic Pro", id: 634148309
-mas "Menu Bar Controller for Sonos", id: 1357379892
+mas "Menu Bar Controller for Sonos", id: 6749351423
 mas "Notability", id: 360593530
 mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
@@ -330,3 +323,6 @@ mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 vscode "github.copilot"
 vscode "github.copilot-chat"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode.remote-explorer"

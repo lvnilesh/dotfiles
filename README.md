@@ -1,53 +1,52 @@
 # dotfiles
 
-dotfiles that give your computer personality.
-
-## Motivation
-
-https://github.com/ruimarinho/dotfiles
+Personal dotfiles for macOS that give your machine personality.
 
 ## Requirements
 
-Just install Homebrew which will prompt you to install _Command Line Tools (CLT) for Xcode_.
+Install Homebrew (will prompt to install Xcode Command Line Tools):
 
-```
+```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-The rest of the utilities will be provided by Homebrew when sourcing the bundled Brewfile.
+## Installation
 
-## Features
-
-- Installs my most used [brew packages, casks and mas apps](brew/Brewfile).
-- Installs [oh-my-zsh](https://github.com/zimfw/zimfw), a zsh configuration framework
-- Symlinks dotfiles to home dir via [rcm](https://github.com/thoughtbot/rcm), arguably the best dotfile manager in existence.
-- Configures a number of macOS [defaults](macos/defaults) to fit my needs and personal taste.
-- Enables highlighting via `grc` for several binaries, such as docker, curl, make and many others. Beautiful colors, everywhere.
-- Configures default handlers and applications configuration for certain file types with [duti](https://github.com/moretension/duti) (e.g. `.md`, `.json`, `.yml`).
-
-## Usage
-
-1. Download or clone this repository.
-
-```
+```sh
 git clone git@github.com:lvnilesh/dotfiles.git ~/.dotfiles
-
-git checkout m1 
-or 
-git checkout intel
+cd ~/.dotfiles
+scripts/setup
 ```
 
-2. Run `scripts/setup`
+## What's Included
 
-Feel free to clone or fork this setup. These dotfiles have been heavily inspired over the years by many others in the open source community, to whom I am grateful for.
+- **Packages**: [Brewfile](brew/Brewfile) with brew packages, casks, and Mac App Store apps
+- **Shell**: [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) with [Powerlevel10k](https://github.com/romkatv/powerlevel10k) prompt
+- **Dotfiles**: Symlinked via [rcm](https://github.com/thoughtbot/rcm)
+- **macOS**: Sensible [defaults](macos/defaults) configuration
+- **Syntax Highlighting**: `grc` colorizes output for docker, curl, make, and more
+- **File Associations**: [duti](https://github.com/moretension/duti) sets default apps for file types
 
-3. run this to change prompt to your liking.
+## Post-Install
 
-```
+Customize the Powerlevel10k prompt:
+
+```sh
 p10k configure
 ```
 
-# also run this
+## Structure
+
 ```
-bash <(curl -s https://s3-us-west-2.amazonaws.com/cloudgeniuscode/install.sh)
+~/.dotfiles/
+├── brew/           # Homebrew Brewfile (packages, casks, MAS apps)
+├── chrome/         # Chrome extensions (self-hosted)
+├── macos/          # macOS defaults, automounts, captured state
+├── packages/       # Dotfiles (symlinked to ~ via rcm)
+│   ├── zshrc       # Main zsh config
+│   ├── zsh/        # Modular zsh configuration
+│   ├── gitconfig   # Git configuration
+│   └── tmux.conf   # Tmux configuration
+├── scripts/        # Setup and utility scripts
+└── vscode/         # VS Code extensions list
 ```

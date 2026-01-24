@@ -1,0 +1,21 @@
+Mail	file:///System/Applications/Mail.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.mail
+iPhone Mirroring	file:///System/Applications/iPhone%20Mirroring.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.ScreenContinuity
+Music	file:///System/Applications/Music.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.Music
+Visual Studio Code	file:///Applications/Visual%20Studio%20Code.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.microsoft.VSCode
+Safari	file:///System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.Safari
+Launchpad	file:///System/Applications/Launchpad.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.launchpad.launcher
+Firefox	file:///Applications/Firefox.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	org.mozilla.firefox
+Google Chrome	file:///Applications/Google%20Chrome.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.google.Chrome
+Terminal	file:///System/Applications/Utilities/Terminal.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.Terminal
+Find My	file:///System/Applications/FindMy.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.findmy
+Home	file:///System/Applications/Home.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.Home
+Obsidian	file:///Applications/Obsidian.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	md.obsidian
+Messages	file:///System/Applications/Messages.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.MobileSMS
+QuickTime Player	file:///System/Applications/QuickTime%20Player.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.QuickTimePlayerX
+Reminders	file:///System/Applications/Reminders.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.reminders
+Notes	file:///System/Applications/Notes.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.Notes
+App Store	file:///System/Applications/App%20Store.app/	persistentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.AppStore
+Calendar	file:///System/Applications/Calendar.app/	recentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.apple.iCal
+Bitwarden	file:///Applications/Bitwarden.app/	recentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	com.bitwarden.desktop
+Arc	file:///Applications/Arc.app/	recentApps	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	company.thebrowser.Browser
+Downloads	file:///Users/cloudgenius/Downloads/	persistentOthers	/Users/cloudgenius/Library/Preferences/com.apple.dock.plist	

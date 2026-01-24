@@ -1,0 +1,215 @@
+#!/usr/bin/env bash
+# Safe, read-only validation of captured state. Never exits non-zero to avoid
+# killing interactive shells. Prints concise mismatches and lint results.
+
+set -u -o pipefail
+
+# Guard: skip UI-affecting checks when running inside VS Code terminal unless forced
+FORCE_UI=0
+for arg in "$@"; do
+  case "$arg" in
+    --force-ui) FORCE_UI=1 ;;
+  esac
+done
+
+is_vscode_terminal() { [ "${TERM_PROGRAM:-}" = "vscode" ] || [ -n "${VSCODE_PID:-}" ]; }
+SKIP_UI=0
+if is_vscode_terminal && (( FORCE_UI == 0 )); then
+  SKIP_UI=1
+fi
+
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR" || exit 0
+
+status() { printf "\n== %s ==\n" "$1"; }
+ok() { printf "✅ %s\n" "$1"; }
+warn() { printf "⚠️  %s\n" "$1"; }
+info() { printf "ℹ️  %s\n" "$1"; }
+
+# 1) Brewfile check (no changes made)
+status "Brewfile check"
+if command -v brew >/dev/null 2>&1; then
+  if brew bundle check --file=brew/Brewfile --no-upgrade >/dev/null 2>&1; then
+    ok "System satisfies Brewfile"
+  else
+    warn "Some Brewfile items are not installed (non-fatal)"
+    echo "-- Details (read-only):"
+    # Show brew's own verbose check output to identify missing items without installing
+    brew bundle check --file=brew/Brewfile --no-upgrade --verbose 2>&1 | sed -n '1,120p' || true
+  fi
+else
+  warn "brew not found; skipping Brewfile check"
+fi
+
+# 2) Lint all captured plists
+status "Lint plists"
+shopt -s nullglob 2>/dev/null || true
+plist_files=(macos/defaults_dump/*.plist)
+if [ ${#plist_files[@]} -gt 0 ]; then
+  if ! plutil -lint "${plist_files[@]}"; then
+    warn "One or more plists reported issues"
+  else
+    ok "All plists lint OK"
+  fi
+else
+  warn "No plists found in macos/defaults_dump"
+fi
+
+# 3) Compare current defaults to captured (safe, read-only)
+status "Compare current defaults to captured"
+if [ ${#plist_files[@]} -gt 0 ]; then
+  for f in "${plist_files[@]}"; do
+    domain="$(basename "$f" .plist)"
+    echo "-- $domain"
+    # Resolve NSGlobalDomain via -g, otherwise by domain name
+    have_domain=0
+    if [ "$domain" = "NSGlobalDomain" ]; then
+      have_domain=1
+      tmp="$(mktemp)"; defaults export -g - 2>/dev/null | plutil -convert xml1 -o "$tmp" - 2>/dev/null || true
+    elif defaults domains | grep -q "\b$domain\b"; then
+      have_domain=1
+      tmp="$(mktemp)"; defaults export "$domain" - 2>/dev/null | plutil -convert xml1 -o "$tmp" - 2>/dev/null || true
+    fi
+    if [ $have_domain -eq 1 ]; then
+      # Apply same sanitization used during capture for fair comparison
+      if command -v jq >/dev/null 2>&1; then
+        if [ "$domain" = "com.apple.controlcenter" ]; then
+          # drop volatile status item visibility and preferred position keys
+          tmpjson="$(mktemp)"
+          plutil -convert json -o - "$tmp" | jq 'with_entries(select((.key|startswith("NSStatusItem Visible ") or .key|startswith("NSStatusItem Preferred Position "))|not))' > "$tmpjson" 2>/dev/null || true
+          plutil -convert xml1 -o "$tmp" "$tmpjson" 2>/dev/null || true
+          rm -f "$tmpjson"
+        elif [ "$domain" = "com.apple.spaces" ]; then
+          # drop volatile Age, windows and lifetime counters anywhere
+          tmpjson="$(mktemp)"
+          plutil -convert json -o - "$tmp" | jq 'walk(if type=="object" then del(.Age, .windows, .LifetimeEntryCount, .LifetimeMax, .LifetimeMin, .LifetimeSum) else . end)' > "$tmpjson" 2>/dev/null || true
+          plutil -convert xml1 -o "$tmp" "$tmpjson" 2>/dev/null || true
+          rm -f "$tmpjson"
+        fi
+      fi
+      if [ -s "$tmp" ]; then
+        if diff -q "$f" "$tmp" >/dev/null 2>&1; then
+          ok "MATCH"
+        else
+          warn "DIFFERS (showing first ~60 lines)"
+          diff -u "$f" "$tmp" | sed -n '1,60p' || true
+        fi
+      else
+        warn "Could not export current defaults for $domain"
+      fi
+      rm -f "$tmp"
+    else
+      warn "Domain $domain not present on this system"
+    fi
+  done
+else
+  warn "No captured plists to compare"
+fi
+
+# 4) VS Code extensions compare (read-only)
+status "VS Code extensions compare"
+if [ -f vscode/extensions.txt ]; then
+  tmp="$(mktemp)"
+  # Filesystem-based enumeration (no Electron)
+  list_extensions_fs() {
+    local out_file="$1"; : > "$out_file" || true
+    local roots=("$HOME/.vscode/extensions" "$HOME/.vscode-insiders/extensions")
+    for root in "${roots[@]}"; do
+      [ -d "$root" ] || continue
+      while IFS= read -r -d '' pkg; do
+        local id=""
+        if command -v jq >/dev/null 2>&1; then
+          id=$(jq -r '.publisher + "." + .name' "$pkg" 2>/dev/null)
+        else
+          local pub name
+          pub=$(grep -E '"publisher"' "$pkg" | head -n1 | sed 's/.*"publisher" *: *"\([^"]*\)".*/\1/') || true
+          name=$(grep -E '"name"' "$pkg" | head -n1 | sed 's/.*"name" *: *"\([^"]*\)".*/\1/') || true
+          if [ -n "${pub:-}" ] && [ -n "${name:-}" ]; then id="$pub.$name"; fi
+        fi
+        if [ -n "$id" ] && [ "$id" != "null.null" ] && [ "$id" != "." ]; then
+          echo "$id" >> "$out_file"
+        fi
+      done < <(find "$root" -maxdepth 2 -type f -name package.json -print0 2>/dev/null)
+    done
+    [ -f "$out_file" ] && sort -u "$out_file" -o "$out_file" || true
+  }
+  list_extensions_fs "$tmp" || true
+  echo "Only in captured (not installed):"
+  comm -23 <(sort -u vscode/extensions.txt) "$tmp" || true
+  echo "Only installed (not captured):"
+  comm -13 <(sort -u vscode/extensions.txt) "$tmp" || true
+  rm -f "$tmp"
+else
+  info "No captured vscode/extensions.txt; skipping"
+fi
+
+# 5) MAS compare
+status "MAS apps compare"
+if command -v mas >/dev/null 2>&1 && [ -f mas/installed.txt ]; then
+  tmp="$(mktemp)"
+  mas list > "$tmp" || true
+  echo "Diff vs captured (context-limited):"
+  diff -u mas/installed.txt "$tmp" | sed -n '1,80p' || true
+  rm -f "$tmp"
+elif [ -f mas/installed.txt ]; then
+  warn "mas CLI not found; can't compare captured mas/installed.txt"
+else
+  info "No captured mas/installed.txt; skipping"
+fi
+
+# 6) Dock compare
+status "Dock layout compare"
+if (( SKIP_UI )); then
+  info "Skipping Dock compare in VS Code terminal; run from Terminal or pass --force-ui"
+elif command -v dockutil >/dev/null 2>&1 && [ -f macos/dock.txt ]; then
+  tmp="$(mktemp)"
+  dockutil --list > "$tmp" || true
+  diff -u macos/dock.txt "$tmp" | sed -n '1,80p' || true
+  rm -f "$tmp"
+elif [ -f macos/dock.txt ]; then
+  warn "dockutil not found; can't compare captured macos/dock.txt"
+else
+  info "No captured macos/dock.txt; skipping"
+fi
+
+# 7) Finder sidebar compare
+status "Finder sidebar compare"
+if (( SKIP_UI )); then
+  info "Skipping Sidebar compare in VS Code terminal; run from Terminal or pass --force-ui"
+elif command -v mysides >/dev/null 2>&1 && [ -f macos/sidebar.txt ]; then
+  tmp="$(mktemp)"
+  mysides list > "$tmp" || true
+  diff -u macos/sidebar.txt "$tmp" | sed -n '1,80p' || true
+  rm -f "$tmp"
+elif [ -f macos/sidebar.json ]; then
+  # Fallback compare via normalized JSON snapshot
+  PREF_PLIST="$HOME/Library/Preferences/com.apple.sidebarlists.plist"
+  if [ -f "$PREF_PLIST" ] && command -v jq >/dev/null 2>&1; then
+    tmpjson="$(mktemp)"
+    plutil -convert json -o - "$PREF_PLIST" 2>/dev/null \
+      | jq 'def names(x): (x // []) | [ .[]? | .Name ] | sort; {systemitems: names(.systemitems.CustomListItems), favorites: names(.favoritesitems.CustomListItems), useritems: names(.useritems.CustomListItems)}' \
+      > "$tmpjson" || true
+    diff -u macos/sidebar.json "$tmpjson" | sed -n '1,80p' || true
+    rm -f "$tmpjson"
+  else
+    warn "Can't compare macos/sidebar.json (missing jq or plist)"
+  fi
+else
+  info "No captured macos/sidebar.{txt,json}; skipping"
+fi
+
+# 8) Login items compare
+status "Login items compare"
+if (( SKIP_UI )); then
+  info "Skipping Login Items compare in VS Code terminal; run from Terminal or pass --force-ui"
+elif [ -f macos/login_items.txt ]; then
+  tmp="$(mktemp)"
+  osascript -e 'tell application "System Events" to get the name of every login item' | sed 's/, /\n/g' > "$tmp" || true
+  diff -u macos/login_items.txt "$tmp" | sed -n '1,80p' || true
+  rm -f "$tmp"
+else
+  info "No captured macos/login_items.txt; skipping"
+fi
+
+echo "Checks complete."
+exit 0

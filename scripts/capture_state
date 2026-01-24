@@ -11,29 +11,64 @@ cd "$ROOT_DIR"
 # or when CAPTURE_GIT_COMMIT=1 is set in the environment.
 DO_GIT_COMMIT=0
 SHOW_PLAN=0
+CAPTURE_VSCODE=1
+CAPTURE_MAS=1
+CAPTURE_DOCK=1
+CAPTURE_SIDEBAR=1
+CAPTURE_LOGIN=1
+INCLUDE_SPACES=0
+INCLUDE_CONTROLCENTER=0
+FORCE_UI=0
+
 if [[ "${CAPTURE_GIT_COMMIT:-0}" == "1" ]]; then
   DO_GIT_COMMIT=1
 fi
-case "${1:-}" in
-  --git|-g)
-    DO_GIT_COMMIT=1
-    ;;
-  --plan|-p)
-    SHOW_PLAN=1
-    ;;
-esac
+
+# Parse flags (support multiple)
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --git|-g)
+      DO_GIT_COMMIT=1; shift ;;
+    --plan|-p)
+      SHOW_PLAN=1; shift ;;
+    --no-vscode)
+      CAPTURE_VSCODE=0; shift ;;
+    --no-mas)
+      CAPTURE_MAS=0; shift ;;
+    --include-dock)
+      CAPTURE_DOCK=1; shift ;;
+    --include-sidebar)
+      CAPTURE_SIDEBAR=1; shift ;;
+    --include-login)
+      CAPTURE_LOGIN=1; shift ;;
+    --no-dock)
+      CAPTURE_DOCK=0; shift ;;
+    --no-sidebar)
+      CAPTURE_SIDEBAR=0; shift ;;
+    --no-login)
+      CAPTURE_LOGIN=0; shift ;;
+    --include-spaces)
+      INCLUDE_SPACES=1; shift ;;
+    --include-controlcenter)
+      INCLUDE_CONTROLCENTER=1; shift ;;
+    --force-ui)
+      FORCE_UI=1; shift ;;
+    *)
+      echo "Unknown option: $1"; shift ;;
+  esac
+done
 
 if [[ $SHOW_PLAN -eq 1 ]]; then
-  cat <<'PLAN'
-This will capture and write the following into ~/.dotfiles:
+  cat <<PLAN
+  This will capture and write the following into ~/.dotfiles:
 
 1) Homebrew bundle
    - brew/Brewfile (with descriptions)
 
-2) VS Code extensions (if CLI available)
-  - vscode/extensions.txt
+  2) VS Code extensions (if CLI available): $( (( CAPTURE_VSCODE )) && echo Enabled || echo Disabled )
+    - vscode/extensions.txt
 
-3) Mac App Store apps (if mas is installed)
+  3) Mac App Store apps (if mas is installed): $( (( CAPTURE_MAS )) && echo Enabled || echo Disabled )
    - mas/installed.txt
 
 4) macOS defaults (curated domains) exported as plists
@@ -43,16 +78,16 @@ This will capture and write the following into ~/.dotfiles:
    - macos/defaults_dump/com.apple.menuextra.clock.plist
    - macos/defaults_dump/com.apple.universalaccess.plist
    - macos/defaults_dump/com.apple.Safari.plist
-   - macos/defaults_dump/com.apple.spaces.plist
-   - macos/defaults_dump/com.apple.symbolichotkeys.plist
-   - macos/defaults_dump/com.apple.controlcenter.plist
+    - macos/defaults_dump/com.apple.symbolichotkeys.plist
+  $( (( INCLUDE_SPACES )) && echo ' - macos/defaults_dump/com.apple.spaces.plist' )
+  $( (( INCLUDE_CONTROLCENTER )) && echo ' - macos/defaults_dump/com.apple.controlcenter.plist' )
    - macos/defaults_dump/com.apple.AppleMultitouchTrackpad.plist
    - macos/defaults_dump/com.apple.AppleMultitouchMouse.plist
 
-5) Optional captures if tools are installed
-   - Dock layout (dockutil): macos/dock.txt
-   - Finder sidebar (mysides): macos/sidebar.txt
-   - Login items (AppleScript): macos/login_items.txt
+  5) Dock/Sidebar/Login captures (tools required)
+    - Dock layout (dockutil): macos/dock.txt (status: $( (( CAPTURE_DOCK )) && echo Enabled || echo Disabled ); flags: --no-dock/--include-dock)
+    - Finder sidebar (mysides or plist): macos/sidebar.txt or macos/sidebar.json (status: $( (( CAPTURE_SIDEBAR )) && echo Enabled || echo Disabled ); flags: --no-sidebar/--include-sidebar)
+    - Login items (AppleScript): macos/login_items.txt (status: $( (( CAPTURE_LOGIN )) && echo Enabled || echo Disabled ); flags: --no-login/--include-login)
 
 Git behavior:
   - With --git/-g or CAPTURE_GIT_COMMIT=1, will git add and commit updated files.
@@ -69,19 +104,48 @@ else
   echo "brew not found; skipping Brewfile dump"
 fi
 
-echo "Capturing VS Code extensions..."
+echo "Capturing VS Code extensions (filesystem scan)..."
 mkdir -p vscode mas macos/defaults_dump macos
 # Ensure empty directories are tracked if needed
 touch macos/defaults_dump/.gitkeep || true
-if command -v code >/dev/null 2>&1; then
-  code --list-extensions | sort -u > vscode/extensions.txt || true
+if (( CAPTURE_VSCODE )); then
+  list_extensions_fs() {
+    local out_file="$1"; : > "$out_file" || true
+    local roots=("$HOME/.vscode/extensions" "$HOME/.vscode-insiders/extensions")
+    for root in "${roots[@]}"; do
+      [ -d "$root" ] || continue
+      while IFS= read -r -d '' pkg; do
+        local id=""
+        if command -v jq >/dev/null 2>&1; then
+          id=$(jq -r '.publisher + "." + .name' "$pkg" 2>/dev/null)
+        else
+          # Fallback: naive grep/sed parse
+          local pub name
+          pub=$(grep -E '"publisher"' "$pkg" | head -n1 | sed 's/.*"publisher" *: *"\([^"]*\)".*/\1/') || true
+          name=$(grep -E '"name"' "$pkg" | head -n1 | sed 's/.*"name" *: *"\([^"]*\)".*/\1/') || true
+          if [ -n "${pub:-}" ] && [ -n "${name:-}" ]; then id="$pub.$name"; fi
+        fi
+        if [ -n "$id" ] && [ "$id" != "null.null" ] && [ "$id" != "." ]; then
+          echo "$id" >> "$out_file"
+        fi
+      done < <(find "$root" -maxdepth 2 -type f -name package.json -print0 2>/dev/null)
+    done
+    [ -f "$out_file" ] && sort -u "$out_file" -o "$out_file" || true
+  }
+  list_extensions_fs "vscode/extensions.txt" || true
+else
+  rm -f vscode/extensions.txt || true
 fi
 
 echo "Capturing Mac App Store apps..."
-if command -v mas >/dev/null 2>&1; then
-  mas list > mas/installed.txt || true
+if (( CAPTURE_MAS )); then
+  if command -v mas >/dev/null 2>&1; then
+    mas list > mas/installed.txt || true
+  else
+    echo "mas not found; skipping MAS capture"
+  fi
 else
-  echo "mas not found; skipping MAS capture"
+  rm -f mas/installed.txt || true
 fi
 
 echo "Capturing macOS defaults (curated domains)..."
@@ -94,12 +158,12 @@ domains=(
   com.apple.menuextra.clock
   com.apple.universalaccess
   com.apple.Safari
-  com.apple.spaces
   com.apple.symbolichotkeys
-  com.apple.controlcenter
   com.apple.AppleMultitouchTrackpad
   com.apple.AppleMultitouchMouse
 )
+(( INCLUDE_SPACES )) && domains+=( com.apple.spaces )
+(( INCLUDE_CONTROLCENTER )) && domains+=( com.apple.controlcenter )
 for d in "${domains[@]}"; do
   out="macos/defaults_dump/${d}.plist"
   defaults export "$d" "$out" 2>/dev/null || true
@@ -111,6 +175,31 @@ for f in macos/defaults_dump/*.plist; do
   # Convert in place to XML1 for readable diffs
   plutil -convert xml1 "$f" 2>/dev/null || true
 done
+
+echo "Sanitizing noisy keys in exported plists (to reduce volatility)..."
+if command -v jq >/dev/null 2>&1; then
+  # Helper: sanitize a plist JSON with a jq filter and write back to XML
+  sanitize_with_jq() {
+    local plist_path="$1"; local jq_filter="$2"; local tmpjson
+    tmpjson=$(mktemp)
+    plutil -convert json -o - "$plist_path" 2>/dev/null \
+      | jq "$jq_filter" > "$tmpjson" 2>/dev/null || { rm -f "$tmpjson"; return 0; }
+    plutil -convert xml1 -o "$plist_path" "$tmpjson" 2>/dev/null || true
+    rm -f "$tmpjson"
+  }
+  # com.apple.controlcenter: drop volatile status item visibility and preferred position keys
+  if [ -f macos/defaults_dump/com.apple.controlcenter.plist ]; then
+    sanitize_with_jq macos/defaults_dump/com.apple.controlcenter.plist \
+      'with_entries(select((.key|startswith("NSStatusItem Visible ") or .key|startswith("NSStatusItem Preferred Position "))|not))'
+  fi
+  # com.apple.spaces: drop volatile Age and windows keys anywhere in the tree
+  if [ -f macos/defaults_dump/com.apple.spaces.plist ]; then
+    sanitize_with_jq macos/defaults_dump/com.apple.spaces.plist \
+      'walk(if type=="object" then del(.Age, .windows, .LifetimeEntryCount, .LifetimeMax, .LifetimeMin, .LifetimeSum) else . end)'
+  fi
+else
+  echo "jq not found; skipping plist sanitization."
+fi
 
 echo "Linting exported plists..."
 lint_failed=0
@@ -127,18 +216,53 @@ if [ $lint_failed -ne 0 ]; then
 fi
 
 echo "Capturing Dock layout..."
-if command -v dockutil >/dev/null 2>&1; then
-  dockutil --list > macos/dock.txt || true
+is_vscode_terminal() { [ "${TERM_PROGRAM:-}" = "vscode" ] || [ -n "${VSCODE_PID:-}" ]; }
+if (( CAPTURE_DOCK )); then
+  if is_vscode_terminal && (( FORCE_UI == 0 )); then
+    echo "Skipping Dock capture in VS Code terminal; run from macOS Terminal or pass --force-ui"
+  else
+  if command -v dockutil >/dev/null 2>&1; then
+    dockutil --list > macos/dock.txt || true
+  fi
+  fi
+else
+  rm -f macos/dock.txt || true
 fi
 
 echo "Capturing Finder sidebar (mysides)..."
-if command -v mysides >/dev/null 2>&1; then
-  mysides list > macos/sidebar.txt || true
+if (( CAPTURE_SIDEBAR )); then
+  if is_vscode_terminal && (( FORCE_UI == 0 )); then
+    echo "Skipping Sidebar capture in VS Code terminal; run from macOS Terminal or pass --force-ui"
+  else
+  if command -v mysides >/dev/null 2>&1; then
+    mysides list > macos/sidebar.txt || true
+    rm -f macos/sidebar.json || true
+  else
+    # Fallback: snapshot Finder sidebar preferences to a normalized JSON
+    PREF_PLIST="$HOME/Library/Preferences/com.apple.sidebarlists.plist"
+    if [ -f "$PREF_PLIST" ] && command -v jq >/dev/null 2>&1; then
+      plutil -convert json -o - "$PREF_PLIST" 2>/dev/null \
+        | jq 'def names(x): (x // []) | [ .[]? | .Name ] | sort; {systemitems: names(.systemitems.CustomListItems), favorites: names(.favoritesitems.CustomListItems), useritems: names(.useritems.CustomListItems)}' \
+        > macos/sidebar.json || true
+      rm -f macos/sidebar.txt || true
+    fi
+  fi
+  fi
+else
+  rm -f macos/sidebar.txt macos/sidebar.json || true
 fi
 
 echo "Capturing login items..."
-osascript -e 'tell application "System Events" to get the name of every login item' \
-  | sed 's/, /\n/g' > macos/login_items.txt || true
+if (( CAPTURE_LOGIN )); then
+  if is_vscode_terminal && (( FORCE_UI == 0 )); then
+    echo "Skipping Login Items capture in VS Code terminal; run from macOS Terminal or pass --force-ui"
+  else
+  osascript -e 'tell application "System Events" to get the name of every login item' \
+    | sed 's/, /\n/g' > macos/login_items.txt || true
+  fi
+else
+  rm -f macos/login_items.txt || true
+fi
 
 echo "Capture complete. Review and commit changes."
 
