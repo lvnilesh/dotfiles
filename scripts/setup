@@ -70,7 +70,7 @@ install_powerlevel10k() {
 # Setup rc files.
 symlink_dotfiles() {
   echo "Symlinking dotfiles..."
-  rcup -fvd packages | nl -bn
+  rcup -fvd packages -x zsh | nl -bn
 }
 
 # Configure VS code fonts and extensions.
