@@ -6,6 +6,7 @@ tap "mongodb/brew"
 tap "nikitabobko/tap"
 tap "oven-sh/bun"
 tap "sdkman/tap"
+tap "steipete/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
 # Image format providing lossless and lossy compression for web images
@@ -168,6 +169,10 @@ brew "mongodb/brew/mongodb-community-shell"
 brew "oven-sh/bun/bun"
 # SDKMAN! the Software Development Kit Manager
 brew "sdkman/tap/sdkman-cli"
+# iMessage CLI tool
+brew "steipete/tap/imsg"
+# WhatsApp CLI: sync, search, send
+brew "steipete/tap/wacli"
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Ookla Speedtest
