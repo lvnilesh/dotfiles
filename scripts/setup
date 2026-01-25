@@ -207,12 +207,14 @@ setup_mise() {
     return 1
   fi
 
-  # Install default tool versions
-  mise use --global node@lts
-  mise use --global python@3.12
-  mise use --global ruby@3.3
+  # Symlink mise config from dotfiles
+  mkdir -p "$HOME/.config/mise"
+  ln -sf "$ROOT_DIR/packages/mise/config.toml" "$HOME/.config/mise/config.toml"
 
-  echo "mise configured with node@lts, python@3.12, ruby@3.3"
+  # Install tool versions from config
+  mise install
+
+  echo "mise configured with tools from packages/mise/config.toml"
 }
 
 # Symlink zsh modules directory for modular zshrc
