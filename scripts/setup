@@ -77,9 +77,12 @@ symlink_dotfiles() {
 configure_vscode() {
   echo "Applying Cloud Genius VS Code style..."
 
-  # Fix code signature validation error (-67062) on macOS
+  # Fix Gatekeeper blocking VS Code on fresh installs
   if [ -d "/Applications/Visual Studio Code.app" ]; then
-    echo "Re-signing VS Code to fix code signature validation..."
+    echo "Removing quarantine attribute and re-signing VS Code..."
+    # Remove quarantine attribute that blocks downloaded apps
+    xattr -cr "/Applications/Visual Studio Code.app"
+    # Re-sign to fix code signature validation error (-67062)
     codesign --force --deep --sign - "/Applications/Visual Studio Code.app"
   fi
 
