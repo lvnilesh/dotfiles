@@ -79,14 +79,14 @@ configure_vscode() {
 
   # Fix Gatekeeper blocking VS Code on fresh installs
   if [ -d "/Applications/Visual Studio Code.app" ]; then
-    echo "Removing quarantine attribute and bypassing Gatekeeper for VS Code..."
-    # Remove quarantine attribute (use sudo for fresh installs)
-    sudo xattr -dr com.apple.quarantine "/Applications/Visual Studio Code.app"
-    # Disable Gatekeeper assessment for this app
-    sudo spctl --add --label "Approved" "/Applications/Visual Studio Code.app"
-    sudo spctl --enable --label "Approved"
-    # Re-sign to fix code signature validation error (-67062)
-    sudo codesign --force --deep --sign - "/Applications/Visual Studio Code.app"
+    echo "Removing quarantine attribute from VS Code..."
+    # Remove quarantine attribute recursively from entire app bundle
+    sudo xattr -cr "/Applications/Visual Studio Code.app"
+    # Open once to trigger Gatekeeper approval, then close
+    echo "Triggering Gatekeeper approval..."
+    open -a "Visual Studio Code" --args --wait-for-window-close &
+    sleep 3
+    osascript -e 'quit app "Visual Studio Code"' 2>/dev/null || true
   fi
 
   if [[ `uname -m` == 'arm64' ]]
