@@ -10,6 +10,9 @@ fi
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 
+# Clawd scripts
+[[ -d "$HOME/clawd/scripts" ]] && export PATH="$HOME/clawd/scripts:$PATH"
+
 # Go
 if [[ -d "$HOME/go" ]]; then
   export GOPATH="$HOME/go"
@@ -27,6 +30,9 @@ fi
 
 # bun
 [[ -d "$HOME/.bun/bin" ]] && export PATH="$HOME/.bun/bin:$PATH"
+
+# mise shims (before mise activate, needed for p10k instant prompt)
+[[ -d "$HOME/.local/share/mise/shims" ]] && export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # Environment variables
 export GITHUB_USERNAME="lvnilesh"

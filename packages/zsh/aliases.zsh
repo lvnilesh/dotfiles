@@ -57,3 +57,9 @@ alias st='open -a SourceTree'
 alias obs='open -a Obsidian'
 alias dkill="osascript -e 'quit app \"Docker\"'"
 alias ckill="osascript -e 'quit app \"Visual Studio Code\"'"
+
+# OpenClaw
+function openclaw() {
+  (cd ~/openclaw && node openclaw.mjs "$@")
+}
+alias oc='openclaw'
