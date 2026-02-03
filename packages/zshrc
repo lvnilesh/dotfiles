@@ -42,3 +42,8 @@ fi
 # Key bindings
 bindkey '^[f' forward-word
 bindkey '^[b' backward-word
+
+# Secrets are loaded from Bitwarden - run: source ~/.dotfiles/load_secrets all
+# Or load specific secrets: source ~/.dotfiles/load_secrets bird
+
+# Note: OpenClaw completion is handled in completions.zsh (conditional on openclaw existing)

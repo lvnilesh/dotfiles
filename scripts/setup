@@ -259,13 +259,13 @@ echo "adding example ssh config"
 rm -rf ~/.ssh/config.example
 tee -a ~/.ssh/config.example  << END
 Host jumpbox
-HostName 52.25.136.2
+HostName some-junpbox-ip-address
 ForwardAgent yes
 StrictHostKeyChecking ask
 IdentityFile ~/.ssh/id_rsa
 User ec2-user
 
-Host 10.0.10.251
+Host internal-aws-ip-address
 ProxyCommand ssh -q -W %h:%p jumpbox
 ForwardAgent yes
 IdentityFile ~/.ssh/id_rsa
@@ -347,9 +347,25 @@ setup_zsh_autoload_functions() {
   cp -f load_secrets ~/.zsh_autoload_functions
 }
 
+# Install go packages
+install_go_packages() {
+  echo "Installing go packages..."
+  
+  if ! command -v go >/dev/null 2>&1; then
+    echo "go not found; skipping"
+    return 0
+  fi
+
+  # Sonos CLI
+  go install github.com/steipete/sonoscli/cmd/sonos@latest
+  
+  echo "Go packages installed to $GOPATH/bin"
+}
+
 # Run all setup functions
 run_all() {
 install_brew
+install_go_packages
 fix_grc_for_kubectl
 install_oh-my-zsh
 install_powerlevel10k

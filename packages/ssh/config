@@ -28,7 +28,7 @@ Host rpi.cg.home.arpa
   User eeshan
 
 Host azure
-  HostName 20.3.131.188
+  HostName azure-ip-goes-here
   User cloudgenius
 
 Host asus.cg.home.arpa
@@ -49,7 +49,7 @@ Host cosmos.cg.home.arpa
 Host m1.cg.home.arpa
   User cloudgenius
 
-Host pro.cg.home.arpa
+Host macbookpro.cg.home.arpa
   User cloudgenius
 
 Host chromebox.cg.home.arpa
@@ -81,7 +81,7 @@ Host hashivault.cg.home.arpa
 
 # CloudGenius AWS
 Host CloudGenius
-  HostName 35.85.45.83
+  HostName some-aws-ip-address
   ForwardAgent yes
   User ubuntu
   StrictHostKeyChecking no
@@ -90,21 +90,21 @@ Host CloudGenius
   LocalForward 4000 127.0.0.1:4000
 
 Host nat
-  HostName 13.56.161.217
+  HostName some-nat-ip-address
   ForwardAgent yes
   StrictHostKeyChecking ask
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
 
 Host app-0
-  HostName 10.128.1.136
+  HostName internal-ip-of-app-0
   ProxyCommand ssh -q -W %h:%p nat
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
 
 Host app-1
-  HostName 10.128.1.122
+  HostName internal
   ProxyCommand ssh -q -W %h:%p nat
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa

@@ -40,6 +40,6 @@ if [[ -d "/opt/homebrew/share/zsh/site-functions" ]]; then
 fi
 
 # OpenClaw completion (loads after aliases.zsh defines the function)
-if [[ -f "$HOME/openclaw/openclaw.mjs" ]]; then
-  source <(cd ~/openclaw && NODE_NO_WARNINGS=1 node openclaw.mjs completion --shell zsh 2>/dev/null)
+if command -v openclaw >/dev/null 2>&1; then
+  source <(openclaw completion --shell zsh 2>/dev/null)
 fi

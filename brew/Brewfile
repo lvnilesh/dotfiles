@@ -6,6 +6,7 @@ tap "mongodb/brew"
 tap "nikitabobko/tap"
 tap "oven-sh/bun"
 tap "sdkman/tap"
+tap "antoniorodr/memo"
 tap "steipete/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
@@ -140,10 +141,24 @@ brew "shellcheck"
 brew "sshpass"
 # Command-line interface for SQLite
 brew "sqlite"
+# X/Twitter CLI
+brew "steipete/tap/bird"
+# GitHub CLI
+brew "gh"
+# CLI email client
+brew "himalaya"
+# Google Places CLI
+brew "steipete/tap/goplaces"
 # iMessage CLI tool
 brew "steipete/tap/imsg"
+# Apple Notes CLI
+brew "antoniorodr/memo/memo"
+# Apple Reminders CLI
+brew "steipete/tap/remindctl"
 # WhatsApp CLI: sync, search, send
 brew "steipete/tap/wacli"
+# Extremely fast Python package installer
+brew "uv"
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Change macOS audio source from the command-line
@@ -199,10 +214,12 @@ cask "basictex"
 cask "betterdisplay"
 # E-books management software
 cask "calibre"
+# AI assistant from Anthropic
+cask "claude"
 # Bitfocus Companion Satellite
 cask "companion-satellite"
 # Write, edit, and chat about your code with AI
-cask "cursor"
+# cask "cursor"
 # macOS ISO image downloader
 cask "crystalfetch"
 # Browser for SQLite databases
@@ -340,7 +357,7 @@ mas "DaVinci Resolve", id: 571213070
 mas "Enchanted", id: 6474268307
 mas "Fantastical", id: 975937182
 mas "Final Cut Pro", id: 424389933
-mas "FullyNoded", id: 1530816100
+# mas "FullyNoded", id: 1530816100
 mas "Hush", id: 1544743900
 mas "iMovie", id: 408981434
 mas "inShort", id: 856124300
