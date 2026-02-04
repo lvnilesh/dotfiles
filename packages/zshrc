@@ -47,6 +47,3 @@ bindkey '^[b' backward-word
 # Or load specific secrets: source ~/.dotfiles/load_secrets bird
 
 # Note: OpenClaw completion is handled in completions.zsh (conditional on openclaw existing)
-
-# Bitwarden session from Keychain
-export BW_SESSION=$(security find-generic-password -a "cloudgenius" -s "bw-session" -w 2>/dev/null)
