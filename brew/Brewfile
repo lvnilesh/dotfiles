@@ -1,3 +1,4 @@
+tap "anomalyco/tap"
 tap "deskflow/tap"
 tap "dotenvx/brew"
 tap "jeffreywildman/virt-manager"
@@ -159,6 +160,8 @@ brew "steipete/tap/remindctl"
 brew "steipete/tap/wacli"
 # Extremely fast Python package installer
 brew "uv"
+# Open-source AI coding assistant CLI
+brew "anomalyco/tap/opencode"
 # Supabase CLI
 brew "supabase/tap/supabase"
 # Change macOS audio source from the command-line
