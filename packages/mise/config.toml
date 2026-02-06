@@ -1,7 +1,7 @@
 [settings]
 
 [tools]
-node = "22"
+node = "24"
 pnpm = "latest"
 python = "3.12"
 ruby = "3.3"

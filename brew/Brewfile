@@ -241,6 +241,8 @@ cask "electrum"
 cask "firefox"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Google Gemini CLI
+brew "gemini-cli"
 # Web browser
 cask "google-chrome"
 # Desktop automation application

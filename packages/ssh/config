@@ -19,15 +19,14 @@ Host *
   Include *.cg.home.arpa
   ForwardAgent yes
 
-Host rpi.cg.home.arpa
-  User eeshan
+Host venus.cg.home.arpa
+  User root
 
 Host azure
   HostName azure-ip-goes-here
   User cloudgenius
 
 Host asus.cg.home.arpa
-Host venus.cg.home.arpa
 Host msi.cg.home.arpa
 Host nuc.cg.home.arpa
 Host cosmos.cg.home.arpa
