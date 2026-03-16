@@ -137,7 +137,7 @@ brew "ripgrep"
 # SDKMAN! the Software Development Kit Manager
 # brew "sdkman/tap/sdkman-cli"
 # Static analysis and lint tool, for (ba)sh scripts
-brsew "shellcheck"
+brew "shellcheck"
 # Non-interactive SSH password auth
 brew "sshpass"
 # Command-line interface for SQLite
