@@ -13,6 +13,9 @@ fi
 # Clawd scripts
 [[ -d "$HOME/clawd/scripts" ]] && export PATH="$HOME/clawd/scripts:$PATH"
 
+# Proxmox/VM scripts
+[[ -d "$HOME/prox" ]] && export PATH="$HOME/prox:$PATH"
+
 # Go
 if [[ -d "$HOME/go" ]]; then
   export GOPATH="$HOME/go"

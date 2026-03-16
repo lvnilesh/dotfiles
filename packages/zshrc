@@ -46,4 +46,19 @@ bindkey '^[b' backward-word
 # Secrets are loaded from Bitwarden - run: source ~/.dotfiles/load_secrets all
 # Or load specific secrets: source ~/.dotfiles/load_secrets bird
 
-# Note: OpenClaw completion is handled in completions.zsh (conditional on openclaw existing)
+
+
+# pnpm
+export PNPM_HOME="/Users/cloudgenius/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+export ANTHROPIC_BASE_URL="http://asus:8001"
+export ANTHROPIC_API_KEY='sk-no-key-required' ## or 'sk-1234's
+
+# OpenClaw Completion
+source "/Users/cloudgenius/.openclaw/completions/openclaw.zsh"

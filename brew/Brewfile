@@ -75,17 +75,17 @@ brew "ical-buddy"
 # Update of iperf: measures TCP, UDP, and SCTP bandwidth
 brew "iperf3"
 # App for virtualized guest interaction
-brew "jeffreywildman/virt-manager/virt-viewer"
+# brew "jeffreywildman/virt-manager/virt-viewer"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Utility to create k3s clusters on any local or remote VM
-brew "k3sup"
+# brew "k3sup"
 # Kubernetes CLI To Manage Your Clusters In Style!
-brew "k9s"
+# brew "k9s"
 # Run local Kubernetes cluster in Docker
 brew "kind"
 # Kubernetes controller and tool for one-way encrypted Secrets
-brew "kubeseal"
+# brew "kubeseal"
 # Much more powerful alternative to kubectx and kubens
 brew "kubie"
 # Template-free customization of Kubernetes YAML manifests
@@ -99,21 +99,21 @@ brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
 # High-performance, schema-free, document-oriented database
-brew "mongodb/brew/mongodb-community-shell"
+# brew "mongodb/brew/mongodb-community-shell"
 # Mongrel of mail user agents (part elm, pine, mush, mh, etc.)
 brew "mutt"
 # Open source relational database management system
-brew "mysql-client"
+# brew "mysql-client"
 # Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
+# brew "neovim"
 # Port scanning utility for large networks
 brew "nmap"
 # Network UPS Tools: Support for various power devices
 brew "nut"
 # Drop-in replacement for Terraform. Infrastructure as Code Tool
-brew "opentofu"
+# brew "opentofu"
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
-brew "oven-sh/bun/bun"
+# brew "oven-sh/bun/bun"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
 # Package compiler and linker metadata toolkit
@@ -125,7 +125,7 @@ brew "poetry"
 # Password generator
 brew "pwgen"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.13"
+# brew "python@3.13"
 # File browser
 brew "ranger"
 # RC file (dotfile) management
@@ -135,9 +135,9 @@ brew "reattach-to-user-namespace"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # SDKMAN! the Software Development Kit Manager
-brew "sdkman/tap/sdkman-cli"
+# brew "sdkman/tap/sdkman-cli"
 # Static analysis and lint tool, for (ba)sh scripts
-brew "shellcheck"
+brsew "shellcheck"
 # Non-interactive SSH password auth
 brew "sshpass"
 # Command-line interface for SQLite
@@ -147,7 +147,7 @@ brew "steipete/tap/bird"
 # GitHub CLI
 brew "gh"
 # CLI email client
-brew "himalaya"
+sbrew "himalaya"
 # Google Places CLI
 brew "steipete/tap/goplaces"
 # iMessage CLI tool
@@ -216,21 +216,23 @@ cask "basictex"
 # Display management tool
 cask "betterdisplay"
 # E-books management software
-cask "calibre"
+# cask "calibre"
 # AI assistant from Anthropic
-cask "claude"
+# cask "claude"
 # Bitfocus Companion Satellite
-cask "companion-satellite"
+# cask "companion-satellite"
 # Write, edit, and chat about your code with AI
 # cask "cursor"
 # macOS ISO image downloader
 cask "crystalfetch"
 # Browser for SQLite databases
 cask "db-browser-for-sqlite"
+# Voice and text chat software
+# cask "discord"
 # Mouse and keyboard sharing utility
 cask "deskflow/tap/deskflow"
 # App to build and share containerised applications and microservices
-cask "docker-desktop"
+# cask "docker-desktop"
 # Online diagram software
 cask "drawio"
 # Client for the Dropbox cloud storage service
@@ -264,30 +266,30 @@ cask "licecap"
 # Open-source cross-platform alternative to AirDrop
 cask "localsend"
 # Multi-platform web browser
-cask "microsoft-edge"
+# cask "microsoft-edge"
 # Microsoft 365 (Word, Excel, PowerPoint, Outlook, OneNote)
-cask "microsoft-office"
+# cask "microsoft-office"
 # Minimal installer for conda specific to conda-forge
-cask "miniforge"
+# cask "miniforge"
 # Interactive tool for analyzing MongoDB data
-cask "mongodb-compass"
+# cask "mongodb-compass"
 # Smooths scrolling and set mouse scroll directions independently
 cask "mos"
 cask "mysides"
 # Desktop client for the Matrix protocol
-cask "nheko"
+# cask "nheko"
 # AeroSpace is an i3-like tiling window manager for macOS
-cask "nikitabobko/tap/aerospace"
+# cask "nikitabobko/tap/aerospace"
 # Open-source software for live streaming and screen recording
-cask "obs"
+# cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Collaboration platform for API development
-cask "postman"
+# cask "postman"
 # Edit and annotate PDFs
 cask "pdf-expert"
 # PostgreSQL admin and development platform
-cask "pgadmin4"
+# cask "pgadmin4"
 # Transfer photos and videos via Wi-Fi
 cask "photosync"
 # UPS monitoring software
@@ -299,11 +301,11 @@ cask "remoteviewer"
 # File sync and share software
 cask "resilio-sync"
 # Open source virtual/remote desktop application
-cask "rustdesk"
+# cask "rustdesk"
 # Utilise mouse side navigation buttons
 cask "sensiblesidebuttons"
 # MySQL/MariaDB database management
-cask "sequel-ace"
+# cask "sequel-ace"
 # PDF reader and note-taking application
 cask "skim"
 # Team communication and collaboration software
@@ -339,7 +341,7 @@ cask "visual-studio-code"
 # Multimedia player
 cask "vlc"
 # Binary releases of VS Code without MS branding/telemetry/licensing
-cask "vscodium"
+# cask "vscodium"
 # Rust-based terminal
 cask "warp"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
@@ -349,7 +351,7 @@ cask "whatsapp"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
 # Multiplayer code editor
-cask "zed"
+# cask "zed"
 # Video communication and virtual meeting platform
 cask "zoom"
 

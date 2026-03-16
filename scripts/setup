@@ -126,7 +126,8 @@ configure_vscode() {
     | ."terminal.integrated.shellIntegration.enabled" = true
     | ."terminal.integrated.shellIntegration.decorationsEnabled" = "both"
     | ."terminal.integrated.defaultProfile.osx" = "zsh"
-    | ."workbench.editor.tabCloseButton" = "left"'
+    | ."workbench.editor.tabCloseButton" = "left"
+    | ."workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor"'
 
   ensure_settings() {
     local target_dir="$1"; local file="$target_dir/settings.json"
@@ -350,7 +351,7 @@ setup_zsh_autoload_functions() {
 # Install go packages
 install_go_packages() {
   echo "Installing go packages..."
-  
+
   if ! command -v go >/dev/null 2>&1; then
     echo "go not found; skipping"
     return 0
@@ -358,7 +359,7 @@ install_go_packages() {
 
   # Sonos CLI
   go install github.com/steipete/sonoscli/cmd/sonos@latest
-  
+
   echo "Go packages installed to $GOPATH/bin"
 }
 
