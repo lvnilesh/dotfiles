@@ -355,9 +355,9 @@ cask "xquartz"
 # Video communication and virtual meeting platform
 cask "zoom"
 
-mas "BetterSnapTool", id: 417375580
+# mas "BetterSnapTool", id: 417375580
 mas "Bitwarden", id: 1352778147
-mas "BlueWallet", id: 1376878040
+# mas "BlueWallet", id: 1376878040
 mas "CapCut", id: 1500855883
 mas "CloudMounter", id: 1130254674
 mas "DaVinci Resolve", id: 571213070
