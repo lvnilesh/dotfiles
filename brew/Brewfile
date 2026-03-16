@@ -147,7 +147,7 @@ brew "steipete/tap/bird"
 # GitHub CLI
 brew "gh"
 # CLI email client
-sbrew "himalaya"
+brew "himalaya"
 # Google Places CLI
 brew "steipete/tap/goplaces"
 # iMessage CLI tool
