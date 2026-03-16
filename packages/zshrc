@@ -61,4 +61,4 @@ export ANTHROPIC_BASE_URL="http://asus:8001"
 export ANTHROPIC_API_KEY='sk-no-key-required' ## or 'sk-1234's
 
 # OpenClaw Completion
-source "/Users/cloudgenius/.openclaw/completions/openclaw.zsh"
+# source "/Users/cloudgenius/.openclaw/completions/openclaw.zsh"
