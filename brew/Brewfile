@@ -293,7 +293,7 @@ cask "pdf-expert"
 # Transfer photos and videos via Wi-Fi
 cask "photosync"
 # UPS monitoring software
-cask "powerpanel"
+# cask "powerpanel"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Connect to virtual machines using SPICE
