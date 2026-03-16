@@ -368,11 +368,11 @@ mas "Final Cut Pro", id: 424389933
 mas "Hush", id: 1544743900
 mas "iMovie", id: 408981434
 mas "inShort", id: 856124300
-mas "LG Screen Manager", id: 1142051783
+# mas "LG Screen Manager", id: 1142051783
 mas "Logic Pro", id: 634148309
 mas "Menu Bar Controller for Sonos", id: 6749351423
 mas "Notability", id: 360593530
-mas "Pages", id: 409201541
+# mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
 mas "Raycast Companion", id: 6738274497
 mas "ScreenBrush", id: 1233965871
