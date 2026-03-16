@@ -361,7 +361,7 @@ mas "Bitwarden", id: 1352778147
 mas "CapCut", id: 1500855883
 mas "CloudMounter", id: 1130254674
 mas "DaVinci Resolve", id: 571213070
-mas "Enchanted", id: 6474268307
+# mas "Enchanted", id: 6474268307
 mas "Fantastical", id: 975937182
 mas "Final Cut Pro", id: 424389933
 # mas "FullyNoded", id: 1530816100
