@@ -30,13 +30,23 @@ Host asus.cg.home.arpa
 Host msi.cg.home.arpa
 Host nuc.cg.home.arpa
 Host cosmos.cg.home.arpa
-Host m1.cg.home.arpa
 Host macbookpro.cg.home.arpa
 Host chromebox.cg.home.arpa
 Host mini.cg.home.arpa
 Host imac.cg.home.arpa
 Host docker-host.cg.home.arpa
 Host u1.tail52f7b.ts.net
+
+Host m1
+	User stacey
+
+Host wsl
+	HostName asus.cg.home.arpa
+	Port 2222
+	User cloudgenius
+
+Host m1.cg.home.arpa
+	User stacey
 
 Host git.imac.cloudgenius.app
   HostName git.imac.cloudgenius.app

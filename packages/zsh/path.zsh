@@ -6,6 +6,11 @@ if [[ -d "/opt/homebrew/bin" ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
 
+# Homebrew (Intel Mac - for x86_64 binaries like bw)
+if [[ -d "/usr/local/bin" ]]; then
+  export PATH="/usr/local/bin:$PATH"
+fi
+
 # User binaries
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"

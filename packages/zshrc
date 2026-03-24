@@ -57,8 +57,11 @@ esac
 # pnpm end
 
 
-export ANTHROPIC_BASE_URL="http://asus:8001"
-export ANTHROPIC_API_KEY='sk-no-key-required' ## or 'sk-1234's
+# export ANTHROPIC_BASE_URL="http://asus:8001"
+# export ANTHROPIC_API_KEY='sk-no-key-required' ## or 'sk-1234's
 
 # OpenClaw Completion
 # source "/Users/cloudgenius/.openclaw/completions/openclaw.zsh"
+
+# Add /usr/local/bin to PATH for x86_64 Macs
+export PATH="/usr/local/bin:$PATH"

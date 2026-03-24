@@ -228,7 +228,9 @@ cask "crystalfetch"
 # Browser for SQLite databases
 cask "db-browser-for-sqlite"
 # Voice and text chat software
-# cask "discord"
+cask "discord"
+# Voice and text chat software
+cask "telegram"
 # Mouse and keyboard sharing utility
 cask "deskflow/tap/deskflow"
 # App to build and share containerised applications and microservices

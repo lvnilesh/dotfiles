@@ -127,7 +127,8 @@ configure_vscode() {
     | ."terminal.integrated.shellIntegration.decorationsEnabled" = "both"
     | ."terminal.integrated.defaultProfile.osx" = "zsh"
     | ."workbench.editor.tabCloseButton" = "left"
-    | ."workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor"'
+
+#   | ."workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor"'
 
   ensure_settings() {
     local target_dir="$1"; local file="$target_dir/settings.json"

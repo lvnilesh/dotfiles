@@ -4,7 +4,6 @@
 compile = false
 
 [tools]
-node = "24"
-# pnpm = "latest-10"
+node = "lts"
 python = "3.13"
 # ruby = "4.01"

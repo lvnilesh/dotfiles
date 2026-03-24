@@ -24,10 +24,10 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # defaults write -g AppleKeyboardUIMode -int 3
 
 # Set a fast (but practical) keyboard repeat rate
-defaults write -g KeyRepeat -int 2
+defaults write -g KeyRepeat -int 3
 
 # Set a reasonable delay until key repeat (macOS default is 25)
-defaults write -g InitialKeyRepeat -int 25
+defaults write -g InitialKeyRepeat -int 45
 
 # Use F1-F12 as media keys by default (requires fnState true on newer macOS)
 defaults write -g com.apple.keyboard.fnState -bool false

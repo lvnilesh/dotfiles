@@ -6,4 +6,6 @@ else
 	if [[ -x /usr/local/bin/brew ]]; then
 		eval "$('/usr/local/bin/brew' shellenv)"
 	fi
+	# Add /usr/local/bin to PATH for x86_64 Macs (where brew binaries live)
+	export PATH="/usr/local/bin:$PATH"
 fi
