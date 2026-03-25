@@ -42,12 +42,3 @@ fi
 # mise shims (before mise activate, needed for p10k instant prompt)
 [[ -d "$HOME/.local/share/mise/shims" ]] && export PATH="$HOME/.local/share/mise/shims:$PATH"
 
-# Environment variables
-export GITHUB_USERNAME="lvnilesh"
-export EDITOR=vi
-export KUBE_EDITOR="code -w"
-export GPG_TTY=$(tty)
-export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
-
-# Bitwarden session from Keychain
-export BW_SESSION=$(security find-generic-password -a "cloudgenius" -s "bw-session" -w 2>/dev/null)

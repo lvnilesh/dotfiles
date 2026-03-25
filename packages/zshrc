@@ -27,7 +27,8 @@ esac
 DOTFILES_ZSH="${HOME}/.zsh"
 
 # Load modular configuration files
-source "$DOTFILES_ZSH/path.zsh"       # PATH and environment variables
+source "$DOTFILES_ZSH/path.zsh"       # PATH configuration
+source "$DOTFILES_ZSH/env.zsh"        # Environment variables (non-PATH)
 source "$DOTFILES_ZSH/plugins.zsh"    # Oh-My-Zsh and plugins
 source "$DOTFILES_ZSH/aliases.zsh"    # Shell aliases
 source "$DOTFILES_ZSH/functions.zsh"  # Custom functions
@@ -45,23 +46,3 @@ bindkey '^[b' backward-word
 
 # Secrets are loaded from Bitwarden - run: source ~/.dotfiles/load_secrets all
 # Or load specific secrets: source ~/.dotfiles/load_secrets bird
-
-
-
-# pnpm
-export PNPM_HOME="/Users/cloudgenius/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-
-# export ANTHROPIC_BASE_URL="http://asus:8001"
-# export ANTHROPIC_API_KEY='sk-no-key-required' ## or 'sk-1234's
-
-# OpenClaw Completion
-# source "/Users/cloudgenius/.openclaw/completions/openclaw.zsh"
-
-# Add /usr/local/bin to PATH for x86_64 Macs
-export PATH="/usr/local/bin:$PATH"

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(time openclaw:*)",
+      "Bash(command -v openclaw)",
+      "Bash(command -v fd)"
+    ]
+  }
+}

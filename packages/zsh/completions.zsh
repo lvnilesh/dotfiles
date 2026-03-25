@@ -39,7 +39,11 @@ if [[ -d "/opt/homebrew/share/zsh/site-functions" ]]; then
   FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
 
-# OpenClaw completion (loads after aliases.zsh defines the function)
+# OpenClaw completion (lazy-loaded to avoid ~22s startup delay)
 if command -v openclaw >/dev/null 2>&1; then
-  source <(openclaw completion --shell zsh 2>/dev/null)
+  openclaw() {
+    unfunction openclaw
+    source <(command openclaw completion --shell zsh 2>/dev/null)
+    command openclaw "$@"
+  }
 fi

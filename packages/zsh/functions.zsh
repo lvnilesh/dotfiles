@@ -34,7 +34,7 @@ ff() {
 }
 
 # Quick find directory by name
-fd() {
+fdir() {
   find . -type d -iname "*$1*" 2>/dev/null
 }
 
