@@ -1,11 +1,11 @@
 # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
 
-# This needs to be at the beginning of this file.
+# LAN hosts — skip host key prompts
 Host 192.168.1.* *.cg.home.arpa
   StrictHostKeyChecking off
-  UserKnownHostsFile=/dev/null
+  UserKnownHostsFile /dev/null
 
-# This matches any hostname without a dot.
+# Short hostnames (no dot) — same treatment
 Host * !*.*
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
@@ -19,34 +19,58 @@ Host *
   Include *.cg.home.arpa
   ForwardAgent yes
 
+# --- Homelab ---
+
+Host asus.cg.home.arpa
+  User cloudgenius
+
 Host venus.cg.home.arpa
   User root
 
-Host azure
-  HostName azure-ip-goes-here
+Host nuc.cg.home.arpa
+  # Hostname 192.168.1.4
   User cloudgenius
 
-Host asus.cg.home.arpa
-Host msi.cg.home.arpa
-Host nuc.cg.home.arpa
 Host cosmos.cg.home.arpa
-Host macbookpro.cg.home.arpa
-Host chromebox.cg.home.arpa
-Host mini.cg.home.arpa
+  # Hostname 192.168.1.8
+  User cloudgenius
+
 Host imac.cg.home.arpa
-Host docker-host.cg.home.arpa
-Host u1.tail52f7b.ts.net
+  # Hostname 192.168.1.5
+  User cloudgenius
 
-Host m1
-	User stacey
+Host mini.cg.home.arpa
+  # Hostname 192.168.1.19
+  User cloudgenius
 
-Host wsl
-	HostName asus.cg.home.arpa
-	Port 2222
-	User cloudgenius
+Host chromebox.cg.home.arpa
+  # Hostname 192.168.1.245
+  User cloudgenius
 
 Host m1.cg.home.arpa
-	User stacey
+  # Hostname 192.168.1.3
+  User stacey
+
+Host msi.cg.home.arpa
+  User cloudgenius
+
+# Echo Show 8
+Host echo
+  HostName 192.168.1.21
+  Port 8022
+  User u0_a147
+
+# --- VMs ---
+
+Host docker-host.cg.home.arpa
+  User cloudgenius
+
+Host u1.tail52f7b.ts.net
+
+Host clara
+Host clara-staging
+
+# --- Gitea ---
 
 Host git.imac.cloudgenius.app
   HostName git.imac.cloudgenius.app
@@ -54,52 +78,41 @@ Host git.imac.cloudgenius.app
   IdentityFile ~/.ssh/id_ed25519
   Port 222
 
-Host clara
-Host clara-staging
+# --- Cloud ---
 
-Host echo
-  HostName 192.168.1.21s
-  Port 8022
-  User u0_a147
+Host azure
+  HostName 20.3.131.188
+  User cloudgenius
 
-# CloudGenius AWS
+# BOF CloudGenius
+# Created on Tue Sep 12 17:32:52 PDT 2023
 Host CloudGenius
-  HostName some-aws-ip-address
+  HostName 35.85.45.83
   ForwardAgent yes
   User ubuntu
   StrictHostKeyChecking no
   IdentityFile ~/.ssh/CloudGenius
   LocalForward 8080 127.0.0.1:80
   LocalForward 4000 127.0.0.1:4000
+# EOF CloudGenius
 
 Host nat
-  HostName some-nat-ip-address
+  HostName 13.56.161.217
   ForwardAgent yes
   StrictHostKeyChecking ask
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
 
 Host app-0
-  HostName internal-ip-of-app-0
+  HostName 10.128.1.136
   ProxyCommand ssh -q -W %h:%p nat
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
 
 Host app-1
-  HostName internal
+  HostName 10.128.1.122
   ProxyCommand ssh -q -W %h:%p nat
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
   User ubuntu
-
-# OpenClaw gateway tunnel (u1)
-## Host u1
-##   HostName 100.103.249.94
-##   User cloudgenius
-##   LocalForward 18789 100.103.249.94:18789
-##   ExitOnForwardFailure yes
-##   ServerAliveInterval 30
-##   ServerAliveCountMax 3
-##
-## ssh -N -L 18789:100.103.249.94:18789 u1
