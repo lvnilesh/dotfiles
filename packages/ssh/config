@@ -18,40 +18,51 @@ Host *
   StrictHostKeyChecking ask
   Include *.cg.home.arpa
   ForwardAgent yes
+  LogLevel ERROR
 
 # --- Homelab ---
 
-Host asus.cg.home.arpa
+Host asus asus.cg.home.arpa
   User cloudgenius
 
-Host venus.cg.home.arpa
+Host surf surf.cg.home.arpa
+  User cloudgenius
+
+Host venus venus.cg.home.arpa
   User root
 
-Host nuc.cg.home.arpa
+Host nuc nuc.cg.home.arpa
   # Hostname 192.168.1.4
   User cloudgenius
 
-Host cosmos.cg.home.arpa
+Host lenovo lenovo.cg.home.arpa
+  # Hostname 192.168.1.24
+  User cloudgenius
+
+Host cosmos cosmos.cg.home.arpa
   # Hostname 192.168.1.8
   User cloudgenius
 
-Host imac.cg.home.arpa
+Host imac imac.cg.home.arpa
   # Hostname 192.168.1.5
   User cloudgenius
 
-Host mini.cg.home.arpa
+Host mini mini.cg.home.arpa
   # Hostname 192.168.1.19
   User cloudgenius
 
-Host chromebox.cg.home.arpa
+Host chromebox chromebox.cg.home.arpa
   # Hostname 192.168.1.245
   User cloudgenius
 
-Host m1.cg.home.arpa
+Host m1 m1.cg.home.arpa
   # Hostname 192.168.1.3
   User stacey
 
-Host msi.cg.home.arpa
+Host msi msi.cg.home.arpa
+  User cloudgenius
+
+Host t t.cg.home.arpa
   User cloudgenius
 
 # Echo Show 8
@@ -62,21 +73,24 @@ Host echo
 
 # --- VMs ---
 
-Host docker-host.cg.home.arpa
+Host docker-host docker-host.cg.home.arpa
   User cloudgenius
+
+Host apps apps.cg.home.arpa
+  User cloudgenius
+
+Host actions-runner actions-runner.cg.home.arpa
+  User cloudgenius
+
+# --- Tailscale ---
 
 Host u1.tail52f7b.ts.net
 
-Host clara
-Host clara-staging
+Host clara clara.cg.home.arpa
+  User cloudgenius
 
-# --- Gitea ---
-
-Host git.imac.cloudgenius.app
-  HostName git.imac.cloudgenius.app
-  User git
-  IdentityFile ~/.ssh/id_ed25519
-  Port 222
+Host clara-staging clara-staging.cg.home.arpa
+  User cloudgenius
 
 # --- Cloud ---
 

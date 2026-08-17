@@ -176,13 +176,8 @@ fi
 status "Finder sidebar compare"
 if (( SKIP_UI )); then
   info "Skipping Sidebar compare in VS Code terminal; run from Terminal or pass --force-ui"
-elif command -v mysides >/dev/null 2>&1 && [ -f macos/sidebar.txt ]; then
-  tmp="$(mktemp)"
-  mysides list > "$tmp" || true
-  diff -u macos/sidebar.txt "$tmp" | sed -n '1,80p' || true
-  rm -f "$tmp"
 elif [ -f macos/sidebar.json ]; then
-  # Fallback compare via normalized JSON snapshot
+  # Compare via normalized JSON snapshot.
   PREF_PLIST="$HOME/Library/Preferences/com.apple.sidebarlists.plist"
   if [ -f "$PREF_PLIST" ] && command -v jq >/dev/null 2>&1; then
     tmpjson="$(mktemp)"
@@ -195,7 +190,7 @@ elif [ -f macos/sidebar.json ]; then
     warn "Can't compare macos/sidebar.json (missing jq or plist)"
   fi
 else
-  info "No captured macos/sidebar.{txt,json}; skipping"
+  info "No captured macos/sidebar.json; skipping"
 fi
 
 # 8) Login items compare

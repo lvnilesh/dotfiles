@@ -1,13 +1,8 @@
 tap "anomalyco/tap"
-tap "deskflow/tap"
 tap "dotenvx/brew"
-tap "jeffreywildman/virt-manager"
 tap "lvnilesh/tap"
-tap "mongodb/brew"
-tap "nikitabobko/tap"
-tap "oven-sh/bun"
-tap "sdkman/tap"
 tap "antoniorodr/memo"
+tap "openclaw/tap"
 tap "steipete/tap"
 tap "supabase/tap"
 tap "teamookla/speedtest"
@@ -21,7 +16,7 @@ brew "asciidoctor"
 # Shell extension to jump to frequently used directories
 brew "autojump"
 # Official Amazon AWS command-line interface
-brew "awscli@1"
+brew "awscli"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
 # Secure and free password manager for all of your devices
@@ -74,8 +69,6 @@ brew "htop"
 brew "ical-buddy"
 # Update of iperf: measures TCP, UDP, and SCTP bandwidth
 brew "iperf3"
-# App for virtualized guest interaction
-# brew "jeffreywildman/virt-manager/virt-viewer"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Utility to create k3s clusters on any local or remote VM
@@ -98,8 +91,6 @@ brew "lvnilesh/tap/kubecolor"
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
-# High-performance, schema-free, document-oriented database
-# brew "mongodb/brew/mongodb-community-shell"
 # Mongrel of mail user agents (part elm, pine, mush, mh, etc.)
 brew "mutt"
 # Open source relational database management system
@@ -112,14 +103,10 @@ brew "nmap"
 brew "nut"
 # Drop-in replacement for Terraform. Infrastructure as Code Tool
 # brew "opentofu"
-# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
-# brew "oven-sh/bun/bun"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
-# Tool for managing OCI containers and pods
-brew "podman"
 # Python package management tool
 brew "poetry"
 # Password generator
@@ -134,8 +121,6 @@ brew "rcm"
 brew "reattach-to-user-namespace"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# SDKMAN! the Software Development Kit Manager
-# brew "sdkman/tap/sdkman-cli"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Non-interactive SSH password auth
@@ -148,8 +133,6 @@ brew "sqlite"
 brew "gh"
 # CLI email client
 brew "himalaya"
-# Google Places CLI
-brew "steipete/tap/goplaces"
 # iMessage CLI tool
 brew "steipete/tap/imsg"
 # Apple Notes CLI
@@ -174,8 +157,8 @@ brew "teamookla/speedtest/speedtest"
 brew "telnet"
 # Terraform version manager inspired by rbenv
 brew "tfenv"
-# Simplified and community-driven man pages
-brew "tldr"
+# Official tldr client written in Rust
+brew "tlrc"
 # Terminal multiplexer
 brew "tmux"
 # Manage complex tmux sessions easily
@@ -203,8 +186,6 @@ brew "yt-dlp"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
 
-# GPU-accelerated terminal emulator
-cask "alacritty"
 # Chromium based browser
 cask "arc"
 # Multi-track audio editor and recorder
@@ -231,8 +212,6 @@ cask "db-browser-for-sqlite"
 cask "discord"
 # Voice and text chat software
 cask "telegram"
-# Mouse and keyboard sharing utility
-cask "deskflow/tap/deskflow"
 # App to build and share containerised applications and microservices
 # cask "docker-desktop"
 # Online diagram software
@@ -245,8 +224,6 @@ cask "electrum"
 cask "firefox"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
-# Google Gemini CLI
-brew "gemini-cli"
 # Web browser
 cask "google-chrome"
 # Desktop automation application
@@ -277,11 +254,10 @@ cask "localsend"
 # cask "mongodb-compass"
 # Smooths scrolling and set mouse scroll directions independently
 cask "mos"
-cask "mysides"
+# Google Places CLI
+cask "openclaw/tap/goplaces"
 # Desktop client for the Matrix protocol
 # cask "nheko"
-# AeroSpace is an i3-like tiling window manager for macOS
-# cask "nikitabobko/tap/aerospace"
 # Open-source software for live streaming and screen recording
 # cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files

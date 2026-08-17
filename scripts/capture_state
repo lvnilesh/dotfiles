@@ -84,9 +84,9 @@ if [[ $SHOW_PLAN -eq 1 ]]; then
    - macos/defaults_dump/com.apple.AppleMultitouchTrackpad.plist
    - macos/defaults_dump/com.apple.AppleMultitouchMouse.plist
 
-  5) Dock/Sidebar/Login captures (tools required)
+  5) Dock/Sidebar/Login captures
     - Dock layout (dockutil): macos/dock.txt (status: $( (( CAPTURE_DOCK )) && echo Enabled || echo Disabled ); flags: --no-dock/--include-dock)
-    - Finder sidebar (mysides or plist): macos/sidebar.txt or macos/sidebar.json (status: $( (( CAPTURE_SIDEBAR )) && echo Enabled || echo Disabled ); flags: --no-sidebar/--include-sidebar)
+    - Finder sidebar (plist): macos/sidebar.json (status: $( (( CAPTURE_SIDEBAR )) && echo Enabled || echo Disabled ); flags: --no-sidebar/--include-sidebar)
     - Login items (AppleScript): macos/login_items.txt (status: $( (( CAPTURE_LOGIN )) && echo Enabled || echo Disabled ); flags: --no-login/--include-login)
 
 Git behavior:
@@ -229,16 +229,12 @@ else
   rm -f macos/dock.txt || true
 fi
 
-echo "Capturing Finder sidebar (mysides)..."
+echo "Capturing Finder sidebar..."
 if (( CAPTURE_SIDEBAR )); then
   if is_vscode_terminal && (( FORCE_UI == 0 )); then
     echo "Skipping Sidebar capture in VS Code terminal; run from macOS Terminal or pass --force-ui"
   else
-  if command -v mysides >/dev/null 2>&1; then
-    mysides list > macos/sidebar.txt || true
-    rm -f macos/sidebar.json || true
-  else
-    # Fallback: snapshot Finder sidebar preferences to a normalized JSON
+    # Snapshot Finder sidebar preferences to normalized JSON.
     PREF_PLIST="$HOME/Library/Preferences/com.apple.sidebarlists.plist"
     if [ -f "$PREF_PLIST" ] && command -v jq >/dev/null 2>&1; then
       plutil -convert json -o - "$PREF_PLIST" 2>/dev/null \
@@ -246,7 +242,6 @@ if (( CAPTURE_SIDEBAR )); then
         > macos/sidebar.json || true
       rm -f macos/sidebar.txt || true
     fi
-  fi
   fi
 else
   rm -f macos/sidebar.txt macos/sidebar.json || true

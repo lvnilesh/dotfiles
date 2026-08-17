@@ -179,33 +179,6 @@ apply_macos_defaults_dump() {
   killall SystemUIServer 2>/dev/null || true
 }
 
-# Apply Finder sidebar from captured file (macos/sidebar.txt) using mysides
-apply_finder_sidebar_dump() {
-  local side_file="$ROOT_DIR/macos/sidebar.txt"
-  command -v mysides >/dev/null 2>&1 || { echo "mysides not installed; skipping sidebar"; return 0; }
-  [ -f "$side_file" ] || { echo "No sidebar dump found; skipping"; return 0; }
-  # Skip if sidebar file is empty
-  [ -s "$side_file" ] || { echo "Sidebar file is empty; skipping"; return 0; }
-  echo "Applying Finder sidebar items..."
-  # Remove existing (suppress mysides errors, handle crashes gracefully)
-  local existing_items
-  existing_items=$(mysides list 2>/dev/null | awk -F ' -> ' '{print $1}') || true
-  echo "$existing_items" | while read -r name; do
-    [ -n "$name" ] && mysides remove "$name" 2>/dev/null || true
-  done
-  # Add captured items from sidebar.txt
-  while IFS= read -r line || [ -n "$line" ]; do
-    [ -z "$line" ] && continue
-    name="${line%% -> *}"; url="${line#* -> }"
-    if [ -n "$name" ] && [ -n "$url" ]; then
-      echo "  Adding: $name"
-      mysides add "$name" "$url" 2>/dev/null || echo "  Failed to add: $name"
-    fi
-  done < "$side_file"
-  killall Finder 2>/dev/null || true
-}
-
-
 # Install and configure mise (replaces nvm, pyenv, rbenv, sdkman)
 setup_mise() {
   echo "Setting up mise for version management..."
@@ -385,7 +358,6 @@ configure_wezterm
 setup_zsh_autoload_functions
 apply_mas_apps
 apply_macos_defaults_dump
-apply_finder_sidebar_dump
 }
 
 # Main: run specific function if passed as argument, otherwise run all
